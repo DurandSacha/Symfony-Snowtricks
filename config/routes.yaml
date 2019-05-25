@@ -4,6 +4,10 @@
 
 # config/routes.yaml
 
-hello_the_world:
+home:
     path:       /
-    controller: App\Controller\frontController::index
+    controller: App\Controller\frontController::home
+
+single-tricks:
+    path:       /single
+    controller: App\Controller\frontController::tricks
