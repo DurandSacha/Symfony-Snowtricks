@@ -9,5 +9,5 @@ home:
     controller: App\Controller\frontController::home
 
 single-tricks:
-    path:       /single
+    path:       /single/{id}
     controller: App\Controller\frontController::tricks

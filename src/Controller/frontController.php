@@ -7,9 +7,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Twig\Environment;
 
-class frontController
+class frontController extends Controller
 {
 
     public function home(Environment $twig)
@@ -18,9 +20,13 @@ class frontController
         return new Response($content);
     }
 
-    public function tricks(Environment $twig) // passer l'id en parametre
+    public function tricks($id)
     {
-        $content = $twig->render('front/single.html.twig',['name' => 'sacha']);
-        return new Response($content);
+
+        return $this->render(
+            'front/single.html.twig',
+            ['id'  => $id
+                ]);
+
     }
 }
