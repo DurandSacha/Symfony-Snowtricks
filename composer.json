@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "symfony/apache-pack": "^1.0",
+        "symfony/asset": "4.2.*",
         "symfony/console": "4.2.*",
         "symfony/debug-pack": "^1.0",
         "symfony/dotenv": "4.2.*",
@@ -14,7 +15,8 @@
         "symfony/monolog-bundle": "^3.3",
         "symfony/orm-pack": "^1.0",
         "symfony/twig-bundle": "4.2.*",
-        "symfony/yaml": "4.2.*"
+        "symfony/yaml": "4.2.*",
+        "twbs/bootstrap": "^4.3"
     },
     "config": {
         "preferred-install": {

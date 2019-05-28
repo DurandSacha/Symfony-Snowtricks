@@ -2,11 +2,60 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}{% endblock %}</title>
+        {% block stylesheets %}
+            <!-- Bootstrap core CSS -->
+            <link rel="stylesheet"  href="{{ asset('../public/vendor/bootstrap/css/bootstrap.css') }}" type="text/css"/>
+
+            <!-- Custom styles for this template -->
+            <link rel="stylesheet" href="{{ asset('../public/css/one-page-wonder.css') }}" type="text/css"/>
+        {% endblock %}
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+
+        <!-- CDN bootstrap
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+        -->
     </head>
+
     <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{{ path('home') }}">Home</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Log In</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            <!-- Bootstrap core JavaScript -->
+            <script src="vendor/jquery/jquery.min.js"></script>
+            <link href="{{ asset('vendor/jquery/jquery.min.js') }}" />
+
+            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <link href="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}" />
+        {% endblock %}
+
     </body>
 </html>

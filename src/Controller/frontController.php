@@ -9,6 +9,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Twig\Environment;
 
 class frontController extends Controller
@@ -20,13 +21,17 @@ class frontController extends Controller
         return new Response($content);
     }
 
-    public function tricks($id)
+    public function tricks($id ,Environment $twig)
     {
 
+        $content = $twig->render('front/single.html.twig',['id' => $id]);
+        return new Response($content);
+        /*
         return $this->render(
             'front/single.html.twig',
             ['id'  => $id
                 ]);
+        */
 
     }
 }

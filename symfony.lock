@@ -123,6 +123,9 @@
             "ref": "c82bead70f9a4f656354a193df7bf0ca2114efa0"
         }
     },
+    "symfony/asset": {
+        "version": "v4.2.8"
+    },
     "symfony/cache": {
         "version": "v4.2.8"
     },
@@ -304,6 +307,9 @@
     },
     "symfony/yaml": {
         "version": "v4.2.8"
+    },
+    "twbs/bootstrap": {
+        "version": "v4.3.1"
     },
     "twig/twig": {
         "version": "v2.10.0"
