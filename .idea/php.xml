@@ -65,6 +65,13 @@
       <path value="$PROJECT_DIR$/vendor/symfony/orm-pack" />
       <path value="$PROJECT_DIR$/vendor/symfony/asset" />
       <path value="$PROJECT_DIR$/vendor/twbs/bootstrap" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/symfony/maker-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/vendor/symfony/web-server-bundle" />
+      <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
+      <path value="$PROJECT_DIR$/vendor/sensiolabs/security-checker" />
+      <path value="$PROJECT_DIR$/vendor/fortawesome/font-awesome" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />

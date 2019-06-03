@@ -12,26 +12,43 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Twig\Environment;
 
-class frontController extends Controller
+use App\Entity\Tricks;
+use Doctrine\ORM\EntityManagerInterface;
+
+class frontController extends AbstractController
 {
 
     public function home(Environment $twig)
     {
-        $content = $twig->render('front/home.html.twig',['name' => 'sacha']);
+        $doctrine = $this->getDoctrine()->getManager();
+
+        $tricks = new tricks();
+
+        $tricksRepo = $doctrine->getRepository(Tricks::class);
+        $tricks = $tricksRepo->findAll(); /* getTricks() */
+
+        $content = $twig->render('front/home.html.twig',[
+            'tricksName' => "tricks one ",
+            'tricks' => $tricks
+        ]);
         return new Response($content);
     }
 
-    public function tricks($id ,Environment $twig)
+    public function tricks($id)
     {
 
-        $content = $twig->render('front/single.html.twig',['id' => $id]);
-        return new Response($content);
-        /*
         return $this->render(
             'front/single.html.twig',
-            ['id'  => $id
+            [
+                'id'  => $id,
+                'name' => 'sacha'
                 ]);
-        */
-
     }
 }
+
+
+/*
+        $tricks->setName('Ollie Tricks');
+        $em->persist($tricks);
+        $em->flush();
+*/
