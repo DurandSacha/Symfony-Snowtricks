@@ -19,7 +19,17 @@ class TricksRepository extends ServiceEntityRepository
         parent::__construct($registry, Tricks::class);
     }
 
-    public function GetTricks()
+    public function addTrick()
+    {
+        return 52 ;
+    }
+
+    public function removeTrick()
+    {
+        return 52 ;
+    }
+
+    public function updateTrick()
     {
         return 52 ;
     }

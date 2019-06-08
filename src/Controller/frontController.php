@@ -17,7 +17,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class frontController extends AbstractController
 {
-
     public function home(Environment $twig)
     {
         $doctrine = $this->getDoctrine()->getManager();
@@ -29,7 +28,7 @@ class frontController extends AbstractController
 
         $content = $twig->render('front/home.html.twig',[
             'tricksName' => "tricks one ",
-            'tricks' => $tricks
+            'tricks' => $tricks,
         ]);
         return new Response($content);
     }

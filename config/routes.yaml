@@ -11,3 +11,15 @@ home:
 single-tricks:
     path:       /single/{id}
     controller: App\Controller\frontController::tricks
+
+register:
+    path:       /register
+    controller: App\Controller\RegistrationController::register
+
+login:
+    path:       /login
+    controller: App\Controller\loginController::login
+
+logout:
+        path: /logout
+        methods: GET
