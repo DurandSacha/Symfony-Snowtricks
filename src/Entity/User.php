@@ -24,6 +24,8 @@ class User implements UserInterface
      */
     private $email;
 
+
+
     /**
      * @ORM\Column(type="json")
      */
@@ -34,6 +36,21 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $username;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
+
+    public function __construct()
+    {
+        $this->roles = ['ROLE_MEMBER'] ;
+    }
 
     public function getId(): ?int
     {
@@ -59,7 +76,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
     /**
@@ -111,5 +128,24 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
     }
 }

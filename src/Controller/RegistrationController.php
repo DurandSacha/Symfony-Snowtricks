@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController
 {
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -31,10 +31,28 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
+
+            $message = (new \Swift_Message('SnowTricks Message'))
+                ->setFrom('sacha6623@gmail.com')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                    // templates/emails/registration.html.twig
+                        'emails/signup.html.twig',
+                        ['name' => $user->getUsername()]
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);
+
+            // fin mail
+
+
 
             return $this->redirectToRoute('home');
         }
+
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),

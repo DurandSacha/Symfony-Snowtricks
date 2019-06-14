@@ -11,13 +11,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Twig\Environment;
-
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Entity\Tricks;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class frontController extends AbstractController
 {
-    public function home(Environment $twig)
+    public function home(Environment $twig, AuthenticationUtils $authenticationUtils)
     {
         $doctrine = $this->getDoctrine()->getManager();
 
@@ -26,8 +27,10 @@ class frontController extends AbstractController
         $tricksRepo = $doctrine->getRepository(Tricks::class);
         $tricks = $tricksRepo->findAll(); /* getTricks() */
 
+        $visitorName = $authenticationUtils->getLastUsername();
+
         $content = $twig->render('front/home.html.twig',[
-            'tricksName' => "tricks one ",
+            'visitorName' => $visitorName,
             'tricks' => $tricks,
         ]);
         return new Response($content);

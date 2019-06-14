@@ -23,3 +23,16 @@ login:
 logout:
         path: /logout
         methods: GET
+
+reset:
+    path:       /reset
+    controller: App\Controller\LoginController::reset
+
+resetNow:
+        path:       /token/{token}
+        controller: App\Controller\LoginController::resetNow
+
+
+dashboard:
+    path:       /dashboard/
+    controller: App\Controller\dashboardController::dashboard
