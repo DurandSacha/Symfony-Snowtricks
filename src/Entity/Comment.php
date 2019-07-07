@@ -26,10 +26,18 @@ class Comment
      */
     private $date;
 
+
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Tricks", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $user_id;
+    private $Tricks;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $User;
 
 
 
@@ -70,6 +78,30 @@ class Comment
     public function setUserId(int $user_id): self
     {
         $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    public function getTricks(): ?Tricks
+    {
+        return $this->Tricks;
+    }
+
+    public function setTricks(?Tricks $Tricks): self
+    {
+        $this->Tricks = $Tricks;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): self
+    {
+        $this->User = $User;
 
         return $this;
     }

@@ -76,6 +76,7 @@
         }
     },
     "require-dev": {
+        "fzaninotto/faker": "^1.8",
         "symfony/debug-pack": "^1.0",
         "symfony/maker-bundle": "^1.11",
         "symfony/profiler-pack": "^1.0"

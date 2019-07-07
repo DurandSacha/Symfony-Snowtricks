@@ -115,7 +115,6 @@ class LoginController extends AbstractController
 
             if($user->getToken() === $token) {
 
-
                 $password = $encoder->encodePassword($user, $form->get('plainPassword')->getData());
                 $user->setPassword($password);
                 $entityManager->persist($user);

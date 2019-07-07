@@ -9,6 +9,7 @@
 
 namespace App\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
@@ -23,16 +24,22 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
+/**
+ * @IsGranted("ROLE_USER")
+ */
 class dashboardController  extends AbstractController
 {
 
+    /**
+     * @Route("/dashboard", name="dashboard")
+     */
     public function dashboard(AuthenticationUtils $authenticationUtils){
 
         $visitorName = $authenticationUtils->getLastUsername();
 
         //$id = $this->getUser()->getId();
 
-        return $this->render('Member/myprofile.html.twig',[
+        return $this->render('Member/dashboard.html.twig',[
             'visitorName' => $visitorName
 
         ]);

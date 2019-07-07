@@ -16,6 +16,12 @@
             <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" name="password" id="inputPassword" class="" placeholder="Password" required><br/><br/>
 
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Remember me
+                </label>
+            </div>
+
             <a href="{{ path('reset') }}">forgot password ?</a><br/><br/>
 
             <input type="hidden" name="_csrf_token"
