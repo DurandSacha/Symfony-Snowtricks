@@ -28,10 +28,7 @@ class Category
      */
     private $description;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Tricks", mappedBy="Category")
-     */
-    private $tricks;
+
 
     public function __construct()
     {

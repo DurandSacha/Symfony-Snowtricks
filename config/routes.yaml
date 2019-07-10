@@ -4,35 +4,10 @@
 
 # config/routes.yaml
 
-home:
-    path:       /
-    controller: App\Controller\frontController::home
-
-single-tricks:
-    path:       /single/{id}
-    controller: App\Controller\frontController::tricks
-
-register:
-    path:       /register
-    controller: App\Controller\RegistrationController::register
-
-login:
-    path:       /login
-    controller: App\Controller\loginController::login
 
 logout:
         path: /logout
         methods: GET
 
-reset:
-    path:       /reset
-    controller: App\Controller\LoginController::reset
-
-resetNow:
-        path:       /token/{token}
-        controller: App\Controller\LoginController::resetNow
 
 
-dashboard:
-    path:       /dashboard/
-    controller: App\Controller\dashboardController::dashboard

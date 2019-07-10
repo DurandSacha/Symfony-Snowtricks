@@ -19,7 +19,7 @@ class Tricks
     private $id;
 	
 	 /**
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(type="string")
      */
     private $name;
 
@@ -29,15 +29,21 @@ class Tricks
     private $description ;
 
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks")
-     */
-    private $Category;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="Tricks")
      */
     private $comments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
+     */
+    private $author;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     */
+    private $categoryTricks;
 
     public function __construct()
     {
@@ -51,9 +57,9 @@ class Tricks
     }
 	
 	public function getName() : ?string
-    {
-        return $this->name;
-    }
+                {
+                    return $this->name;
+                }
 
     public function setName($name)
     {
@@ -107,6 +113,18 @@ class Tricks
                 $comment->setTricks(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

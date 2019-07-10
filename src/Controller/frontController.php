@@ -18,6 +18,9 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class frontController extends AbstractController
 {
+    /**
+     * @Route("/", name="home")
+     */
     public function home(Environment $twig, AuthenticationUtils $authenticationUtils)
     {
         $doctrine = $this->getDoctrine()->getManager();
@@ -36,6 +39,9 @@ class frontController extends AbstractController
         return new Response($content);
     }
 
+    /**
+     * @Route("/single/{id}", name="single-tricks")
+     */
     public function tricks($id)
     {
 

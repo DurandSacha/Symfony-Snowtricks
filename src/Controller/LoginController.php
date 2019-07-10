@@ -19,12 +19,13 @@ use App\Form\RegistrationFormType;
 
 
 
+
 class LoginController extends AbstractController
 {
 
 
     /**
-     * @Route("/login", name="app_login")
+     * @Route("/login", name="login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -36,13 +37,11 @@ class LoginController extends AbstractController
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
-    public function logout()
-    {
 
-        return $this->redirectToRoute('home');
-    }
 
     /**
+     *
+     * @Route("/reset", name="reset")
      * @param Request $request
      * @param \Swift_Mailer $mailer
      * @return mixed
@@ -99,6 +98,10 @@ class LoginController extends AbstractController
         ]);
 
     }
+
+    /**
+     * @Route("/token/{token}", name="resetNow")
+     */
     public function resetNow(Request $request, UserPasswordEncoderInterface $encoder, $token)
     {
 
@@ -139,6 +142,9 @@ class LoginController extends AbstractController
         ]);
 
     }
+
+
+
 
 
 
