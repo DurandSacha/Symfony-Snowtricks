@@ -14,11 +14,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class TrickFixture extends BaseFixture implements DependentFixtureInterface
 {
 
-    private static $trickAuthor = [
-        'Mike Ferengi',
-        'Amy Oort',
-        'Sacha Durand',
-    ];
+    public const ADMIN_USER_REFERENCE = 'main_users';
+    public const CATEGORY_REFERENCE = 'category';
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -45,12 +42,15 @@ class TrickFixture extends BaseFixture implements DependentFixtureInterface
 
         /* Create a Trick Fixture */
         $trick = new Tricks();
-        $trick->setName($this->faker->randomElement(self::$trickAuthor));
-        $trick->setDescription($this->faker->firstName);
+        $trick->setName('Flip');
+        $trick->setDescription('A trick Flip');
 
         /* The Reference */
-        $trick->setAuthor($this->addReference('author',$user5));
-        $trick->setCategory($this->addReference('category',$category));
+        $this->addReference(self::ADMIN_USER_REFERENCE, $user5);
+        $trick->setAuthor($this->getReference(UserFixture::ADMIN_USER_REFERENCE));
+
+        $this->addReference(self::CATEGORY_REFERENCE, $category);
+        $trick->setCategoryTricks($this->getReference(CategoryFixture::CATEGORY_REFERENCE));
         $manager->persist($trick);
 
 

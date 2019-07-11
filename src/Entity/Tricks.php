@@ -35,6 +35,9 @@ class Tricks
      */
     private $comments;
 
+
+
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
      */
@@ -44,6 +47,10 @@ class Tricks
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
      */
     private $categoryTricks;
+
+
+
+
 
     public function __construct()
     {
@@ -76,15 +83,17 @@ class Tricks
         $this->description = $description;
     }
 
-    public function getCategory() : ?string
+    public function getCategoryTricks() : ?string
     {
-        return $this->category;
+        return $this->categoryTricks;
     }
 
-    public function setCategory($category)
+
+    public function setCategoryTricks($categoryTricks)
     {
-        $this->description = $category;
+        $this->categoryTricks = $categoryTricks;
     }
+
 
     /**
      * @return Collection|Comment[]

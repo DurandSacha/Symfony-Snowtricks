@@ -8,6 +8,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserFixture extends BaseFixture
 {
+    public const ADMIN_USER_REFERENCE = 'main_users';
+
+
     private $passwordEncoder;
 
     private static $mail = [

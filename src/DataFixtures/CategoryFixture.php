@@ -11,6 +11,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 class CategoryFixture extends BaseFixture
 {
 
+    public const CATEGORY_REFERENCE = 'category';
+
+
     private static $name = [
         'Flip',
         'Beginners Tricks',
