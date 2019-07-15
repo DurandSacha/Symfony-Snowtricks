@@ -3,8 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TricksRepository")
@@ -20,6 +22,7 @@ class Tricks
 	
 	 /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Get creative and think of a name !")
      */
     private $name;
 
@@ -64,9 +67,9 @@ class Tricks
     }
 	
 	public function getName() : ?string
-                {
-                    return $this->name;
-                }
+    {
+        return $this->name;
+    }
 
     public function setName($name)
     {
@@ -83,7 +86,7 @@ class Tricks
         $this->description = $description;
     }
 
-    public function getCategoryTricks() : ?string
+    public function getCategoryTricks()
     {
         return $this->categoryTricks;
     }
@@ -137,5 +140,22 @@ class Tricks
 
         return $this;
     }
+
+    /*** Validation parts ***/
+
+
+    /**
+     * @Assert\Callback
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        if (stripos($this->getName(), 'notitle') !== false) {
+            $context->buildViolation('You can make better')
+                ->atPath('name')
+                ->addViolation();
+        }
+    }
+
+
 	
 }

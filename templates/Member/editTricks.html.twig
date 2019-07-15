@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <br/><br/><br/><br/>
+    <div class="center-block example-wrapper">
+        <h1>Edit the Article! ?</h1>
+
+        {{ form_start(trickForm) }}
+        {{ form_row(trickForm.name, {
+            label: 'Article name'
+        }) }}
+
+        {{ form_row(trickForm.author) }}
+        {{ form_row(trickForm.categoryTricks) }}
+        {{ form_row(trickForm.description) }}
+
+        <button type="submit" class="btn btn-primary">Update!</button>
+        {{ form_end(trickForm) }}
+    </div>
+{% endblock %}

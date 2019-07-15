@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <br/><br/><br/><br/>
+    <div class="center-block example-wrapper">
+        <a href="{{ path('admin_tricks_new') }}" class="btn btn-primary pull-right">
+            Create <span class="fa fa-plus-circle"></span>
+        </a>
+        <h1>My SnowTricks</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Edit</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            {% for trick in tricks %}
+                <tr>
+                    <td>{{ trick.name }}</td>
+                    <td>{{ trick.description }}</td>
+                    <td>
+                        <a href="{{ path('admin_article_edit', {
+                            id: trick.id
+                        }) }}">Edit
+                            <span class="fa fa-pencil"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

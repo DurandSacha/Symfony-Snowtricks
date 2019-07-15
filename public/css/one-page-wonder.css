@@ -168,3 +168,26 @@ header.masthead .bg-circle-4 {
   margin-left: 30%;
   margin-right: 30%;
 }
+
+.example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+.example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+
+.memberMenu  {
+  color : red;
+  padding-right: 2%;
+  margin-left: 2%;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-family: 'Lato';
+
+}
+.memberMenu:hover  {
+  color : white;
+  text-decoration: none;
+}
+
+.memberMenu:first-child  {
+  margin-left: 4%;
+}
+

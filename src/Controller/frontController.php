@@ -21,13 +21,10 @@ class frontController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home(Environment $twig, AuthenticationUtils $authenticationUtils)
+    public function home(Environment $twig, AuthenticationUtils $authenticationUtils, EntityManagerInterface $em)
     {
-        $doctrine = $this->getDoctrine()->getManager();
 
-        $tricks = new tricks();
-
-        $tricksRepo = $doctrine->getRepository(Tricks::class);
+        $tricksRepo = $em->getRepository(Tricks::class);
         $tricks = $tricksRepo->findAll(); /* getTricks() */
 
         $visitorName = $authenticationUtils->getLastUsername();
