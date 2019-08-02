@@ -37,12 +37,12 @@ class dashboardController  extends BaseController
      */
     public function dashboard(AuthenticationUtils $authenticationUtils, LoggerInterface $logger){
 
-        $menu_active  = true;
+
         //$logger->debug('Checking account page for '.$this->getUser()->getEmail());
         $idUser = $this->getUser()->getId();
 
         return $this->render('Member/dashboard.html.twig',[
-            'menu_active' => $menu_active,
+
         ]);
     }
 
@@ -51,25 +51,12 @@ class dashboardController  extends BaseController
      */
     public function list(TricksRepository $tricksRepo)
     {
-        $menu_active  = true;
         //$tricksRepo = $em->getRepository(Tricks::class);
         $tricks = $tricksRepo->findAll();
 
         return $this->render('Member/listTricks.html.twig', [
             'tricks' => $tricks,
-            'menu_active' => $menu_active,
-        ]);
-    }
 
-
-    /**
-     * @Route("/api/account", name="api_account")
-     */
-    public function accountApi()
-    {
-        $user = $this->getUser();
-        return $this->json($user, 200, [], [
-            'groups' => ['main'],
         ]);
     }
 }

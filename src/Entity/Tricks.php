@@ -43,6 +43,7 @@ class Tricks
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
+     * @Assert\NotNull(message="Please set an author")
      */
     private $author;
 
@@ -50,8 +51,6 @@ class Tricks
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
      */
     private $categoryTricks;
-
-
 
 
 

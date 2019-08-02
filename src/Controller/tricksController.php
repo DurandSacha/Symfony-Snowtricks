@@ -20,6 +20,7 @@ class tricksController extends AbstractController
 {
     /**
     * @Route("/addTricks", name="admin_tricks_new")
+    * @IsGranted("ROLE_MEMBER")
     */
     public function add(EntityManagerInterface $em, Request $request)
     {

@@ -1,9 +1,16 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: sacha
+ * Date: 16/07/2019
+ * Time: 16:05
+ */
 
 namespace App\Controller;
 
 use App\Form\changePasswordForm;
 use App\Form\resetForm;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,14 +22,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormError;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Psr\Log\LoggerInterface;
 
 
-
-
-
-class LoginController extends AbstractController
+class securityController extends AbstractController
 {
-
 
     /**
      * @Route("/login", name="login")
@@ -80,7 +85,7 @@ class LoginController extends AbstractController
                         [
                             'token' => $token,
                             'user' => $user
-                            ]
+                        ]
                     ),
                     'text/html'
                 )
@@ -143,8 +148,78 @@ class LoginController extends AbstractController
 
     }
 
+    /**
+     * @Route("/register", name="register")
+     */
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer): Response
+    {
+        $user = new User();
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $user->setPassword(
+                $passwordEncoder->encodePassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
 
 
+            $message = (new \Swift_Message('SnowTricks Message'))
+                ->setFrom('sacha6623@gmail.com')
+                ->setTo($user->getEmail())
+                ->setBody(
+                    $this->renderView(
+                    // templates/emails/registration.html.twig
+                        'emails/signup.html.twig',
+                        ['name' => $user->getUsername()]
+                    ),
+                    'text/html'
+                )
+            ;
+            $mailer->send($message);
+
+            // fin mail
+
+
+
+            return $this->redirectToRoute('home');
+        }
+
+
+        return $this->render('registration/register.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/api/account", name="api_account")
+     */
+    public function accountApi()
+    {
+        $user = $this->getUser();
+        return $this->json($user, 200, [], [
+            'groups' => ['main'],
+        ]);
+    }
+
+    /**
+     * @Route("/admin/utility/users", methods="GET")
+     * @IsGranted("ROLE_ADMIN")
+     */
+    public function getUsersApi(UserRepository $userRepository)
+    {
+        $users = $userRepository->findAll();
+        return $this->json([
+            'users' => $users
+        ], 200, [], ['groups' => ['main']]);
+    }
 
 
 

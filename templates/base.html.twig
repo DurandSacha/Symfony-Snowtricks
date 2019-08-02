@@ -31,15 +31,17 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            {% if menu_active is defined %}
-            {% if menu_active == true %}
+            {%  if app.request.get('_route') == 'dashboard'
+                or app.request.get('_route') == 'addTricks'
+                or app.request.get('_route') == 'admin/article/{{ app.request.query.all }}/edit'
+                or app.request.get('_route') == 'trickList' %}
+
             <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link">|</a></li>
             </ul>
-                    <a class="nav-item memberMenu" href="{{ path('trickList') }}">ListTricks  </a>
+                    <a class="nav-item memberMenu" href="{{ path('trickList') }}">My Tricks  </a>
                     <a class="nav-item memberMenu" href="{{ path('admin_tricks_new') }}">New Tricks</a>
-            {% endif %}
-            {% endif %}
+          {%  endif %}
 
 
             {% if is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') %}
