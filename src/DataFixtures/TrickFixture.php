@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Category;
 use App\Entity\Tricks;
+use App\Entity\Media;
 use App\DataFixtures\CategoryFixture;
 use App\DataFixtures\UserFixture;
 use App\Entity\User;
@@ -15,16 +16,20 @@ class TrickFixture extends BaseFixture implements DependentFixtureInterface
 {
 
     public const ADMIN_USER_REFERENCE = 'main_users';
+    public const ADMIN_USER_REFERENCE2 = 'other_users';
     public const CATEGORY_REFERENCE = 'category';
+    public const TRICK_REFERENCE = 'trick';
+    public const TRICK_REFERENCE2 = 'trick2';
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
     }
 
-    protected function loadData(ObjectManager $manager)
+    public function loadData(ObjectManager $manager)
     {
 
+        // charger USER
         $user5 = new User();
         $user5->setEmail('zzzzzz@gmail.com');
         $user5->setUsername('zzzzz');
@@ -42,8 +47,8 @@ class TrickFixture extends BaseFixture implements DependentFixtureInterface
 
         /* Create a Trick Fixture */
         $trick = new Tricks();
-        $trick->setName('Flip');
-        $trick->setDescription('A trick Flip');
+        $trick->setName('BackFlip');
+        $trick->setDescription('BackFlip');
 
         /* The Reference */
         $this->addReference(self::ADMIN_USER_REFERENCE, $user5);
@@ -54,6 +59,44 @@ class TrickFixture extends BaseFixture implements DependentFixtureInterface
         $manager->persist($trick);
 
 
+        /* Create a Trick Fixture */
+        $trick2 = new Tricks();
+        $trick2->setName('Flip');
+        $trick2->setDescription('A trick Flip');
+
+        /* The Reference */
+        $trick2->setAuthor($this->getReference(UserFixture::ADMIN_USER_REFERENCE));
+        $trick2->setCategoryTricks($this->getReference(CategoryFixture::CATEGORY_REFERENCE));
+        $manager->persist($trick2);
+
+
+        // CREATE MEDIA 1
+        $media1 = new Media();
+        $media1->setPath('img/0.jpg');
+        $media1->setType('Picture');
+        $media1->setTexte('Hello World');
+
+        $this->addReference('trick', $trick);
+        $media1->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE));
+
+        $manager->persist($media1);
+
+        // CREATE MEDIA 2
+        $media2 = new Media();
+        $media2->setPath('img/1.jpg');
+        $media2->setType('Picture');
+        $media2->setTexte('Flip');
+        $this->addReference(self::TRICK_REFERENCE2, $trick2);
+        $media2->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE2));
+        $manager->persist($media2);
+
+        // CREATE MEDIA 3
+        $media3 = new Media();
+        $media3->setPath('img/2.jpg');
+        $media3->setType('Picture');
+        $media3->setTexte('Flip Fly');
+        $media3->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE2));
+        $manager->persist($media3);
 
         $manager->flush();
 

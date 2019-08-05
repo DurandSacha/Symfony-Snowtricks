@@ -172,6 +172,10 @@ header.masthead .bg-circle-4 {
 .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
 .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 
+/**************************/
+/**** MODIFICATION ********/
+/**************************/
+
 .memberMenu  {
   color : red;
   padding-right: 2%;
@@ -191,3 +195,32 @@ header.masthead .bg-circle-4 {
   margin-left: 4%;
 }
 
+#group-trick{
+  margin: 4%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.trick{
+  margin: 3%;
+ }
+#icon-trick{
+  text-align: right;
+  color: black;
+}
+#icon-trick a{
+  margin: 2%;
+}
+.title-trick{
+  text-decoration: none;
+  color: black;
+  font-size: 25px;
+  text-underline: none;
+}
+.title-trick:hover{
+  text-decoration: none;
+  color: black;
+  text-shadow: 1px 1px grey;
+  text-underline: none;
+}

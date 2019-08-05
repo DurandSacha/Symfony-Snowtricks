@@ -66,7 +66,7 @@ class UserFixture extends BaseFixture
             $user1,
             '000000'
         ));
-        $user1->setRoles(['ROLE_ADMIN']);
+        $user1->setRoles(['ROLE_MEMBER']);
         $manager->persist($user1);
 
 

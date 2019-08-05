@@ -17,32 +17,29 @@
     <div class="bg-circle-4 bg-circle"></div>
   </header>
 
-  <div id="test">
-    <ul>
+  <div id="group-trick">
       {% for trick in tricks %}
 
-        <section>
-          <div class="container">
-            <div class="row align-items-center">
-              <div class="col-lg-6 order-lg-2">
-                <div class="p-5">
-                  <img class="img-fluid rounded-circle" src="img/01.jpg" alt="">
-                </div>
+        <div class="trick">
+          <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="img/0.jpg" alt="Card image cap">
+            <div class="card-body">
+              <a href="./single/{{ trick.id }}" class="card-text"><p class="title-trick"> {{ trick.name }} </p></a>
+
+              {%  if trick.author.username == visitorName %}
+              <div id="icon-trick">
+                <a href="{{ path('admin_article_edit', { tricks: trick.id}) }}"><i class="fas fa-pencil-alt"></i></a>
+                <a href="{{ path('admin_trick_delete', { id: trick.id}) }}"><i class="fas fa-trash-alt"></i></a>
               </div>
-              <div class="col-lg-6 order-lg-1">
-                <div class="p-5">
-                  <a href="./single/{{ trick.id }}"><h2 class="display-4"> {{ trick.name }} </h2></a>
-                  <p> {{ trick.description }} ....Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
-                </div>
-              </div>
+              {% endif %}
+
+              <p> {{ trick.description }}</p>
+
             </div>
           </div>
-        </section>
-
-        <li></li>
+        </div>
 
       {% endfor %}
-    </ul>
   </div>
 
 

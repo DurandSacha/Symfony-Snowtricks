@@ -8,6 +8,7 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,15 +34,7 @@ class addTricksFormType extends AbstractType
                 },
 
             ])
-            ->add('author', EntityType::class, [
-                'class' => User::class,
-                'help' => 'You are a author',
-                'placeholder' => 'different user',
-                'choice_label' => function(User $user) {
-                    return $user->getUsername();
-                },
 
-            ])
         ;
     }
 

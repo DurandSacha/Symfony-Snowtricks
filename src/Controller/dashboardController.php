@@ -27,7 +27,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
 /**
- * @IsGranted("ROLE_USER")
+ * @IsGranted("ROLE_MEMBER")
  */
 class dashboardController  extends BaseController
 {
@@ -51,7 +51,6 @@ class dashboardController  extends BaseController
      */
     public function list(TricksRepository $tricksRepo)
     {
-        //$tricksRepo = $em->getRepository(Tricks::class);
         $tricks = $tricksRepo->findAll();
 
         return $this->render('Member/listTricks.html.twig', [

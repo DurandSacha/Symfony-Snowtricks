@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
@@ -13,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Twig\Environment;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Entity\Tricks;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -27,11 +29,19 @@ class frontController extends AbstractController
         $tricksRepo = $em->getRepository(Tricks::class);
         $tricks = $tricksRepo->findAll(); /* getTricks() */
 
-        $visitorName = $authenticationUtils->getLastUsername();
+        $user = $this->getUser();
+
+        // Tester l'objet User pour voir s'il est vide
+        if (null === $user) {
+            $visitorName = 'Anonyme';
+        } else {
+            $visitorName = $user->getUsername();
+        }
 
         $content = $twig->render('front/home.html.twig',[
             'visitorName' => $visitorName,
-            'tricks' => $tricks,
+            'tricks' => $tricks
+
         ]);
         return new Response($content);
     }
@@ -39,15 +49,22 @@ class frontController extends AbstractController
     /**
      * @Route("/single/{id}", name="single-tricks")
      */
-    public function tricks($id)
+    public function tricks($id, Environment $twig, EntityManagerInterface $em)
     {
+        $tricksRepo = $em->getRepository(Tricks::class);
+        $mediaRepo = $em->getRepository(Media::class);
 
-        return $this->render(
-            'front/single.html.twig',
-            [
-                'id'  => $id,
-                'name' => 'sacha'
-                ]);
+        //$media = $mediaRepo->findBy(['tricks_id' => $id]);
+        $trick = $tricksRepo->findOneBy(['id' => $id]);
+        $medias = $trick->getIllustration();
+
+        $content = $twig->render('front/single.html.twig',[
+            'id'  => $id,
+            'name' => 'sacha',
+            'trick' => $trick,
+            'medias' => $medias
+        ]);
+        return new Response($content);
     }
 }
 

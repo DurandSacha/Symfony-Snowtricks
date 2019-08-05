@@ -50,8 +50,14 @@
 
             <div class=" col-lg-6">
                 <h2> Media and illustration </h2>
-                <p>...........................<br/>...............................<br/>...............<br/>
-                </p>
+
+                {% for media in medias %}
+                <div class="p-5">
+                    <img class="img-fluid " src="../{{ media.path }}" alt="">
+
+                </div>
+                {% endfor %}
+
             </div>
         </div>
 

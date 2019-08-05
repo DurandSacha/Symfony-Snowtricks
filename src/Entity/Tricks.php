@@ -43,7 +43,6 @@ class Tricks
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
-     * @Assert\NotNull(message="Please set an author")
      */
     private $author;
 
@@ -52,11 +51,17 @@ class Tricks
      */
     private $categoryTricks;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="tricks")
+     */
+    private $Illustration;
+
 
 
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->Illustration = new ArrayCollection();
     }
 	
 
@@ -66,9 +71,9 @@ class Tricks
     }
 	
 	public function getName() : ?string
-    {
-        return $this->name;
-    }
+                   {
+                       return $this->name;
+                   }
 
     public function setName($name)
     {
@@ -153,6 +158,37 @@ class Tricks
                 ->atPath('name')
                 ->addViolation();
         }
+    }
+
+    /**
+     * @return Collection|Media[]
+     */
+    public function getIllustration(): Collection
+    {
+        return $this->Illustration;
+    }
+
+    public function addIllustration(Media $illustration): self
+    {
+        if (!$this->Illustration->contains($illustration)) {
+            $this->Illustration[] = $illustration;
+            $illustration->setTricks($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIllustration(Media $illustration): self
+    {
+        if ($this->Illustration->contains($illustration)) {
+            $this->Illustration->removeElement($illustration);
+            // set the owning side to null (unless already changed)
+            if ($illustration->getTricks() === $this) {
+                $illustration->setTricks(null);
+            }
+        }
+
+        return $this;
     }
 
 

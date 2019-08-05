@@ -14,24 +14,28 @@ use Twig\Environment;
 use App\Form\ArticleFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormView;
 
+
+/**
+ * @IsGranted("ROLE_MEMBER")
+ */
 class tricksController extends AbstractController
 {
     /**
     * @Route("/addTricks", name="admin_tricks_new")
-    * @IsGranted("ROLE_MEMBER")
     */
     public function add(EntityManagerInterface $em, Request $request)
     {
         $form = $this->createForm(addTricksFormType::class);
-        $menu_active  = true;
+
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
 
-            /** @var Tricks $tricks */
+
             $trick = $form->getData();
             $trick->setAuthor($this->getUser());
 
@@ -45,37 +49,41 @@ class tricksController extends AbstractController
 
         return $this->render('Member/addTricks.html.twig', [
             'addTricksForm' => $form->createView(),
-            'menu_active' => $menu_active,
         ]);
     }
 
     /**
-     * @Route("/admin/article/{id}/edit", name="admin_article_edit")
+     * @Route("/admin/article/{tricks}/edit", name="admin_article_edit")
      */
     public function edit(Tricks $tricks, Request $request, EntityManagerInterface $em)
     {
-        $menu_active  = true;
+
+
         $form = $this->createForm(addTricksFormType::class, $tricks);
         $form->handleRequest($request);
+
+        $tricks->setAuthor($this->getUser());
         if ($form->isSubmitted() && $form->isValid()) {
+
             $em->persist($tricks);
             $em->flush();
             $this->addFlash('success', 'Article Updated! Inaccuracies squashed!');
             return $this->redirectToRoute('admin_article_edit', [
-                'id' => $tricks->getId(),
-                'menu_active' => $menu_active,
+                'tricks' => $tricks->getId(),
+
             ]);
         }
         return $this->render('Member/editTricks.html.twig', [
             'trickForm' => $form->createView(),
-            'menu_active' => $menu_active,
+
         ]);
     }
 
     /**
-     * @Route("/delete/{id}", name="oc_advert_delete", requirements={"id" = "\d+"})
+     * @Route("/delete/{id}", name="admin_trick_delete", requirements={"id" = "\d+"})
      */
     public function delete($id)
     {
+        // requete de suppression
     }
 }
