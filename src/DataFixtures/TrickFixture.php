@@ -41,14 +41,14 @@ class TrickFixture extends BaseFixture implements DependentFixtureInterface
 
         $category = new Category();
         $category->setName('Flip');
-        $category->setDescription('A Flip Category');
+        $category->setDescription('Its a backflip trick snow, you can learn this on all condition. Please take picture if you make this trick');
         $manager->persist($category);
 
 
         /* Create a Trick Fixture */
         $trick = new Tricks();
         $trick->setName('BackFlip');
-        $trick->setDescription('BackFlip');
+        $trick->setDescription('Its a backflip trick snow, you can learn this on all condition. Please take picture if you make this trick');
 
         /* The Reference */
         $this->addReference(self::ADMIN_USER_REFERENCE, $user5);
@@ -62,7 +62,7 @@ class TrickFixture extends BaseFixture implements DependentFixtureInterface
         /* Create a Trick Fixture */
         $trick2 = new Tricks();
         $trick2->setName('Flip');
-        $trick2->setDescription('A trick Flip');
+        $trick2->setDescription('Its a backflip trick snow, you can learn this on all condition. Please take picture if you make this trick');
 
         /* The Reference */
         $trick2->setAuthor($this->getReference(UserFixture::ADMIN_USER_REFERENCE));

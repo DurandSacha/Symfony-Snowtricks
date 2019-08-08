@@ -224,3 +224,7 @@ header.masthead .bg-circle-4 {
   text-shadow: 1px 1px grey;
   text-underline: none;
 }
+.center{
+  margin: 0 auto;
+  width: 30vw;
+}

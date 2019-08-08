@@ -4,38 +4,46 @@
 {% block body %}
     <br/><br/><br/><br/>
 <section>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <div class="p-5">
-                    <img class="img-fluid rounded-circle" src="../img/02.jpg" alt="">
-                </div>
+    <div class="container ">
+        <div class="row">
+            <div class="col-lg-12 center" s>
+
+                {% for media in medias %}
+                <img class="img-fluid  " src="../{{ media.path }}" alt="{{ media.texte }}" width="90%;">
+                {% endfor %}
+
             </div>
-            <div class="col-lg-6">
+        </div>
+        <div class="row row align-items-center">
+            <div class="col-lg-12">
                 <div class="p-5">
                     <h2 class="display-4"> Snowtricks n°{{ id }}</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod aliquid, mollitia odio veniam sit iste esse assumenda amet aperiam exercitationem, ea animi blanditiis recusandae! Ratione voluptatum molestiae adipisci, beatae obcaecati.</p>
+
+                    <div class=" col-lg-6">
+
+                        {% for media in medias %}
+
+                                <img class="img-fluid " src="../{{ media.path }}" alt="">
+                        {% endfor %}
+                        <br/><br/><br/><br/><br/>
+
+                    </div>
+                    <p>{{ trick.description }}</p>
                 </div>
             </div>
         </div>
     </div>
+
 </section>
 
 <br/><br/>
 <section>
     <div class="container">
 
-        <div class="row">
-            <div class="col-lg-5">
-                <h3>Category of tricks : </h3>
-            </div>
-            <div class="col-lg-4">
-                <h3>Difficulty : </h3>
-            </div>
 
-            <div class="col-lg-3">
-                <h3>Note : </h3>
-            </div>
+        <!-- HERE MAKE A BOOTSTRAP CARD FOR CATEGORY AND DIFFICULTY -->
+        <div class="row">
+            <span class="label label-default">  {{ trick.categoryTricks.name }} </span>
         </div>
 
         <br/><br/>
@@ -43,21 +51,23 @@
         <br/><br/>
         <div class="row align-items-center">
             <div class="col-lg-offset-3 col-lg-6">
-                <h2> How Make this tricks ? </h2>
-                <p>...........................<br/>...............................<br/>...............<br/>
-                </p>
+                <h2> Chat about this trick  </h2>
+
+                {% if comments is defined %}
+                    {% for comment in comments %}
+
+                        <ul>
+                            <li>
+                                <p>comment.date</p>
+                                <p>comment.author</p>
+                                <p>comment.content</p>
+                            </li>
+                        </ul>
+                    {% endfor %}
+                {% endif %}
             </div>
 
-            <div class=" col-lg-6">
-                <h2> Media and illustration </h2>
-
-                {% for media in medias %}
-                <div class="p-5">
-                    <img class="img-fluid " src="../{{ media.path }}" alt="">
-
-                </div>
-                {% endfor %}
-
+                </p>
             </div>
         </div>
 
