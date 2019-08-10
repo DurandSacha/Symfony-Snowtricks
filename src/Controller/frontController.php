@@ -57,12 +57,14 @@ class frontController extends AbstractController
         //$media = $mediaRepo->findBy(['tricks_id' => $id]);
         $trick = $tricksRepo->findOneBy(['id' => $id]);
         $medias = $trick->getIllustration();
+        $comments = $trick->getComments();
 
         $content = $twig->render('front/single.html.twig',[
             'id'  => $id,
             'name' => 'sacha',
             'trick' => $trick,
-            'medias' => $medias
+            'medias' => $medias,
+            'comments' => $comments
         ]);
         return new Response($content);
     }

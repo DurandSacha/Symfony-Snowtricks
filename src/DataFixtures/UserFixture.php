@@ -44,17 +44,9 @@ class UserFixture extends BaseFixture
 
     protected function loadData(ObjectManager $manager)
     {
-        $user1 = new User();
-        $user1->setEmail('sacha6623@gmail.com');
-        $user1->setUsername('sacha');
-        $user1->setPassword($this->passwordEncoder->encodePassword(
-            $user1,
-            '000000'
-        ));
-        $user1->setRoles(['ROLE_MEMBER']);
-        $manager->persist($user1);
 
 
-        $manager->flush();
+
+
     }
 }

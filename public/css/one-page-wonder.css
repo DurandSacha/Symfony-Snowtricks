@@ -228,3 +228,16 @@ header.masthead .bg-circle-4 {
   margin: 0 auto;
   width: 30vw;
 }
+.group-label{
+  margin-left: 7%;
+}
+
+.label{
+  color: white;
+  background-color: #1e7e34;
+  border-radius:10px;
+  padding: 10px;
+}
+.little-hr{
+  width: 20%;
+}
