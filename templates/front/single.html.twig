@@ -8,9 +8,10 @@
         <div class="row">
             <div class="col-lg-12 text-center" >
 
-                {% for media in medias %}
-                <img class="img-fluid  " src="../{{ media.path }}" alt="{{ media.texte }}" width="90%;">
-                {% endfor %}
+                {% if medias[0] is defined %}
+                <img class="img-fluid  " src="../{{ medias[0].path }}" width="90%;">
+                {% endif %}
+
 
             </div>
         </div>
@@ -19,12 +20,14 @@
                 <div class="p-5">
                     <h2 class="display-4 text-center"> Snowtricks n°{{ id }} : {{ trick.name }}</h2><br/><br/>
 
-                    <div class=" col-lg-6">
+                    <div class=" col-lg-12">
 
+                        <div class="media-container text-left ">
                         {% for media in medias %}
 
-                                <img class="img-fluid " src="../{{ media.path }}" alt="">
+                                <img class="img-fluid " src="../{{ media.path }}" alt="" width="32%;">
                         {% endfor %}
+                        </div>
                         <br/><br/><br/><br/><br/>
 
                     </div>

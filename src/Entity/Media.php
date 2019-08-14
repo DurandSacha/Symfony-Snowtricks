@@ -90,4 +90,12 @@ class Media
 
         return $this;
     }
+
+    public function remove(Media $media): self
+    {
+        if ($this->media->contains($media)) {
+            $this->media->removeElement($media);
+        }
+        return $this;
+    }
 }

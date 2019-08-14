@@ -62,6 +62,11 @@ class User implements UserInterface
      */
     private $tricks;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Picture;
+
     public function __construct()
     {
         $this->roles = ['ROLE_MEMBER'] ;
@@ -224,6 +229,18 @@ class User implements UserInterface
                 $trick->setAuthor(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->Picture;
+    }
+
+    public function setPicture(?string $Picture): self
+    {
+        $this->Picture = $Picture;
 
         return $this;
     }

@@ -19,19 +19,16 @@ class TricksRepository extends ServiceEntityRepository
         parent::__construct($registry, Tricks::class);
     }
 
-    public function addTrick()
-    {
-        return 52 ;
-    }
+    /* TODO: Chercher la premiere image d'un trick donné */
 
-    public function removeTrick()
+    public function FindOneMedia(Tricks $tricks)
     {
-        return 52 ;
-    }
-
-    public function updateTrick()
-    {
-        return 52 ;
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.exampleField = :val')
+            ->setParameter('val', $tricks)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
     }
 
 

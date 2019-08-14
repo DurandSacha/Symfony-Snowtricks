@@ -8,6 +8,7 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -34,7 +35,11 @@ class addTricksFormType extends AbstractType
                 },
 
             ])
-
+            ->add('picture', FileType::class, [
+                'label' => 'You can add a picture',
+                'mapped' => false,
+                'required' => false,
+            ])
         ;
     }
 

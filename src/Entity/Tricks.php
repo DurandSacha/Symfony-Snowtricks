@@ -191,6 +191,16 @@ class Tricks
         return $this;
     }
 
+    /*
+    public function remove(Tricks $trick): self
+    {
+        if ($this->trick->contains($trick)) {
+            $this->trick->removeElement($trick);
+        }
+        return $this;
+    }
+    */
+
 
 	
 }

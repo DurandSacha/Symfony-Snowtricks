@@ -26,6 +26,7 @@ class frontController extends AbstractController
     public function home(Environment $twig, AuthenticationUtils $authenticationUtils, EntityManagerInterface $em)
     {
 
+
         $tricksRepo = $em->getRepository(Tricks::class);
         $tricks = $tricksRepo->findAll(); /* getTricks() */
 
@@ -41,6 +42,7 @@ class frontController extends AbstractController
         $content = $twig->render('front/home.html.twig',[
             'visitorName' => $visitorName,
             'tricks' => $tricks
+
 
         ]);
         return new Response($content);
@@ -70,9 +72,3 @@ class frontController extends AbstractController
     }
 }
 
-
-/*
-        $tricks->setName('Ollie Tricks');
-        $em->persist($tricks);
-        $em->flush();
-*/

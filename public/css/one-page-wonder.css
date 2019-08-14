@@ -241,3 +241,8 @@ header.masthead .bg-circle-4 {
 .little-hr{
   width: 20%;
 }
+.media-container{
+  display: flex;
+  flex-direction: row;
+
+}
