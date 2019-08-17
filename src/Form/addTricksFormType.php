@@ -36,10 +36,12 @@ class addTricksFormType extends AbstractType
 
             ])
             ->add('picture', FileType::class, [
-                'label' => 'You can add a picture',
+                'label' => 'Add a picture (JPG/ PNG File or Embed)',
                 'mapped' => false,
-                'required' => false,
+                'required' => false
+
             ])
+
         ;
     }
 

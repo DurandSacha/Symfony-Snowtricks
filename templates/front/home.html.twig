@@ -22,11 +22,12 @@
 
         <div class="trick">
           <div class="card" style="width: 18rem;">
-            {% if medias is defined %}
 
-            <img class="card-img-top" src="../public/{{ trick.Illustration[0].path }}" alt="Card image cap" >  <!-- A REGARDER : mettre l'image numéro 1 associer au trick -->
 
-            {%  endif %}
+
+            <img class="card-img-top" src="../public/{{ trick.Illustration[0].path }}" alt="Card image cap" >
+
+
             <div class="card-body">
               <a href="./single/{{ trick.id }}" class="card-text"><p class="title-trick"> {{ trick.name }} </p></a>
 

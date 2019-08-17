@@ -168,7 +168,7 @@ class Tricks
         return $this->Illustration;
     }
 
-    public function addIllustration(Media $illustration): self
+    public function addIllustration(Media $illustration)
     {
         if (!$this->Illustration->contains($illustration)) {
             $this->Illustration[] = $illustration;

@@ -88,7 +88,6 @@ class dashboardController  extends BaseController
             'UserPictureFormType' => $form->createView(),
         ]);
     }
-
     /**
      * @Route("/trickList", name="trickList")
      */
@@ -96,8 +95,17 @@ class dashboardController  extends BaseController
     {
         $tricks = $tricksRepo->findAll();
 
+        $user = $this->getUser();
+        // Tester l'objet User pour voir s'il est vide
+        if (null === $user) {
+            $visitorName = 'Anonyme';
+        } else {
+            $visitorName = $user->getUsername();
+        }
+
         return $this->render('Member/listTricks.html.twig', [
             'tricks' => $tricks,
+            'visitorName' => $visitorName
 
         ]);
     }

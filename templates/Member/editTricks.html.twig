@@ -3,18 +3,24 @@
 {% block body %}
     <br/><br/><br/><br/>
     <div class="center-block example-wrapper">
-        <h1>Edit the Article! ?</h1>
+        <h1>Edit tricks</h1>
 
         {{ form_start(trickForm) }}
-        {{ form_row(trickForm.name, {
-            label: 'Article name'
-        }) }}
-
-
-        {{ form_row(trickForm.categoryTricks) }}
-        {{ form_row(trickForm.description) }}
-
-        <button type="submit" class="btn btn-primary">Update!</button>
+        {{ form_widget(trickForm) }}
+        <button type="submit" class="btn btn-primary">Update</button>
         {{ form_end(trickForm) }}
     </div>
+
+    <div class="center-block example-wrapper">
+        <h1>Media for this tricks</h1>
+        <br/>
+
+            <img class="img-fluid " src="../public/{{ trick.Illustration[0].path }}" alt="../public/{{ trick.Illustration[0].path }}" width="32%;">
+
+
+
+    </div>
+    <br/><br/><br/><br/><br/>
+
+
 {% endblock %}

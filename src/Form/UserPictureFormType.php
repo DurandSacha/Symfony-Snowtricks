@@ -17,7 +17,7 @@ class UserPictureFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // ...
+
             ->add('picture', FileType::class, [
                 'label' => 'You can change Your picture (JPG or PNG File)',
                 'mapped' => false,
