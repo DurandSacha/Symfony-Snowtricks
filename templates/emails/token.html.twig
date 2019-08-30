@@ -4,17 +4,8 @@
 
 Hi ! You're registered and you can edit your password with this link.
 
-{# example, assuming you have a route named "login" #}
-To change password, go to: <a href="127.0.0.2{{ path('resetNow', { token: user.token }) }}">
+To change password, go to: <a href="{{ url('resetNow', { token: user.token }) }}">
    {{  url('resetNow', { token: user.token }) }}</a>.
 Thanks!
-{# Route : ResetNow# + Token #}
-{#  route github conseillé : {{ url('account_password_reset', {username : user.username , token: user.token}) }} #}
-{# ma route essayé : {{ path('home') }}/{{ token }}">{{ path('home')}}{{ token }} #}
 
-
-{# {{ path('token/{{ token}}') }}#}
-
-
-{# {{ path('resetNow', { token: user.token }) }} #}
 

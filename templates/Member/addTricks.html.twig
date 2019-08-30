@@ -5,8 +5,79 @@
     <div class="center-block example-wrapper">
     <h1>Launch a new Tricks! ?</h1>
     {{ form_start(addTricksForm) }}
-    {{ form_widget(addTricksForm) }}
-    <button type="submit" class="btn btn-primary">Create!</button>
-    {{ form_end(addTricksForm) }}
-</div>
+
+
+        {{ form_row(addTricksForm.name) }}
+        {{ form_row(addTricksForm.description) }}
+        {{ form_row(addTricksForm.categoryTricks) }}
+
+
+        <div class="row js-genus-scientist-wrapper data"
+            data-prototype ="{{ form_widget(addTricksForm.pictures.vars.prototype)|e('html_attr') }}"
+             data-index="{{ addTricksForm.pictures|length }}">
+
+            {% for addTricksForm in pictureForm %}         <!-- pictureForm ( form image ) && addTricksForm ( form générale )-->
+                <div class="col-xs-4 js-genus-scientist-item">
+                    <a href="#" class="js-remove-scientist pull-right">
+                        <span class="fa fa-close"></span>
+                    </a>
+                    {{ form_row(pictureForm) }}
+                </div>
+            {% endfor %}
+
+            {{ form_row(addTricksForm.pictures.vars.prototype) }}
+
+            <a href="#" class="js-genus-scientist-add">
+                <span class="fa fa-plus-circle"></span>
+                Add Image to this tricks
+            </a>
+
+            {{ form_row(addTricksForm.Embed) }}
+
+
+
+
+            <br/><br/><br/>
+            <button type="submit" class="btn btn-primary submit">Create!</button><br/><br/>
+            {{ form_end(addTricksForm) }}
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var element = document.getElementById('data');
+
+
+        console.log('js actif');
+        jQuery(document).ready(function() {
+            var $wrapper = $('.js-genus-scientist-wrapper');
+            $wrapper.on('click', '.js-remove-scientist', function(e) {
+                e.preventDefault();
+                $(this).closest('.js-genus-scientist-item')
+                    .fadeOut()
+                    .remove();
+            });
+            $wrapper.on('click', '.js-genus-scientist-add', function(e) {
+                e.preventDefault();
+                // Get the data-prototype explained earlier
+                var prototype = $wrapper.data('prototype');
+                // get the new index
+                var index = $wrapper.data('index');
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                var newForm = prototype.replace(/__name__/g, index);
+                // increase the index with one for the next item
+                $wrapper.data('index', index + 1);
+                // Display the form in the page before the "new" link
+                $(this).before(newForm);
+            });
+
+
+        });
+    </script>
+
 {% endblock %}

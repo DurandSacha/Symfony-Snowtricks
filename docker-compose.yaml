@@ -1,0 +1,42 @@
+version: '3.7'
+
+services:
+
+  mysql:
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - db_data:/var/lib/mysql
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    links:
+      - php
+    ports:
+      - 80:80
+    restart: always
+    volumes:
+      - .:/var/www/Symfony-Snowtricks:cached
+      - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+    working_dir: /var/www/Symfony-Snowtricks
+
+  php:
+    build: docker/php
+    container_name: php
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    ports:
+      - 9000:9000
+    restart: always
+    volumes:
+      - .:/var/www/Symfony-Snowtricks:cached
+    working_dir: /var/www/Symfony-Snowtricks
+
+volumes:
+  db_data:

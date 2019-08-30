@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\FormView;
 
 
 class addTricksFormType extends AbstractType
@@ -35,12 +37,37 @@ class addTricksFormType extends AbstractType
                 },
 
             ])
-            ->add('picture', FileType::class, [
-                'label' => 'Add a picture (JPG/ PNG File or Embed)',
-                'mapped' => false,
-                'required' => false
 
+            ->add('pictures', CollectionType::class, [
+                'entry_type' => PictureFormType::class,  // or FileType
+                'allow_add' => true,
+                'allow_delete' => true,
+                'required'   => false,
+                'prototype' => true,
+                'mapped' => false,
+                'by_reference' => false
             ])
+
+            ->add('Embed', TextType::class, [   // TODO: CollectionType
+                'block_name' => 'Embed Balise ( optionnal )',
+                'help' => ' example : <embed src="https://www.youtube.com/watch?v=1BjgBoummtE" autostart="false" height="30%" width="40%" />',
+                'required' => false,
+
+                'mapped' => false
+            ])
+
+
+
+            /* vidéo */
+
+                /*
+            ->add('videos', CollectionType::class, [
+                'entry_type' => VideoType::class,
+                'allow_add' => true,
+                'allow_delete' => true
+            ])
+                */
+
 
         ;
     }

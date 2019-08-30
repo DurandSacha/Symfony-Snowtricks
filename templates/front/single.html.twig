@@ -8,8 +8,10 @@
         <div class="row">
             <div class="col-lg-12 text-center" >
 
-                {% if medias[0] is defined %}
-                <img class="img-fluid  " src="../{{ medias[0].path }}" width="90%;">
+                {% if medias is defined %}
+                    {% if medias[0] %}
+                        <img class="img-fluid " src="../{{ medias[0].path }}" width="90%;">
+                    {% endif %}
                 {% endif %}
 
 
@@ -23,8 +25,14 @@
                     <div class=" col-lg-12">
 
                         <div class="media-container text-left ">
+
                         {% for media in medias %}
 
+
+                            {% if Embed[0] is defined %}
+                                {{ Embed[0].path|html }}
+
+                            {% endif %}
                                 <img class="img-fluid " src="../{{ media.path }}" alt="" width="32%;">
                         {% endfor %}
                         </div>
@@ -46,6 +54,7 @@
 
         <div class="row">
             <div class="group-label">
+                <span> category: </span>
                 <span class="label label-default ">  {{ trick.categoryTricks.name }} </span>
             </div>
         </div>
@@ -54,11 +63,17 @@
         <hr>
         <br/><br/>
 
+        {% if app.user %}
         <div class="text-center">
-            TODO : Form to league a comment
+            {{ form_start(AddCommentForm) }}
+            {{ form_widget(AddCommentForm) }}
+
+            <button type="submit" class="btn btn-primary"> Comment</button>
+            {{ form_end(AddCommentForm) }}
         </div>
+        {% endif %}
         <div class="row align-items-center">
-            <div class="col-lg-offset-3 col-lg-6">
+            <div class="col-lg-offset-3 col-lg-6 chat">
 
                 <h2> Chat about this trick  </h2>
 
@@ -67,14 +82,31 @@
 
                         <ul>
                             <li>
-                                <p>{{ comment.user.username }}</p>
-                                <p>{% if comment.date is defined %}{{ comment.date }}{% endif %}</p>
-                                <p>{{ comment.content }}</p>
+                                <div class="row">
+
+                                    <div class="col-lg-1">
+                                        {% if comment.user.picture is defined %}
+                                            <img class="img-fluid" src="../public/img/user/{{ comment.user.picture }}" width="10%"/><br/><br/>
+
+                                            <!-- photo accessible depuis dashboard.html.twig -->
+                                            <img class="img-fluid" src="../public/img/user/{{ app.user.picture }}" width="10%"/><br/><br/>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <p class="username-comment">{{ comment.user.username }}</p>
+                                        <p>{% if comment.date is defined %}{{ comment.date }}{% endif %}</p>
+                                        <p class="comment-content">{{ comment.content }}</p>
+                                    </div>
+                                </div>
                             </li>
                             <hr class="little-hr">
                         </ul>
                     {% endfor %}
+                {% else %}
+                    <p> There are not comments for this tricks </p>
+
                 {% endif %}
+
             </div>
 
                 </p>

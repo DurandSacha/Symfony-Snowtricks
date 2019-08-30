@@ -29,7 +29,14 @@ class AppExtension extends AbstractExtension
             new TwigFilter('object', function (array $value) {
                 return (object) $value;
             }),
+
+            new TwigFilter('html', [$this, 'html'], ['is_safe' => ['html']])
         ];
+    }
+
+    public function html($html)
+    {
+        return $html;
     }
 
     public function getFunctions(): array

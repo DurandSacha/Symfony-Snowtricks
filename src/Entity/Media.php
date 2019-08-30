@@ -22,7 +22,7 @@ class Media
     private $path;
 
     /**
-     * @ORM\Column(type="string", length=255, columnDefinition="enum('Picture', 'Video')")
+     * @ORM\Column(type="string", length=255, columnDefinition="enum('Picture', 'Video','Embed')")
      */
     private $type;
 

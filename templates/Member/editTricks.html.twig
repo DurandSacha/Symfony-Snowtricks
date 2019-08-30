@@ -9,15 +9,15 @@
         {{ form_widget(trickForm) }}
         <button type="submit" class="btn btn-primary">Update</button>
         {{ form_end(trickForm) }}
-    </div>
 
-    <div class="center-block example-wrapper">
+        <br/>
         <h1>Media for this tricks</h1>
         <br/>
 
-            <img class="img-fluid " src="../public/{{ trick.Illustration[0].path }}" alt="../public/{{ trick.Illustration[0].path }}" width="32%;">
-
-
+        <div class="card" style="width: 18rem;">
+            <!-- TODO: Supprimer un media associé a ce trick -->
+            <img class="img-fluid" src="../public/{{ trick.Illustration[0].path }}" alt="../public/{{ trick.Illustration[0].path }}" width="32%;">
+        </div>
 
     </div>
     <br/><br/><br/><br/><br/>

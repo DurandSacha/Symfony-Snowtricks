@@ -26,39 +26,25 @@ class Upload
         $this->em = $em;
     }
 
-    public function addMedia($PictureFile,$trick )
+    public function addMedia($PictureFile )
     {
+            $originalFilename = pathinfo($PictureFile->getClientOriginalName(), PATHINFO_FILENAME);
+            // this is needed to safely include the file name as part of the URL
+            $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+            $newFilename = $safeFilename . '-' . uniqid() . '.' . $PictureFile->guessExtension();
 
-        if($PictureFile);
-        $originalFilename = pathinfo($PictureFile->getClientOriginalName(), PATHINFO_FILENAME);
-        // this is needed to safely include the file name as part of the URL
-        $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-        $newFilename = $safeFilename.'-'.uniqid().'.'.$PictureFile->guessExtension();
+            // Move the file to the directory where brochures are stored
+            try {
+                $PictureFile->move('../public/img',
+                    $newFilename
+                );
 
-        // Move the file to the directory where brochures are stored
-        try {
-            $PictureFile->move('../public/img',
-                $newFilename
-            );
-        } catch (FileException $e) {
-            $this->addFlash(
-                'info',
-                "a problem exist with your upload "
-            );
-        }
-        // Nouvel objet image
-        $media = New Media();
-        $media->setPath('img/'.$newFilename);
-        $media->setType('Picture'); // comment savoir si c'est une vidéo ?
-        $media->setTexte('A picture for a tricks');
-        //$this->addReference('trick', $trick);
-        $media->setTricks($trick);
+            } catch (FileException $e) {
+                $this->addFlash(
+                    'info',
+                    "a problem exist with your upload "
+                );
+            }
 
-
-        $this->em->persist($trick);
-        $this->em->persist($media);
-        $this->em->flush();
-
-        return $media;
     }
 }
