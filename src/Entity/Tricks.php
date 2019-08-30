@@ -52,7 +52,7 @@ class Tricks
     private $categoryTricks;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="tricks")
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="tricks",cascade={"persist"})
      */
     private $Illustration;
 
@@ -168,7 +168,7 @@ class Tricks
         return $this->Illustration;
     }
 
-    public function addIllustration(Media $illustration): self
+    public function addIllustration(Media $illustration)
     {
         if (!$this->Illustration->contains($illustration)) {
             $this->Illustration[] = $illustration;
@@ -190,6 +190,16 @@ class Tricks
 
         return $this;
     }
+
+    /*
+    public function remove(Tricks $trick): self
+    {
+        if ($this->trick->contains($trick)) {
+            $this->trick->removeElement($trick);
+        }
+        return $this;
+    }
+    */
 
 
 	

@@ -11,7 +11,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 class CategoryFixture extends BaseFixture
 {
 
-    public const CATEGORY_REFERENCE = 'category';
+    public const CATEGORY_REFERENCE = 'categoryFlip';
 
 
     private static $name = [
@@ -42,18 +42,16 @@ class CategoryFixture extends BaseFixture
     public function loadData(ObjectManager $manager)
     {
 
-        /*
-        $this->createMany(4, 'tricks', function($i)  {
-            $category = new Category();
-            $category->setName($this->faker->randomElement(self::$name));
-            $category->setDescription($this->faker->randomElement(self::$description));
-
-            return $category;
-        });
-        */
+        $category = new Category();
+        $category->setName('Flip');
+        $category->setDescription('Its a backflip trick snow, you can learn this on all condition. Please take picture if you make this trick');
+        $manager->persist($category);
+        $this->addReference('categoryFlip',$category);
 
         $manager->flush();
     }
+
+
 
 
 }

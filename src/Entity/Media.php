@@ -22,7 +22,7 @@ class Media
     private $path;
 
     /**
-     * @ORM\Column(type="string", length=255, columnDefinition="enum('Picture', 'Video')")
+     * @ORM\Column(type="string", length=255, columnDefinition="enum('Picture', 'Video','Embed')")
      */
     private $type;
 
@@ -88,6 +88,14 @@ class Media
     {
         $this->tricks = $tricks;
 
+        return $this;
+    }
+
+    public function remove(Media $media): self
+    {
+        if ($this->media->contains($media)) {
+            $this->media->removeElement($media);
+        }
         return $this;
     }
 }

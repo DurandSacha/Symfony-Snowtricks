@@ -1,30 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Tricks n°{{ id }} {% endblock %}
+{% block title %} {{ trick.name }} {% endblock %}
 {% block body %}
     <br/><br/><br/><br/>
 <section>
     <div class="container ">
         <div class="row">
-            <div class="col-lg-12 center" s>
+            <div class="col-lg-12 text-center" >
 
-                {% for media in medias %}
-                <img class="img-fluid  " src="../{{ media.path }}" alt="{{ media.texte }}" width="90%;">
-                {% endfor %}
+                {% if medias is defined %}
+                    {% if medias[0] %}
+                        <img class="img-fluid " src="../{{ medias[0].path }}" width="90%;">
+                    {% endif %}
+                {% endif %}
+
 
             </div>
         </div>
         <div class="row row align-items-center">
             <div class="col-lg-12">
                 <div class="p-5">
-                    <h2 class="display-4"> Snowtricks n°{{ id }}</h2>
+                    <h2 class="display-4 text-center"> Snowtricks n°{{ id }} : {{ trick.name }}</h2><br/><br/>
 
-                    <div class=" col-lg-6">
+                    <div class=" col-lg-12">
+
+                        <div class="media-container text-left ">
 
                         {% for media in medias %}
 
-                                <img class="img-fluid " src="../{{ media.path }}" alt="">
+
+                            {% if Embed[0] is defined %}
+                                {{ Embed[0].path|html }}
+
+                            {% endif %}
+                                <img class="img-fluid " src="../{{ media.path }}" alt="" width="32%;">
                         {% endfor %}
+                        </div>
                         <br/><br/><br/><br/><br/>
 
                     </div>
@@ -41,16 +52,29 @@
     <div class="container">
 
 
-        <!-- HERE MAKE A BOOTSTRAP CARD FOR CATEGORY AND DIFFICULTY -->
         <div class="row">
-            <span class="label label-default">  {{ trick.categoryTricks.name }} </span>
+            <div class="group-label">
+                <span> category: </span>
+                <span class="label label-default ">  {{ trick.categoryTricks.name }} </span>
+            </div>
         </div>
 
         <br/><br/>
         <hr>
         <br/><br/>
+
+        {% if app.user %}
+        <div class="text-center">
+            {{ form_start(AddCommentForm) }}
+            {{ form_widget(AddCommentForm) }}
+
+            <button type="submit" class="btn btn-primary"> Comment</button>
+            {{ form_end(AddCommentForm) }}
+        </div>
+        {% endif %}
         <div class="row align-items-center">
-            <div class="col-lg-offset-3 col-lg-6">
+            <div class="col-lg-offset-3 col-lg-6 chat">
+
                 <h2> Chat about this trick  </h2>
 
                 {% if comments is defined %}
@@ -58,13 +82,31 @@
 
                         <ul>
                             <li>
-                                <p>comment.date</p>
-                                <p>comment.author</p>
-                                <p>comment.content</p>
+                                <div class="row">
+
+                                    <div class="col-lg-1">
+                                        {% if comment.user.picture is defined %}
+                                            <img class="img-fluid" src="../public/img/user/{{ comment.user.picture }}" width="10%"/><br/><br/>
+
+                                            <!-- photo accessible depuis dashboard.html.twig -->
+                                            <img class="img-fluid" src="../public/img/user/{{ app.user.picture }}" width="10%"/><br/><br/>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <p class="username-comment">{{ comment.user.username }}</p>
+                                        <p>{% if comment.date is defined %}{{ comment.date }}{% endif %}</p>
+                                        <p class="comment-content">{{ comment.content }}</p>
+                                    </div>
+                                </div>
                             </li>
+                            <hr class="little-hr">
                         </ul>
                     {% endfor %}
+                {% else %}
+                    <p> There are not comments for this tricks </p>
+
                 {% endif %}
+
             </div>
 
                 </p>

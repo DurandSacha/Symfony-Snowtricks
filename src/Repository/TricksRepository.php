@@ -4,7 +4,11 @@ namespace App\Repository;
 
 use App\Entity\Tricks;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Criteria;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Tricks|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,19 +23,48 @@ class TricksRepository extends ServiceEntityRepository
         parent::__construct($registry, Tricks::class);
     }
 
-    public function addTrick()
+    public function FindOneMedia(Tricks $tricks)
     {
-        return 52 ;
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.exampleField = :val')
+            ->setParameter('val', $tricks)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
     }
 
-    public function removeTrick()
+    public static function createNonDeletedCriteria(): Criteria
     {
-        return 52 ;
+        return Criteria::create()
+            ->andWhere(Criteria::expr()->eq('isDeleted', false))
+            ->orderBy(['id' => 'DESC'])
+            ;
     }
 
-    public function updateTrick()
+    /**
+     * @param string|null $term
+     * @return QueryBuilder
+     */
+    public function getWithSearchQueryBuilder( $term): QueryBuilder
     {
-        return 52 ;
+        $qb = $this->createQueryBuilder('c');
+
+        if ($term) {
+            $qb->andWhere('c.description LIKE :term OR c.author LIKE :term OR c.name LIKE :term')
+                ->setParameter('term', '%' . $term . '%')
+            ;
+        }
+        return $qb
+
+            ;
+    }
+
+
+    public function countTricks(){
+        return $this->createQueryBuilder('c')
+            ->select('COUNT(c)')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
 

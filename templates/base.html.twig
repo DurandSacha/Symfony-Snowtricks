@@ -26,7 +26,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="{{ path('home') }}">Home</a>
+            <a class="navbar-brand" href="{{ path('home') }}">Home</a>     <!--path('home', { page: 0})-->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -35,8 +35,9 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item"><a class="nav-link">|</a></li>
                 </ul>
-                <a class="nav-item memberMenu" href="{{ path('trickList') }}">My Tricks  </a>
-                <a class="nav-item memberMenu" href="{{ path('admin_tricks_new') }}">New Tricks</a>
+                <a class="nav-item memberMenu" href="{{ path('dashboard') }}">dashboard  </a>
+                <a class="nav-item memberMenu" href="{{ path('trickList') }}"> myTricks  </a>
+                <a class="nav-item memberMenu" href="{{ path('admin_tricks_new') }}">add Tricks</a>
             {%  else %}
             {% endif %}
 
@@ -88,11 +89,18 @@
 
 
 
+
+
+
+
+
+
         {% block body %}{% endblock %}
         {% block javascripts %}
             <!-- Bootstrap core JavaScript -->
             <script src="vendor/jquery/jquery.min.js"></script>
             <link href="{{ asset('vendor/jquery/jquery.min.js') }}" />
+            <link href="{{ asset('public/js/main.js') }}" />
 
             <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
             <link href="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}" />

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
@@ -22,7 +24,9 @@ class Comment
     private $content;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date",nullable=true)
+     * @Assert\Date
+     * @var string A "Y-m-d" formatted value
      */
     private $date;
 
@@ -58,12 +62,12 @@ class Comment
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate()
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate( $date): self
     {
         $this->date = $date;
 
@@ -105,4 +109,14 @@ class Comment
 
         return $this;
     }
+
+    /*
+    public function remove(Comment $comment): self
+    {
+        if ($this->comment->contains($comment)) {
+            $this->comment->removeElement($comment);
+        }
+        return $this;
+    }
+    */
 }

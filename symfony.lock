@@ -120,6 +120,12 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "knplabs/knp-components": {
+        "version": "v2.1.1"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v4.0.0"
+    },
     "monolog/monolog": {
         "version": "1.24.0"
     },
@@ -414,6 +420,19 @@
             "./config/packages/test/swiftmailer.yaml"
         ]
     },
+    "symfony/translation": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "2ad9d2545bce8ca1a863e50e92141f0b9d87ffcd"
+        },
+        "files": [
+            "./config/packages/translation.yaml",
+            "./translations/.gitignore"
+        ]
+    },
     "symfony/twig-bridge": {
         "version": "v4.2.8"
     },
@@ -478,6 +497,18 @@
     },
     "twbs/bootstrap": {
         "version": "v4.3.1"
+    },
+    "twig/extensions": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "a86723ee8d8b2f9437c8ce60a5546a1c267da5ed"
+        },
+        "files": [
+            "./config/packages/twig_extensions.yaml"
+        ]
     },
     "twig/twig": {
         "version": "v2.10.0"

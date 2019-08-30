@@ -8,12 +8,27 @@
         <h3>Welcome back, {{ app.user.Username }}</h3>
     </section>
 
-    <div class="container">
-        <!--<img src="https://robohash.org/{{ app.user.email }}" class="img-responsive thumbnail">-->
+    <div class="container ">
+
+        {% if app.user.picture is defined %}
+        <img class="img-fluid" src="../public/img/user/{{ app.user.picture }}" width="10%"/><br/><br/>
+        {% endif %}
+        <p> mail: {{ app.user.email }} </p>
+        <p> numéro d'inscrit: {{ app.user.id }}</p>
+        <p> username: {{ app.user.Username }}</p>
+
+
+        <div class="example-wrapper">
+            {{ form_start(UserPictureFormType) }}
+            {{ form_widget(UserPictureFormType) }}
+            <button type="submit" class="btn btn-primary">Upload an image</button>
+            {{ form_end(UserPictureFormType) }}
+        </div>
+
     </div>
 
-    <div class="row">
 
-    </div>
+
+
 
 {% endblock %}

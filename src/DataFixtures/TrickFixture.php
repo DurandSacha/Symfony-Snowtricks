@@ -3,23 +3,32 @@
 namespace App\DataFixtures;
 
 use App\Entity\Category;
+use App\Entity\Comment;
 use App\Entity\Tricks;
 use App\Entity\Media;
 use App\DataFixtures\CategoryFixture;
-use App\DataFixtures\UserFixture;
+
 use App\Entity\User;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+
 class TrickFixture extends BaseFixture implements DependentFixtureInterface
 {
 
-    public const ADMIN_USER_REFERENCE = 'main_users';
-    public const ADMIN_USER_REFERENCE2 = 'other_users';
-    public const CATEGORY_REFERENCE = 'category';
+    public const ADMIN_USER = 'User1';
+    //public const ADMIN_USER5 = 'User5';
+    public const ADMIN_USER_REFERENCE = 'User5';
+    public const CATEGORY_REFERENCE = 'categoryFlip';
+
     public const TRICK_REFERENCE = 'trick';
     public const TRICK_REFERENCE2 = 'trick2';
+
+    public const TRICKS1_REFERENCE = 'trick';
+    public const TRICKS2_REFERENCE = 'trick2';
+
+    private $passwordEncoder;
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -29,34 +38,16 @@ class TrickFixture extends BaseFixture implements DependentFixtureInterface
     public function loadData(ObjectManager $manager)
     {
 
-        // charger USER
-        $user5 = new User();
-        $user5->setEmail('zzzzzz@gmail.com');
-        $user5->setUsername('zzzzz');
-        $user5->setPassword($this->passwordEncoder->encodePassword(
-            $user5,
-            '000000'
-        ));
-        $manager->persist($user5);
-
-        $category = new Category();
-        $category->setName('Flip');
-        $category->setDescription('Its a backflip trick snow, you can learn this on all condition. Please take picture if you make this trick');
-        $manager->persist($category);
-
-
         /* Create a Trick Fixture */
         $trick = new Tricks();
         $trick->setName('BackFlip');
         $trick->setDescription('Its a backflip trick snow, you can learn this on all condition. Please take picture if you make this trick');
-
-        /* The Reference */
-        $this->addReference(self::ADMIN_USER_REFERENCE, $user5);
-        $trick->setAuthor($this->getReference(UserFixture::ADMIN_USER_REFERENCE));
-
-        $this->addReference(self::CATEGORY_REFERENCE, $category);
+        $trick->setAuthor($this->getReference(UserFixture::ADMIN_USER));
         $trick->setCategoryTricks($this->getReference(CategoryFixture::CATEGORY_REFERENCE));
+        $this->addReference('trick',$trick);
         $manager->persist($trick);
+
+
 
 
         /* Create a Trick Fixture */
@@ -65,38 +56,12 @@ class TrickFixture extends BaseFixture implements DependentFixtureInterface
         $trick2->setDescription('Its a backflip trick snow, you can learn this on all condition. Please take picture if you make this trick');
 
         /* The Reference */
-        $trick2->setAuthor($this->getReference(UserFixture::ADMIN_USER_REFERENCE));
+        $trick2->setAuthor($this->getReference(UserFixture::ADMIN_USER));
         $trick2->setCategoryTricks($this->getReference(CategoryFixture::CATEGORY_REFERENCE));
+        $this->addReference('trick2',$trick2);
         $manager->persist($trick2);
 
 
-        // CREATE MEDIA 1
-        $media1 = new Media();
-        $media1->setPath('img/0.jpg');
-        $media1->setType('Picture');
-        $media1->setTexte('Hello World');
-
-        $this->addReference('trick', $trick);
-        $media1->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE));
-
-        $manager->persist($media1);
-
-        // CREATE MEDIA 2
-        $media2 = new Media();
-        $media2->setPath('img/1.jpg');
-        $media2->setType('Picture');
-        $media2->setTexte('Flip');
-        $this->addReference(self::TRICK_REFERENCE2, $trick2);
-        $media2->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE2));
-        $manager->persist($media2);
-
-        // CREATE MEDIA 3
-        $media3 = new Media();
-        $media3->setPath('img/2.jpg');
-        $media3->setType('Picture');
-        $media3->setTexte('Flip Fly');
-        $media3->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE2));
-        $manager->persist($media3);
 
         $manager->flush();
 
@@ -111,7 +76,10 @@ class TrickFixture extends BaseFixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return [UserFixture::class];
+        return array(
+            UserFixture::class,
+            CategoryFixture::class
+        );
     }
 
 

@@ -228,3 +228,46 @@ header.masthead .bg-circle-4 {
   margin: 0 auto;
   width: 30vw;
 }
+.group-label{
+  margin-left: 7%;
+}
+
+.label{
+  color: white;
+  background-color: #1e7e34;
+  border-radius:10px;
+  padding: 10px;
+}
+.little-hr{
+  width: 20%;
+}
+.media-container{
+  display: flex;
+  flex-direction: row;
+}
+.chat ul li{
+  list-style: none;
+}
+.username-comment{
+  font-weight: bold;
+  color: darkred;
+  list-style: none;
+}
+.comment-content{
+  font-size: 18px;
+  margin: 0;
+  list-style: none;
+}
+#add_tricks_form_pictures, .form-group{
+  display: block;
+}
+.paginate{
+  margin-left: 41%;
+}
+
+
+
+
+
+
+
