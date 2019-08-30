@@ -43,6 +43,7 @@ class tricksController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
+            dd($form['pictures']->getData());
             $PictureFile = $form->get('pictures')->getData();
 
             $trick = $form->getData();
