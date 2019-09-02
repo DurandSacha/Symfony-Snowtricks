@@ -16,14 +16,6 @@
             data-prototype ="{{ form_widget(addTricksForm.pictures.vars.prototype)|e('html_attr') }}"
              data-index="{{ addTricksForm.pictures|length }}">
 
-            {% for addTricksForm in pictureForm %}         <!-- pictureForm ( form image ) && addTricksForm ( form générale )-->
-                <div class="col-xs-4 js-genus-scientist-item">
-                    <a href="#" class="js-remove-scientist pull-right">
-                        <span class="fa fa-close"></span>
-                    </a>
-                    {{ form_row(pictureForm) }}
-                </div>
-            {% endfor %}
 
             {{ form_row(addTricksForm.pictures.vars.prototype) }}
 
@@ -33,8 +25,6 @@
             </a>
 
             {{ form_row(addTricksForm.Embed) }}
-
-
 
 
             <br/><br/><br/>

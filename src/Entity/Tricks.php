@@ -52,7 +52,7 @@ class Tricks
     private $categoryTricks;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="tricks",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="tricks",cascade="all")
      */
     private $Illustration;
 
@@ -71,9 +71,9 @@ class Tricks
     }
 	
 	public function getName() : ?string
-                   {
-                       return $this->name;
-                   }
+    {
+        return $this->name;
+    }
 
     public function setName($name)
     {

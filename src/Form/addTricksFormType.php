@@ -39,7 +39,7 @@ class addTricksFormType extends AbstractType
             ])
 
             ->add('pictures', CollectionType::class, [
-                'entry_type' => PictureFormType::class,  // or FileType
+                'entry_type' => FileType::class,  // or FileType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'required'   => false,

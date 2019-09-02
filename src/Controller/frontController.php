@@ -1,5 +1,5 @@
 <?php
-// src/Controller/frontController.php
+// src/Controller/FrontController.php
 
 namespace App\Controller;
 

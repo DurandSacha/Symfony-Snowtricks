@@ -17,7 +17,7 @@
     <div class="bg-circle-4 bg-circle"></div>
   </header>
 
-  <p> {{ pagination.getTotalItemCount }}</p>
+
   <div id="group-trick">
       {% for trick in pagination %}
 
@@ -25,7 +25,7 @@
           <div class="card" style="width: 18rem;">
 
               {%  if trick.Illustration[0].type == 'Picture' %}
-              <img class="card-img-top" src="../public/{{ trick.Illustration[0].path }}" alt="Card image cap" >
+              <img class="card-img-top" src="{{ trick.Illustration[0].path }}" alt="Card image cap" >
               {%  endif %}
 
 

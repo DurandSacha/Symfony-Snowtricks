@@ -84,17 +84,15 @@
                             <li>
                                 <div class="row">
 
-                                    <div class="col-lg-1">
+                                    <div class="col-lg-3">
                                         {% if comment.user.picture is defined %}
-                                            <img class="img-fluid" src="../public/img/user/{{ comment.user.picture }}" width="10%"/><br/><br/>
+                                           <img class="img-fluid" src="{{ asset('img/user/'~comment.user.picture) }}" width="200"/>
 
-                                            <!-- photo accessible depuis dashboard.html.twig -->
-                                            <img class="img-fluid" src="../public/img/user/{{ app.user.picture }}" width="10%"/><br/><br/>
                                         {% endif %}
                                     </div>
                                     <div class="col-lg-7">
                                         <p class="username-comment">{{ comment.user.username }}</p>
-                                        <p>{% if comment.date is defined %}{{ comment.date }}{% endif %}</p>
+                                        <p> {% if comment.date is defined %} {{ comment.date }}{% endif %}</p>
                                         <p class="comment-content">{{ comment.content }}</p>
                                     </div>
                                 </div>

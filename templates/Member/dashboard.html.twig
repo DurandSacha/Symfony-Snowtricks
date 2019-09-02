@@ -11,7 +11,7 @@
     <div class="container ">
 
         {% if app.user.picture is defined %}
-        <img class="img-fluid" src="../public/img/user/{{ app.user.picture }}" width="10%"/><br/><br/>
+        <img class="img-fluid" src="img/user/{{ app.user.picture }}" width="10%"/><br/><br/>
         {% endif %}
         <p> mail: {{ app.user.email }} </p>
         <p> numéro d'inscrit: {{ app.user.id }}</p>

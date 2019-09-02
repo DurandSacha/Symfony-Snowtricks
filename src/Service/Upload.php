@@ -18,7 +18,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class Upload
 {
-    // mettre entity manager en construct
+
     private $em;
 
     public function __construct(EntityManagerInterface $em)
@@ -28,14 +28,15 @@ class Upload
 
     public function addMedia($PictureFile )
     {
+            // faire un dump des $pictureFile
             $originalFilename = pathinfo($PictureFile->getClientOriginalName(), PATHINFO_FILENAME);
             // this is needed to safely include the file name as part of the URL
             $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-            $newFilename = $safeFilename . '-' . uniqid() . '.' . $PictureFile->guessExtension();
+            $newFilename =$safeFilename . '-' . uniqid() . '.' . $PictureFile->guessExtension();
 
             // Move the file to the directory where brochures are stored
             try {
-                $PictureFile->move('../public/img',
+                $PictureFile->move('img/',
                     $newFilename
                 );
 
@@ -48,3 +49,4 @@ class Upload
 
     }
 }
+
