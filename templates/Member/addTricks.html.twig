@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% block title %} Add tricks {% endblock %}
 {% block body %}
 
     <br/><br/><br/><br/>
@@ -13,25 +14,37 @@
 
 
         <div class="row js-genus-scientist-wrapper data"
-            data-prototype ="{{ form_widget(addTricksForm.pictures.vars.prototype)|e('html_attr') }}"
-             data-index="{{ addTricksForm.pictures|length }}">
+            data-prototype ="{{ form_widget(addTricksForm.Illustration.vars.prototype)|e('html_attr') }}"
+             data-index="{{ addTricksForm.Illustration|length }}">
 
-
-            {{ form_row(addTricksForm.pictures.vars.prototype) }}
 
             <a href="#" class="js-genus-scientist-add">
                 <span class="fa fa-plus-circle"></span>
                 Add Image to this tricks
             </a>
+        </div>
 
-            {{ form_row(addTricksForm.Embed) }}
+        <hr>
+
+
+        <div class="row js-embed-scientist-wrapper data"
+             data-prototype ="{{ form_widget(addTricksForm.Embed.vars.prototype)|e('html_attr') }}"
+             data-index="{{ addTricksForm.Embed|length }}">
+
+
+            <a href="#" class="js-embed-scientist-add">
+                <span class="fa fa-plus-circle"></span>
+                Add Embed Balise
+            </a>
+        </div>
 
 
             <br/><br/><br/>
             <button type="submit" class="btn btn-primary submit">Create!</button><br/><br/>
+            {% do addTricksForm.Illustration.setRendered() %}
             {{ form_end(addTricksForm) }}
 
-        </div>
+
     </div>
 {% endblock %}
 
@@ -42,7 +55,7 @@
         var element = document.getElementById('data');
 
 
-        console.log('js actif');
+
         jQuery(document).ready(function() {
             var $wrapper = $('.js-genus-scientist-wrapper');
             $wrapper.on('click', '.js-remove-scientist', function(e) {
@@ -65,6 +78,25 @@
                 // Display the form in the page before the "new" link
                 $(this).before(newForm);
             });
+
+
+            var $wrapper2 = $('.js-embed-scientist-wrapper');
+            $wrapper2.on('click', '.js-embed-scientist-add', function(e) {
+                e.preventDefault();
+                // Get the data-prototype explained earlier
+                var prototype = $wrapper2.data('prototype');
+                // get the new index
+                var index = $wrapper2.data('index');
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                var newForm = prototype.replace(/__name__/g, index);
+                // increase the index with one for the next item
+                $wrapper2.data('index', index + 1);
+                // Display the form in the page before the "new" link
+                $(this).before(newForm);
+            });
+
+
 
 
         });

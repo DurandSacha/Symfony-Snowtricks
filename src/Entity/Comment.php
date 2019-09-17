@@ -24,11 +24,20 @@ class Comment
     private $content;
 
     /**
-     * @ORM\Column(type="date",nullable=true)
-     * @Assert\Date
-     * @var string A "Y-m-d" formatted value
+     * @ORM\Column(type="datetime")
      */
-    private $date;
+    private $createdAt;
+
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
 
 
     /**
@@ -62,17 +71,6 @@ class Comment
         return $this;
     }
 
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    public function setDate( $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
 
     public function getUserId(): ?int
     {

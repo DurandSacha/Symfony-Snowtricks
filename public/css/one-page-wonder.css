@@ -265,6 +265,32 @@ header.masthead .bg-circle-4 {
   margin-left: 41%;
 }
 
+.custom-file-input{
+  opacity: 1;
+}
+input #add_tricks_form_Illustration_0_file .custom-file-input{
+  opacity: 1;
+}
+input #add_tricks_form_Illustration_0_file .custom-file-input button{
+  opacity: 0;
+}
+
+.add_button{
+  font-family: inherit;
+  margin: 1.5%;
+  /*background-color: #a71d2a;*/
+
+
+}
+.add_button a{
+  color: red;
+  text-decoration: none;
+}
+.add_button a:hover{
+  color: black;
+  transition-duration: 0.5s;
+
+}
 
 
 

@@ -24,9 +24,14 @@
         <div class="trick">
           <div class="card" style="width: 18rem;">
 
-              {%  if trick.Illustration[0].type == 'Picture' %}
-              <img class="card-img-top" src="{{ trick.Illustration[0].path }}" alt="Card image cap" >
-              {%  endif %}
+            {% if trick.Illustration[0] is defined %}
+                {%  if trick.Illustration[0].type == 'Picture' %}
+                  <img class="card-img-top" src="img/{{ trick.Illustration[0].path }}" alt="{{ trick.Illustration[0].path }}" >
+                {%  endif %}
+
+            {% else %}
+                <img class="card-img-top" src="img/demo/1.jpg" alt="Default Image" >
+            {% endif %}
 
 
 

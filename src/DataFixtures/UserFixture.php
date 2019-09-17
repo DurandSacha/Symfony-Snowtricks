@@ -49,10 +49,12 @@ class UserFixture extends BaseFixture
     protected function loadData(ObjectManager $manager)
     {
 
+        // setAuthor($this->faker->randomElement(self::$articleAuthors))
         // charger USER
+        //  $this->createMany(Article::class, 10, function(Article $article, $count) {  }
         $user5 = new User();
-        $user5->setEmail('zzzzzz@gmail.com');
-        $user5->setUsername('zzzzz');
+        $user5->setEmail('helloaloha@gmail.com');
+        $user5->setUsername('aloa');
         $user5->setPassword($this->passwordEncoder->encodePassword(
             $user5,
             '000000'

@@ -23,6 +23,7 @@ class CommentFixtures extends BaseFixture implements DependentFixtureInterface
         //$comment->setDate(date('Y:m:d '));
         $comment->setUser($this->getReference(UserFixture::ADMIN_USER_REFERENCE));
         $comment->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE));
+        $comment->setCreatedAt(new \DateTime());
         $manager->persist($comment);
 
         $manager->flush();

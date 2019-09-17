@@ -52,9 +52,11 @@ class Tricks
     private $categoryTricks;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="tricks",cascade="all")
+     * @ORM\OneToMany(targetEntity="App\Entity\Media", mappedBy="tricks",cascade="persist")
      */
     private $Illustration;
+
+
 
 
 
@@ -190,6 +192,8 @@ class Tricks
 
         return $this;
     }
+
+
 
     /*
     public function remove(Tricks $trick): self

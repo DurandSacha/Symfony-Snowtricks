@@ -2,51 +2,35 @@
 // src/Service/Upload.php
 namespace App\Service;
 
-use App\Entity\Media;
-use App\Entity\Tricks;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\File\File;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
-
-use Doctrine\Common\Persistence\ObjectManager;
-//use Doctrine\ORM\EntityManagerInterface;
-
 
 class Upload
 {
+    private $targetDirectory;
 
-    private $em;
-
-    public function __construct(EntityManagerInterface $em)
+    public function __construct($targetDirectory)
     {
-        $this->em = $em;
+        $this->targetDirectory = $targetDirectory;
     }
 
-    public function addMedia($PictureFile )
+    public function upload(UploadedFile $file)
     {
-            // faire un dump des $pictureFile
-            $originalFilename = pathinfo($PictureFile->getClientOriginalName(), PATHINFO_FILENAME);
-            // this is needed to safely include the file name as part of the URL
-            $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-            $newFilename =$safeFilename . '-' . uniqid() . '.' . $PictureFile->guessExtension();
+        $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+        $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+        $fileName = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
 
-            // Move the file to the directory where brochures are stored
-            try {
-                $PictureFile->move('img/',
-                    $newFilename
-                );
+        try {
+            $file->move($this->getTargetDirectory(), $fileName);
+        } catch (FileException $e) {
+            // ... handle exception if something happens during file upload
+        }
 
-            } catch (FileException $e) {
-                $this->addFlash(
-                    'info',
-                    "a problem exist with your upload "
-                );
-            }
+        return $fileName;
+    }
 
+    public function getTargetDirectory()
+    {
+        return $this->targetDirectory;
     }
 }
-

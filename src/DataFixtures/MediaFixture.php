@@ -14,8 +14,17 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class MediaFixture extends BaseFixture implements DependentFixtureInterface
 {
-    public const TRICKS1_REFERENCE = 'trick';
-    public const TRICKS2_REFERENCE = 'trick2';
+
+    private static $path = [
+        'demo/0.jpg',
+        'demo/1.jpg',
+        'demo/2.jpg',
+        'demo/3.jpg',
+        'demo/4.jpg',
+        'demo/5.jpg',
+        'demo/6.jpg',
+        'demo/7.jpg',
+    ];
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -24,13 +33,9 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
 
     protected function loadData(ObjectManager $manager)
     {
-
-        //$this->addReference($this->getReference(CategoryFixture::CATEGORY_REFERENCE));
-
-
         // CREATE MEDIA 1
         $media1 = new Media();
-        $media1->setPath('img/demo/0.jpg');
+        $media1->setPath('demo/0.jpg');
         $media1->setType('Picture');
         $media1->setTexte('Hello World');
         $media1->setTricks($this->getReference(TrickFixture::TRICKS1_REFERENCE));
@@ -39,7 +44,7 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
 
         // CREATE MEDIA 2
         $media2 = new Media();
-        $media2->setPath('img/demo/1.jpg');
+        $media2->setPath('demo/1.jpg');
         $media2->setType('Picture');
         $media2->setTexte('Flip');
 
@@ -48,14 +53,93 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
 
         // CREATE MEDIA 3
         $media3 = new Media();
-        $media3->setPath('img/demo/2.jpg');
+        $media3->setPath('demo/2.jpg');
         $media3->setType('Picture');
         $media3->setTexte('Flip Fly');
         $media3->setTricks($this->getReference(TrickFixture::TRICKS1_REFERENCE));
         $manager->persist($media3);
 
-        $manager->flush();
+        /* Generate image for 10 tricks */
+        $media5 = new Media();
+        $media5->setPath($this->faker->randomElement(self::$path));
+        $media5->setType('Picture');
+        $media5->setTexte('Its a factice automatic images');
+        $media5->setTricks($this->getReference(TrickFixture::TRICKS11_REFERENCE));
+        $manager->persist($media5);
 
+        /* Generate image for 10 tricks */
+        $media4 = new Media();
+        $media4->setPath($this->faker->randomElement(self::$path));
+        $media4->setType('Picture');
+        $media4->setTexte('Its a factice automatic images');
+        $media4->setTricks($this->getReference(TrickFixture::TRICKS12_REFERENCE));
+        $manager->persist($media4);
+
+        /* Generate image for 10 tricks */
+        $media4 = new Media();
+        $media4->setPath($this->faker->randomElement(self::$path));
+        $media4->setType('Picture');
+        $media4->setTexte('Its a factice automatic images');
+        $media4->setTricks($this->getReference(TrickFixture::TRICKS13_REFERENCE));
+        $manager->persist($media4);
+
+        /* Generate image for 10 tricks */
+        $media4 = new Media();
+        $media4->setPath($this->faker->randomElement(self::$path));
+        $media4->setType('Picture');
+        $media4->setTexte('Its a factice automatic images');
+        $media4->setTricks($this->getReference(TrickFixture::TRICKS14_REFERENCE));
+        $manager->persist($media4);
+
+        /* Generate image for 10 tricks */
+        $media4 = new Media();
+        $media4->setPath($this->faker->randomElement(self::$path));
+        $media4->setType('Picture');
+        $media4->setTexte('Its a factice automatic images');
+        $media4->setTricks($this->getReference(TrickFixture::TRICKS15_REFERENCE));
+        $manager->persist($media4);
+
+        /* Generate image for 10 tricks */
+        $media4 = new Media();
+        $media4->setPath($this->faker->randomElement(self::$path));
+        $media4->setType('Picture');
+        $media4->setTexte('Its a factice automatic images');
+        $media4->setTricks($this->getReference(TrickFixture::TRICKS16_REFERENCE));
+        $manager->persist($media4);
+
+        /* Generate image for 10 tricks */
+        $media4 = new Media();
+        $media4->setPath($this->faker->randomElement(self::$path));
+        $media4->setType('Picture');
+        $media4->setTexte('Its a factice automatic images');
+        $media4->setTricks($this->getReference(TrickFixture::TRICKS17_REFERENCE));
+        $manager->persist($media4);
+
+        /* Generate image for 10 tricks */
+        $media4 = new Media();
+        $media4->setPath($this->faker->randomElement(self::$path));
+        $media4->setType('Picture');
+        $media4->setTexte('Its a factice automatic images');
+        $media4->setTricks($this->getReference(TrickFixture::TRICKS18_REFERENCE));
+        $manager->persist($media4);
+
+        /* Generate image for 10 tricks */
+        $media4 = new Media();
+        $media4->setPath($this->faker->randomElement(self::$path));
+        $media4->setType('Picture');
+        $media4->setTexte('Its a factice automatic images');
+        $media4->setTricks($this->getReference(TrickFixture::TRICKS19_REFERENCE));
+        $manager->persist($media4);
+
+        /* Generate image for 10 tricks */
+        $media4 = new Media();
+        $media4->setPath($this->faker->randomElement(self::$path));
+        $media4->setType('Picture');
+        $media4->setTexte('Its a factice automatic images');
+        $media4->setTricks($this->getReference(TrickFixture::TRICKS20_REFERENCE));
+        $manager->persist($media4);
+
+        $manager->flush();
     }
 
     /**
@@ -69,6 +153,4 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
     {
         return [TrickFixture::class];
     }
-
-
 }

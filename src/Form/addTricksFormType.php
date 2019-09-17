@@ -38,37 +38,25 @@ class addTricksFormType extends AbstractType
 
             ])
 
-            ->add('pictures', CollectionType::class, [
-                'entry_type' => FileType::class,  // or FileType
+            ->add('Illustration', CollectionType::class, [
+                'entry_type' => PictureFormType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'required'   => false,
                 'prototype' => true,
-                'mapped' => false,
-                'by_reference' => false
+
             ])
 
-            ->add('Embed', TextType::class, [   // TODO: CollectionType
-                'block_name' => 'Embed Balise ( optionnal )',
-                'help' => ' example : <embed src="https://www.youtube.com/watch?v=1BjgBoummtE" autostart="false" height="30%" width="40%" />',
+            ->add('Embed', CollectionType::class, [
+                'entry_type' => EmbedType::class,
+                /*'help' => ' example : <embed src="https://www.youtube.com/watch?v=1BjgBoummtE" autostart="false" height="30%" width="40%" />',*/
                 'required' => false,
-
-                'mapped' => false
-            ])
-
-
-
-            /* vidéo */
-
-                /*
-            ->add('videos', CollectionType::class, [
-                'entry_type' => VideoType::class,
+                'prototype' => true,
                 'allow_add' => true,
-                'allow_delete' => true
+                'allow_delete' => true,
+                'mapped' => false,
+
             ])
-                */
-
-
         ;
     }
 

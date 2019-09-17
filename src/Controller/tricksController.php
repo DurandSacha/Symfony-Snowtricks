@@ -8,9 +8,10 @@ use App\Entity\Media;
 use App\Entity\Tricks;
 use App\Form\addTricksFormType;
 use App\Form\PictureFormType;
-use App\Service\Upload;
+use App\Service\Upload ;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
@@ -23,6 +24,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\Form\FormTypeExtensionInterface;
+
 
 
 /**
@@ -35,50 +38,51 @@ class tricksController extends AbstractController
     /**
     * @Route("/addTricks", name="admin_tricks_new")
     */
-    public function add(EntityManagerInterface $em, Request $request, Upload $upload)
+    public function add(Upload $upload, EntityManagerInterface $em, Request $request)
     {
-        $form = $this->createForm(addTricksFormType::class);
-        $formPicture = $this->createForm(PictureFormType::class);
+        $trick = new Tricks();
+        $form = $this->createForm(addTricksFormType::class,$trick);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $trick = $form->getData();
-            //$trick->addIllustration();
             $trick->setAuthor($this->getUser());
 
-            $PictureFile = $form->get('pictures')->getData();
+            foreach ($trick->getIllustration() as  $Illustration) {
 
-            if($PictureFile){
+                $fileName = $upload->upload($Illustration->getFile());
 
-                foreach ($PictureFile as  $Illustration) {
-                    //var_dump($PictureFile = $form->get('pictures')[0]->getData());
+                $Illustration->setPath($fileName);
+                $Illustration->setTricks($trick);
 
-                    $media = New Media();
-                    $upload->addMedia($Illustration);
-                    $media->setPath('img/' . $Illustration);
-                    $media->setType('Picture');
-                    $media->setTexte('A picture for a tricks');
-                    //$this->addReference('trick', $trick);
-                    $media->setTricks($trick);
-                    $trick->addIllustration($media);
-                    $upload->addMedia($Illustration);
 
-                    $this->em->persist($trick);
-                    $this->em->persist($media);
-                    $this->em->flush();
+                $em->persist($Illustration);
 
-                }
+                $Illustration->setType('Picture');
+
+                $Illustration->setTexte($Illustration->getTexte());
+                //$Illustration->setTexte('A picture for a tricks');
+
             }
 
-            $embedFile = $form->get('Embed')->getData();
-            if ($embedFile)
-            {
-                $typeEmbed ='Embed';
-                $embedMedia = $upload->addMedia($embedFile);
-                $trick->addIllustration($embedMedia);
+
+            //$embedFile = $form->get('Embed')->getData();
+            foreach ($form->get('Embed')->getData() as  $embed) {
+
+                $video = New Media();
+                $video->setPath($embed->getEmbed());
+                $video->setTricks($trick);
+
+                $em->persist($video);
+
+                $video->setType('Embed');
+                $video->setTexte('A Embed Balise');
+
             }
 
+            $em->persist($trick);
+
+            $em->flush();
 
             $this->addFlash('success', 'Tricks ' . $trick->getName() . ' is created');
             return $this->redirectToRoute('home');
@@ -89,7 +93,6 @@ class tricksController extends AbstractController
 
         return $this->render('Member/addTricks.html.twig', [
             'addTricksForm' => $form->createView(),
-            'pictureForm' => $formPicture->createView(),
 
         ]);
 
@@ -108,25 +111,37 @@ class tricksController extends AbstractController
         $tricks->setAuthor($this->getUser());
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $PictureFile = $form->get('picture')->getData();
-
             $trick = $form->getData();
             $trick->setAuthor($this->getUser());
 
-            if (!empty($PictureFile)) {
-                $type = 'Picture';
-                $media = $upload->addMedia($PictureFile, $trick, $type);
-                $trick->addIllustration($media);
+            foreach ($tricks->getIllustration() as  $Illustration) {
+                $fileName = $upload->upload($Illustration->getFile());
+                $Illustration->setPath($fileName);
+                $Illustration->setTricks($trick);
+
+                $Illustration->setType('Picture');
+                $Illustration->setTexte($Illustration->getTexte());
+
+                $em->persist($Illustration);
+                $em->flush();
+
             }
 
+            foreach ($form->get('Embed')->getData() as  $embed) {
 
-            $embedFile = $form->get('Embed')->getData();
-            if (!empty($embedFile))
-            {
-                $typeEmbed ='Embed';
-                $embedMedia = $upload->addMedia($embedFile,$trick,$typeEmbed);
-                $trick->addIllustration($embedMedia);
+                $video = New Media();
+                $video->setPath($embed->getEmbed());
+                $video->setTricks($trick);
+
+                $em->persist($video);
+
+                $video->setType('Embed');
+                $video->setTexte('A Embed Balise');
+                $em->persist($video);
             }
+
+            $em->flush();
+
 
 
             $this->addFlash('success', 'Article Updated! Inaccuracies squashed!');
@@ -141,13 +156,15 @@ class tricksController extends AbstractController
         }
         $trick = $form->getData();
 
-        // TODO: chercher l'id du trick puis chercher les image associé a l'id de ce trick
 
-        $medias = $trick->getIllustration();
+        $mediaRepo = $em->getRepository(Media::class);
+        //$medias = $trick->getIllustration();
+        $medias = $mediaRepo->findBy(array('tricks' => $trick->getId()));
 
         return $this->render('Member/editTricks.html.twig', [
-            'trickForm' => $form->createView(),
-            'trick' => $trick
+            'addTricksForm' => $form->createView(),
+            'trick' => $trick,
+            'medias' => $medias
 
         ]);
     }
