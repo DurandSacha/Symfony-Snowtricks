@@ -1,7 +1,6 @@
 FROM    composer:1.8 as composer
 FROM    php:7.3-fpm-alpine
 
-
 COPY    --from=composer /usr/bin/composer /usr/local/bin/composer
 
 # Removing APKINDEX warnings
@@ -20,15 +19,17 @@ RUN     apk add --update --no-cache \
         zlib-dev \
         libzip-dev \
         ca-certificates \
+        php-intl \
         && apk add --no-cache --virtual .build-deps \
             $PHPIZE_DEPS \
             curl \
             icu-dev \
+        && docker-php-ext-configure intl \
         && docker-php-ext-install \
             zip \
+            intl \
             pdo_mysql \
         && yes | pecl install xdebug \
-        && docker-php-ext-enable opcache \
         && apk add --no-cache su-exec \
         && addgroup bar \
         && adduser -D -h /home -s /bin/sh -G bar foo \
@@ -37,4 +38,3 @@ RUN     apk add --update --no-cache \
 # PHP config
 COPY    conf.d/php.ini /usr/local/etc/php
 COPY    conf.d/symfony.ini /usr/local/etc/php/conf.d
-

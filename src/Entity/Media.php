@@ -22,9 +22,10 @@ class Media
     private $path;
 
     /**
-     * @ORM\Column(type="string", length=255, columnDefinition="enum('Picture', 'Video','Embed')")
+     * @ORM\Column(type="string", length=255)
      */
     private $type;
+    //columnDefinition="enum('Picture', 'Video','Embed')
 
 
     /**
@@ -37,17 +38,32 @@ class Media
      */
     private $tricks;
 
+    private $file;
+
+    private $Embed;
+
+
+    public function getEmbed()
+    {
+        return $this->Embed;
+    }
+    public function setEmbed($Embed): void
+    {
+        $this->Embed = $Embed;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPath(): ?string
+    public function getPath()
     {
         return $this->path;
     }
 
-    public function setPath(?string $path): self
+    public function setPath($path)
     {
         $this->path = $path;
 
@@ -91,11 +107,29 @@ class Media
         return $this;
     }
 
-    public function remove(Media $media): self
+    public function remove(Media $media)
     {
         if ($this->media->contains($media)) {
             $this->media->removeElement($media);
         }
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file): void
+    {
+        $this->file = $file;
+    }
+
+
 }

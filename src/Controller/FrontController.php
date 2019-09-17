@@ -1,5 +1,5 @@
 <?php
-// src/Controller/frontController.php
+// src/Controller/FrontController.php
 
 namespace App\Controller;
 
@@ -21,7 +21,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Form\AddCommentType;
 use Knp\Component\Pager\PaginatorInterface;
 
-class frontController extends AbstractController
+class FrontController extends AbstractController
 {
     /**
      * @Route("/", name="home")
@@ -71,7 +71,13 @@ class frontController extends AbstractController
         $mediaRepo = $em->getRepository(Media::class);
 
         $trick = $tricksRepo->findOneBy(['id' => $id]);
+
         $medias = $trick->getIllustration();
+
+        // default picture
+        if(!empty($medias)){}else{
+            $medias = 'demo/0.jpg';
+        }
         $comments = $trick->getComments();
         $embed = $mediaRepo->findBy(['type' => 'Embed']);
 
@@ -85,6 +91,8 @@ class frontController extends AbstractController
             $comment = new Comment();
             $comment->setContent($form->get('content')->getData());
             $comment->setUser($this->getUser());
+            /* setCreatedAt(new \DateTime() */
+            $comment->setCreatedAt(new \DateTime());
             $comment->setTricks($trick);
 
             $em->persist($comment);

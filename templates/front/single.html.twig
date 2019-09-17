@@ -10,7 +10,7 @@
 
                 {% if medias is defined %}
                     {% if medias[0] %}
-                        <img class="img-fluid " src="../{{ medias[0].path }}" width="90%;">
+                        <img class="img-fluid " src="/img/{{ medias[0].path }}" alt="front-image" width="90%;">
                     {% endif %}
                 {% endif %}
 
@@ -31,9 +31,19 @@
 
                             {% if Embed[0] is defined %}
                                 {{ Embed[0].path|html }}
-
                             {% endif %}
-                                <img class="img-fluid " src="../{{ media.path }}" alt="" width="32%;">
+
+                            {% if Embed[1] is defined %}
+                                {{ Embed[1].path|html }}
+                            {% endif %}
+
+                            {% if Embed[2] is defined %}
+                                {{ Embed[2].path|html }}
+                            {% endif %}
+
+                                <img class="img-fluid " src="/img/{{ media.path }}" alt="image-single" width="32%;">
+
+
                         {% endfor %}
                         </div>
                         <br/><br/><br/><br/><br/>
@@ -84,17 +94,17 @@
                             <li>
                                 <div class="row">
 
-                                    <div class="col-lg-1">
+                                    <div class="col-lg-3">
                                         {% if comment.user.picture is defined %}
-                                            <img class="img-fluid" src="../public/img/user/{{ comment.user.picture }}" width="10%"/><br/><br/>
+                                           <img class="img-fluid" src="{{ asset('img/user/'~comment.user.picture) }}" width="200"/>
 
-                                            <!-- photo accessible depuis dashboard.html.twig -->
-                                            <img class="img-fluid" src="../public/img/user/{{ app.user.picture }}" width="10%"/><br/><br/>
                                         {% endif %}
                                     </div>
                                     <div class="col-lg-7">
-                                        <p class="username-comment">{{ comment.user.username }}</p>
-                                        <p>{% if comment.date is defined %}{{ comment.date }}{% endif %}</p>
+                                        <p class="username-comment">{{ comment.user.username }}, at
+                                            {% if comment.createdAt is defined %} {{ comment.createdAt|date("m/d/Y") }}
+                                            {% endif %}</p>
+
                                         <p class="comment-content">{{ comment.content }}</p>
                                     </div>
                                 </div>

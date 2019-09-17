@@ -11,19 +11,15 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormView;
 
-class PictureFormType extends AbstractType
+class EmbedType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', FileType::class, [
-                'label' => 'add Image',
+            ->add('Embed', TextType::class, [
+                'label' => 'ex : <iframe width="560" height="315" src="https://www.youtube.com/embed/1BjgBoummtE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                 'required'   => false,
-            ])
 
-            ->add('texte', TextType::class, [
-                'label' => 'add text on image ',
-                'required'   => false,
             ])
         ;
     }
