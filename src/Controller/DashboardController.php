@@ -1,5 +1,5 @@
 <?php
-// src/Controller/dashboardController.php
+// src/Controller/DashboardController.php
 /**
  * Created by PhpStorm.
  * User: sacha
@@ -9,6 +9,7 @@
 
 namespace App\Controller;
 
+use App\Form\UserPasswordFormType;
 use App\Form\UserPictureFormType;
 use App\Repository\TricksRepository;
 use App\Repository\UserRepository;
@@ -22,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Twig\Environment;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Entity\Tricks;
@@ -32,14 +34,13 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 /**
  * @IsGranted("ROLE_MEMBER")
  */
-class dashboardController  extends BaseController
+class DashboardController  extends BaseController
 {
 
     /**
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboard(AuthenticationUtils $authenticationUtils, LoggerInterface $logger, Request $request, UserRepository $userRepo){
-
+    public function dashboard(AuthenticationUtils $authenticationUtils, UserPasswordEncoderInterface $encoder, LoggerInterface $logger, Request $request, UserRepository $userRepo){
 
         $entityManager = $this->getDoctrine()->getManager();
         $user = $this->getUser();
@@ -47,10 +48,12 @@ class dashboardController  extends BaseController
         $form = $this->createForm(UserPictureFormType::class, $user);
         $form->handleRequest($request);
 
+        $form2 = $this->createForm(UserPasswordFormType::class, $user);
+        $form2->handleRequest($request);
+
+
         if ($form->isSubmitted()) {
             $PictureFile = $form->get('picture')->getData();
-
-
 
             if($PictureFile);
             $originalFilename = pathinfo($PictureFile->getClientOriginalName(), PATHINFO_FILENAME);
@@ -74,18 +77,30 @@ class dashboardController  extends BaseController
             $user->setPicture($newFilename);
         }
 
-            //$user->setPicture($PictureFile);
+        if ($form2->isSubmitted()) {
+
+            $password = $encoder->encodePassword($user, $form2->get('password')->getData());
+            $user->setPassword($password);
             $entityManager->persist($user);
             $entityManager->flush();
 
             $this->addFlash(
                 'success',
-                "Your photo is upload now"
+                "Your profile is updated"
             );
+
+            return $this->redirectToRoute('login');
+        }
+
+        //$user->setPicture($PictureFile);
+        $entityManager->persist($user);
+        $entityManager->flush();
+
 
 
         return $this->render('Member/dashboard.html.twig',[
             'UserPictureFormType' => $form->createView(),
+            'UserPasswordFormType' => $form2->createView(),
         ]);
     }
     /**
@@ -106,7 +121,6 @@ class dashboardController  extends BaseController
         return $this->render('Member/listTricks.html.twig', [
             'tricks' => $tricks,
             'visitorName' => $visitorName
-
         ]);
     }
 }

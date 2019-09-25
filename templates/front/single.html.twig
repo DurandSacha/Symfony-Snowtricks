@@ -8,11 +8,14 @@
         <div class="row">
             <div class="col-lg-12 text-center" >
 
-                {% if medias is defined %}
-                    {% if medias[0] %}
-                        <img class="img-fluid " src="/img/{{ medias[0].path }}" alt="front-image" width="90%;">
+                {% for image in medias %}
+
+                    {% if image.thumbnail == true %}
+
+                <img class="card-img-top" src="{{ asset('img/'~image.path) }}" alt="{{ image.texte }}" height="65%">
                     {% endif %}
-                {% endif %}
+
+                {% endfor %}
 
 
             </div>
@@ -28,20 +31,13 @@
 
                         {% for media in medias %}
 
+                            {% for i in 0..10 %}
+                                {% if Embed[i] is defined %}
+                                    {{ Embed[i].path|html }}
+                                {% endif %}
+                            {% endfor %}
 
-                            {% if Embed[0] is defined %}
-                                {{ Embed[0].path|html }}
-                            {% endif %}
-
-                            {% if Embed[1] is defined %}
-                                {{ Embed[1].path|html }}
-                            {% endif %}
-
-                            {% if Embed[2] is defined %}
-                                {{ Embed[2].path|html }}
-                            {% endif %}
-
-                                <img class="img-fluid " src="/img/{{ media.path }}" alt="image-single" width="32%;">
+                                <img class="img-fluid " src="{{ asset('img/'~media.path) }}" alt="{{ media.texte }}" >
 
 
                         {% endfor %}

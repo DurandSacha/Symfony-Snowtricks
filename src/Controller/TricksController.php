@@ -1,5 +1,5 @@
 <?php
-// src/Controller/tricksController.php
+// src/Controller/TricksController.php
 
 namespace App\Controller;
 
@@ -31,7 +31,7 @@ use Symfony\Component\Form\FormTypeExtensionInterface;
 /**
  * @IsGranted("ROLE_MEMBER")
  */
-class tricksController extends AbstractController
+class TricksController extends AbstractController
 {
     public const TRICK_REFERENCE = 'trick';
 
@@ -55,6 +55,12 @@ class tricksController extends AbstractController
                 $Illustration->setPath($fileName);
                 $Illustration->setTricks($trick);
 
+                if ($Illustration->getThumbnail() == True ){
+                    $Illustration->setThumbnail(True);
+                }
+                else{
+                    $Illustration->setThumbnail(False);
+                }
 
                 $em->persist($Illustration);
 
@@ -98,8 +104,6 @@ class tricksController extends AbstractController
 
     }
 
-
-
     /**
      * @Route("/admin/article/{tricks}/edit", name="admin_article_edit")
      */
@@ -115,15 +119,20 @@ class tricksController extends AbstractController
             $trick->setAuthor($this->getUser());
 
             foreach ($tricks->getIllustration() as  $Illustration) {
-                $fileName = $upload->upload($Illustration->getFile());
-                $Illustration->setPath($fileName);
-                $Illustration->setTricks($trick);
 
-                $Illustration->setType('Picture');
-                $Illustration->setTexte($Illustration->getTexte());
+                if(!$Illustration->getId()) {
 
-                $em->persist($Illustration);
-                $em->flush();
+                    $fileName = $upload->upload($Illustration->getFile());
+                    $Illustration->setPath($fileName);
+                    $Illustration->setTricks($trick);
+
+                    $Illustration->setType('Picture');
+                    $Illustration->setThumbnail(False);
+                    $Illustration->setTexte($Illustration->getTexte());
+
+                    $em->persist($Illustration);
+                    $em->flush();
+                }
 
             }
 
@@ -147,11 +156,7 @@ class tricksController extends AbstractController
             $this->addFlash('success', 'Article Updated! Inaccuracies squashed!');
             return $this->redirectToRoute('admin_article_edit', [
                 'tricks' => $tricks->getId(),
-
-
             ]);
-
-
 
         }
         $trick = $form->getData();
@@ -168,7 +173,6 @@ class tricksController extends AbstractController
 
         ]);
     }
-
 
 
     /**

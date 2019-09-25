@@ -60,187 +60,45 @@
 
             <div class="row">
 
+                {% for i in 0..10 %}
+                    {%  if  trick.Illustration[i].path is defined and trick.Illustration[i].type == 'Picture' %}
+                        <div>
+                            <img src="{{ asset('img/'~trick.Illustration[i].path) }}" alt="{{ trick.Illustration[i].texte }}" />
+                            <a data-toggle="modal" href="#myModal0">Delete Image</a>
+                        </div>
 
-                {%  if  trick.Illustration[0].path is defined and trick.Illustration[0].type == 'Picture' %}
-                <div>
-                    <img class="img-fluid " src="/img/{{ trick.Illustration[0].path }}" alt="/img/{{ trick.Illustration[0].path }}" width="75%;"><br/>
-                    <a data-toggle="modal" href="#myModal0">Delete Image</a>
-                </div>
-
-                    <!-- DELETE MODALS -->
-                    <div class="modal myModal" id="myModal0" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Delete an image</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Your are sure to delete this image ?  </p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="{{ path('image_delete', { id: trick.Illustration[0].id}) }}" type="button" class="btn btn-primary">Delete </a>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <!-- DELETE MODALS -->
+                        <div class="modal myModal" id="myModal0" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Delete an image</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Your are sure to delete this image ?  </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="{{ path('image_delete', { id: trick.Illustration[i].id}) }}" type="button" class="btn btn-primary">Delete </a>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                {% endif %}
+                    {% endif %}
 
-                {%  if  trick.Illustration[1].path is defined and trick.Illustration[1].type == 'Picture' %}
-                    <div>
-                        <img class="img-fluid " src="/img/{{ trick.Illustration[1].path }}" alt="/img/{{ trick.Illustration[1].path }}" width="75%;"><br/>
-                        <a data-toggle="modal" href="#myModal1">Delete Image</a>
-                    </div>
-
-                    <!-- DELETE MODALS -->
-                    <div class="modal myModal" id="myModal1" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Delete an image</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Your are sure to delete this image ?  </p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="{{ path('image_delete', { id: trick.Illustration[1].id}) }}" type="button" class="btn btn-primary">Delete </a>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                {% endif %}
-
-                {%  if  trick.Illustration[2].path is defined and trick.Illustration[2].type == 'Picture' %}
-                    <div>
-                        <img class="img-fluid " src="/img/{{ trick.Illustration[2].path }}" alt="/img/{{ trick.Illustration[2].path }}" width="75%;"><br/>
-                        <a data-toggle="modal" href="#myModal2">Delete Image</a>
-                    </div>
-
-                    <!-- DELETE MODALS -->
-                    <div class="modal myModal" id="myModal2" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Delete an image</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Your are sure to delete this image ?  </p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="{{ path('image_delete', { id: trick.Illustration[2].id}) }}" type="button" class="btn btn-primary">Delete </a>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                {% endif %}
-
-                {%  if  trick.Illustration[3].path is defined and trick.Illustration[3].type == 'Picture' %}
-                    <div>
-                        <img class="img-fluid " src="/img/{{ trick.Illustration[3].path }}" alt="/img/{{ trick.Illustration[3].path }}" width="75%;"><br/>
-                        <a data-toggle="modal" href="#myModal3">Delete Image</a>
-                    </div>
-
-                    <!-- DELETE MODALS -->
-                    <div class="modal myModal" id="myModal3" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Delete an image</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Your are sure to delete this image ?  </p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="{{ path('image_delete', { id: trick.Illustration[3].id}) }}" type="button" class="btn btn-primary">Delete </a>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                {% endif %}
-
-                {%  if  trick.Illustration[4].path is defined and trick.Illustration[4].type == 'Picture' %}
-                    <div>
-                        <img class="img-fluid " src="/img/{{ trick.Illustration[4].path }}" alt="/img/{{ trick.Illustration[4].path }}" width="75%;"><br/>
-                        <a data-toggle="modal" href="#myModal4">Delete Image</a>
-                    </div>
-
-                    <!-- DELETE MODALS -->
-                    <div class="modal myModal" id="myModal4" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Delete an image</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Your are sure to delete this image ?  </p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="{{ path('image_delete', { id: trick.Illustration[4].id}) }}" type="button" class="btn btn-primary">Delete </a>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
+                {% endfor %} <br/>
 
                 <!------------- EMBED AFFICHAGE ET MODALS DELETE -------------------->
 
-                {%  if trick.Illustration[0].path is defined  %}
-                    {% if trick.Illustration[0].type == 'Embed' %}
-                    <div>
-                        {{ trick.Illustration[0].path|html }}<br/>
-                        <a data-toggle="modal" href="#myModal10">Delete Embed Balise</a>
-                    </div>
-
-                    <!-- DELETE MODALS -->
-                    <div class="modal myModal" id="myModal10" tabindex="-1" role="dialog">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Delete an Embed Balise</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Your are sure to delete Embed Balise ?  </p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="{{ path('embed_delete', { id: trick.Illustration[0].id}) }}" type="button" class="btn btn-primary">Delete </a>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                {% endif %}
-
-                {%  if trick.Illustration[1].path is defined  %}
-                    {% if trick.Illustration[1].type == 'Embed' %}
+                {% for i in 0..10 %}
+                    {%  if trick.Illustration[i].path is defined  %}
+                        {% if trick.Illustration[i].type == 'Embed' %}
                         <div>
-                            {{ trick.Illustration[1].path|html }}<br/>
+                            {{ trick.Illustration[i].path|html }}<br/>
                             <a data-toggle="modal" href="#myModal10">Delete Embed Balise</a>
                         </div>
 
@@ -258,105 +116,17 @@
                                         <p>Your are sure to delete Embed Balise ?  </p>
                                     </div>
                                     <div class="modal-footer">
-                                        <a href="{{ path('embed_delete', { id: trick.Illustration[1].id}) }}" type="button" class="btn btn-primary">Delete </a>
+                                        <a href="{{ path('embed_delete', { id: trick.Illustration[i].id}) }}" type="button" class="btn btn-primary">Delete </a>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
+                {% endfor %}
 
 
-                {%  if trick.Illustration[2].path is defined  %}
-                    {% if trick.Illustration[2].type == 'Embed' %}
-                        <div>
-                            {{ trick.Illustration[2].path|html }}<br/>
-                            <a data-toggle="modal" href="#myModal10">Delete Embed Balise</a>
-                        </div>
-
-                        <!-- DELETE MODALS -->
-                        <div class="modal myModal" id="myModal10" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Delete an Embed Balise</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Your are sure to delete Embed Balise ?  </p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a href="{{ path('embed_delete', { id: trick.Illustration[2].id}) }}" type="button" class="btn btn-primary">Delete </a>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endif %}
-
-                {%  if trick.Illustration[3].path is defined  %}
-                    {% if trick.Illustration[3].type == 'Embed' %}
-                        <div>
-                            {{ trick.Illustration[3].path|html }}<br/>
-                            <a data-toggle="modal" href="#myModal10">Delete Embed Balise</a>
-                        </div>
-
-                        <!-- DELETE MODALS -->
-                        <div class="modal myModal" id="myModal10" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Delete an Embed Balise</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Your are sure to delete Embed Balise ?  </p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a href="{{ path('embed_delete', { id: trick.Illustration[3].id}) }}" type="button" class="btn btn-primary">Delete </a>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endif %}
-
-                {%  if trick.Illustration[4].path is defined  %}
-                    {% if trick.Illustration[4].type == 'Embed' %}
-                        <div>
-                            {{ trick.Illustration[4].path|html }}<br/>
-                            <a data-toggle="modal" href="#myModal10">Delete Embed Balise</a>
-                        </div>
-
-                        <!-- DELETE MODALS -->
-                        <div class="modal myModal" id="myModal10" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Delete an Embed Balise</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Your are sure to delete Embed Balise ?  </p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a href="{{ path('embed_delete', { id: trick.Illustration[4].id}) }}" type="button" class="btn btn-primary">Delete </a>
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endif %}
             </div>
 
     </div>

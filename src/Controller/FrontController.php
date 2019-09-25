@@ -43,7 +43,6 @@ class FrontController extends AbstractController
             $visitorName = $user->getUsername();
         }
 
-        /**** PAGINATION **/
         $q = $request->query->get('q');
         $queryBuilder = $tricksRepo->getWithSearchQueryBuilder($q);
 

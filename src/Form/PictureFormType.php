@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\Media;
 use Faker\Provider\File;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,7 +27,14 @@ class PictureFormType extends AbstractType
                 'label' => 'add text on image ',
                 'required'   => false,
             ])
-        ;
+
+            ->add('thumbnail', RadioType::class, [
+                'label' => 'is thumbnails ? ',
+                'required'   => false,
+            ])
+
+
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

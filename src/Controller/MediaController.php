@@ -22,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormView;
 
 
-class mediaController extends AbstractController
+class MediaController extends AbstractController
 {
 
     /**

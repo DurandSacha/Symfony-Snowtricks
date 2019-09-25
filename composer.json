@@ -5,8 +5,10 @@
         "php": "^7.3.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-intl": "*",
         "doctrine/orm": "^2.6.2",
         "fortawesome/font-awesome": "^5.8",
+        "knplabs/knp-paginator-bundle": "^4.0",
         "sensio/framework-extra-bundle": "^5.3",
         "sensiolabs/security-checker": "^5.0",
         "symfony/apache-pack": "^1.0",
@@ -28,8 +30,7 @@
         "symfony/web-server-bundle": "4.2.*",
         "symfony/yaml": "4.2.*",
         "twbs/bootstrap": "^4.3",
-        "twig/extensions": "^1.5",
-        "ext-intl": "*"
+        "twig/extensions": "^1.5"
     },
     "config": {
         "preferred-install": {

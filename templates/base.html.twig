@@ -46,10 +46,12 @@
             {% if is_granted('ROLE_USER') or is_granted('ROLE_MEMBER') %}
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
+                        <!--
                         <li class="nav-item">
-                        <a href="{{ path('dashboard') }}" class="nav-link"> {% if visitorName is defined %} <span class ="badge badge-info"> Member Space {{ visitorName }}</span>
-                                 {% endif %}</a>
+                        <a href="{ { path('dashboard') }}" class="nav-link"> { % if visitorName is defined %} <span class ="badge badge-info"> Member Space { { visitorName }}</span>
+                                 { % endif %}</a>
                         </li>
+                        -->
 
                         <li class="nav-item"><a class="nav-link">|</a></li>
 
