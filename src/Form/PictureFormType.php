@@ -31,6 +31,8 @@ class PictureFormType extends AbstractType
             ->add('thumbnail', RadioType::class, [
                 'label' => 'is thumbnails ? ',
                 'required'   => false,
+                'by_reference' => false,
+
 
             ])
 

@@ -11,8 +11,7 @@
         {{ form_row(addTricksForm.name) }}
         {{ form_row(addTricksForm.description) }}
         {{ form_row(addTricksForm.categoryTricks) }}
-
-
+        
         <div class="row js-genus-scientist-wrapper data"
             data-prototype ="{{ form_widget(addTricksForm.Illustration.vars.prototype)|e('html_attr') }}"
              data-index="{{ addTricksForm.Illustration|length }}">
