@@ -9,7 +9,7 @@
 
             <!-- Custom styles for this template -->
             <link rel="stylesheet" href="{{ asset('css/one-page-wonder.css') }}" type="text/css"/>
-            <link rel="stylesheet" href="{{ asset('vendor/fortawesome/font-awesome/css/all.css') }}"/>
+            <!-- <link rel="stylesheet" href="{ { asset('vendor/fortawesome/font-awesome/css/all.css') }}"/> -->
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
         {% endblock %}
 
@@ -91,17 +91,12 @@
 
 
 
-
-
-
-
         {% block body %}{% endblock %}
         {% block javascripts %}
             <!-- Bootstrap core JavaScript -->
             <script src="vendor/jquery/jquery.min.js"></script>
             <link href="{{ asset('vendor/jquery/jquery.min.js') }}" />
-            <link href="{{ asset('public/js/main.js') }}" />
-
+            <script src="{{ asset('js/main.js') }}" ></script>
             <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
             <link href="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}" />
         {% endblock %}

@@ -108,5 +108,17 @@ class FrontController extends AbstractController
         ]);
         return new Response($content);
     }
+
+    /**
+     * @Route("/learn", name="learn")
+     */
+    public function learn(Environment $twig)
+    {
+        $content = $twig->render('front/learn.html.twig', [
+
+        ]);
+        return new Response($content);
+    }
+
 }
 
