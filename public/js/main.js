@@ -9,22 +9,66 @@
 
 $(document).ready(function(){
 
+
     setInterval(function() {
+        // fonctionnel sur le bouton Add Media
+        var number = 0;
+        $('#add_button_media').click(function() {
+            number++;
+        });
 
-    // fonctionnel sur le bouton Add Media
-    $('#add_button_media').click(function() {
-        console.log('Media Form Ajouté');
-
-    });
-
-    // fonctionne
-    $('.form-check-input').click( function() {
-        console.log('form check input captured');
-    });
+        // fonctionne
+        $('.form-check-input').click( function() {
+            console.log('radio captured');
+            reinizialise(number);
+        });
 
 
-    }, 1000);
+
+    }, 4000);
+
+    function reinizialise(number){
+
+            var radios = $('.form-check-input');
+            if(radios)
+            {
+                radios.checked = false;
+                console.log(number);
+                for (i=0; i < number ; i++)
+                {
+                    radios[i].checked = false;
+                    var radio = $('#add_tricks_form_Illustration_' + number +'_thumbnail');
+                    console.log(i);
+
+                    if( radio.click() ){
+                        radio[i].checked = true;
+                    }
+                    else{
+                        radio[i].checked = false;
+                    }
+
+
+
+
+                }
+            }
+        }
+
+    function select(){
+
+    }
+
+
 });
+
+/*
+$('#foo').bind('click', function() {
+  alert('User clicked on "foo."');
+});
+ */
+
+
+
 
 
 
