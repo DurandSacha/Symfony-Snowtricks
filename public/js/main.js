@@ -1,76 +1,30 @@
-
-
-// id : add_tricks_form_Illustration_0_thumbnail
-// class : form-check-input
-
-
-//var radio =$('.form-check-input').prop("checked", false)
-//radio.attr('checked', false);
-
 $(document).ready(function(){
 
+    // $('#id').prop('checked', true);
+    //$('#add_tricks_form_Illustration_0_thumbnail').prop('checked', true);
 
-    setInterval(function() {
-        // fonctionnel sur le bouton Add Media
-        var number = 0;
-        $('#add_button_media').click(function() {
-            number++;
-        });
+    $('.js-genus-scientist-add').click(function(e) {
+        setTimeout(function() {
 
-        // fonctionne
-        $('.form-check-input').click( function() {
-            console.log('radio captured');
-            reinizialise(number);
-        });
+            var radios = $('.form-check-input') ;
+            //var radio = $('#add_tricks_form_Illustration_0_thumbnail');
 
+            radios.click(function() {
 
+                radios.prop('checked', false);
 
-    }, 4000);
-
-    function reinizialise(number){
-
-            var radios = $('.form-check-input');
-            if(radios)
-            {
-                radios.checked = false;
-                console.log(number);
-                for (i=0; i < number ; i++)
+                for (var i = 0;i<5; i++)
                 {
-                    radios[i].checked = false;
-                    var radio = $('#add_tricks_form_Illustration_' + number +'_thumbnail');
-                    console.log(i);
-
-                    if( radio.click() ){
-                        radio[i].checked = true;
+                    var radio = $('#add_tricks_form_Illustration_' + i + '_thumbnail');
+                    if (radio.is(':checked')) {
+                        radio.prop('checked', true);
                     }
-                    else{
-                        radio[i].checked = false;
-                    }
-
-
-
-
                 }
-            }
-        }
+            });
 
-    function select(){
-
-    }
-
-
+        }, 1000);
+    });
 });
-
-/*
-$('#foo').bind('click', function() {
-  alert('User clicked on "foo."');
-});
- */
-
-
-
-
-
 
 
 

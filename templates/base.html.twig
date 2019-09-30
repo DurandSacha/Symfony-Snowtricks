@@ -29,16 +29,6 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            {% if app.user %}
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link">|</a></li>
-                </ul>
-                <a class="nav-item memberMenu" href="{{ path('dashboard') }}">dashboard  </a>
-                <a class="nav-item memberMenu" href="{{ path('trickList') }}"> myTricks  </a>
-                <a class="nav-item memberMenu" href="{{ path('admin_tricks_new') }}">add Tricks</a>
-            {%  else %}
-            {% endif %}
-
 
 
 
@@ -46,17 +36,16 @@
             {% if is_granted('ROLE_USER') or is_granted('ROLE_MEMBER') %}
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <!--
-                        <li class="nav-item">
-                        <a href="{ { path('dashboard') }}" class="nav-link"> { % if visitorName is defined %} <span class ="badge badge-info"> Member Space { { visitorName }}</span>
-                                 { % endif %}</a>
-                        </li>
-                        -->
 
-                        <li class="nav-item"><a class="nav-link">|</a></li>
+
+                        {% if app.user %}
+                                <li><a class="memberMenu navred nav-link" href="{{ path('dashboard') }}">dashboard  </a></li>
+                                <li><a class="memberMenu navred nav-link" href="{{ path('admin_tricks_new') }}">add Tricks</a></li>
+                                <li><a class="memberMenu navred nav-link" href="{{ path('trickList') }}"> myTricks  </a></li>
+                        {% endif %}
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('logout') }}">Log Out</a>
+                            <a class="nav-link logout" href="{{ path('logout') }}">Log Out</a>
                         </li>
                     </ul>
                 </div>

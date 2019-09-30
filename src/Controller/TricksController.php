@@ -152,7 +152,6 @@ class TricksController extends AbstractController
             $em->flush();
 
 
-
             $this->addFlash('success', 'Article Updated! Inaccuracies squashed!');
             return $this->redirectToRoute('admin_article_edit', [
                 'tricks' => $tricks->getId(),
