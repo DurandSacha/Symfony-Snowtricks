@@ -65,6 +65,7 @@
                         <div>
                             <img src="{{ asset('img/'~trick.Illustration[i].path) }}" alt="{{ trick.Illustration[i].texte }}" />
                             <a data-toggle="modal" href="#myModal0">Delete Image</a>
+                            <a href="{{ path('select_thumbnail', { id: trick.Illustration[i].id, trick: trick.id}) }}" type="button" class="btn btn-primary">Select for thumbnails </a>
                         </div>
 
                         <!-- DELETE MODALS -->

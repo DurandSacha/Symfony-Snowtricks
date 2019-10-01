@@ -1,6 +1,5 @@
 <?php
 // src/Controller/TricksController.php
-
 namespace App\Controller;
 
 use App\Entity\Comment;
@@ -26,15 +25,12 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\Form\FormTypeExtensionInterface;
 
-
-
 /**
  * @IsGranted("ROLE_MEMBER")
  */
 class TricksController extends AbstractController
 {
     public const TRICK_REFERENCE = 'trick';
-
     /**
     * @Route("/addTricks", name="admin_tricks_new")
     */
@@ -51,27 +47,20 @@ class TricksController extends AbstractController
             foreach ($trick->getIllustration() as  $Illustration) {
 
                 $fileName = $upload->upload($Illustration->getFile());
-
                 $Illustration->setPath($fileName);
                 $Illustration->setTricks($trick);
-
                 if ($Illustration->getThumbnail() == True ){
                     $Illustration->setThumbnail(True);
                 }
                 else{
                     $Illustration->setThumbnail(False);
                 }
-
                 $em->persist($Illustration);
 
                 $Illustration->setType('Picture');
-
                 $Illustration->setTexte($Illustration->getTexte());
-                //$Illustration->setTexte('A picture for a tricks');
 
             }
-
-
             //$embedFile = $form->get('Embed')->getData();
             foreach ($form->get('Embed')->getData() as  $embed) {
 
@@ -83,25 +72,18 @@ class TricksController extends AbstractController
 
                 $video->setType('Embed');
                 $video->setTexte('A Embed Balise');
-
             }
 
             $em->persist($trick);
-
             $em->flush();
 
             $this->addFlash('success', 'Tricks ' . $trick->getName() . ' is created');
             return $this->redirectToRoute('home');
-
         }
-
-
-
         return $this->render('Member/addTricks.html.twig', [
             'addTricksForm' => $form->createView(),
 
         ]);
-
     }
 
     /**
@@ -133,7 +115,6 @@ class TricksController extends AbstractController
                     $em->persist($Illustration);
                     $em->flush();
                 }
-
             }
 
             foreach ($form->get('Embed')->getData() as  $embed) {
@@ -151,7 +132,6 @@ class TricksController extends AbstractController
 
             $em->flush();
 
-
             $this->addFlash('success', 'Article Updated! Inaccuracies squashed!');
             return $this->redirectToRoute('admin_article_edit', [
                 'tricks' => $tricks->getId(),
@@ -159,8 +139,6 @@ class TricksController extends AbstractController
 
         }
         $trick = $form->getData();
-
-
         $mediaRepo = $em->getRepository(Media::class);
         //$medias = $trick->getIllustration();
         $medias = $mediaRepo->findBy(array('tricks' => $trick->getId()));
@@ -172,7 +150,6 @@ class TricksController extends AbstractController
 
         ]);
     }
-
 
     /**
      * @Route(
@@ -200,15 +177,12 @@ class TricksController extends AbstractController
         {
             $entityManager->remove($comment);
         }
-        /* Delete Tricks */
         $repository = $this->getDoctrine()->getRepository(Tricks::class);
         $trick = $repository->findOneBy(array('id' => $id));
         $entityManager->remove($trick);
 
-
         $entityManager->flush();
         $this->addFlash('info','This trick is deleted');
-
 
         return $this->redirectToRoute('home');
     }
