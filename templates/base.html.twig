@@ -9,7 +9,7 @@
 
             <!-- Custom styles for this template -->
             <link rel="stylesheet" href="{{ asset('css/one-page-wonder.css') }}" type="text/css"/>
-            <link rel="stylesheet" href="{{ asset('vendor/fortawesome/font-awesome/css/all.css') }}"/>
+            <!-- <link rel="stylesheet" href="{ { asset('vendor/fortawesome/font-awesome/css/all.css') }}"/> -->
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
         {% endblock %}
 
@@ -29,16 +29,6 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            {% if app.user %}
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link">|</a></li>
-                </ul>
-                <a class="nav-item memberMenu" href="{{ path('dashboard') }}">dashboard  </a>
-                <a class="nav-item memberMenu" href="{{ path('trickList') }}"> myTricks  </a>
-                <a class="nav-item memberMenu" href="{{ path('admin_tricks_new') }}">add Tricks</a>
-            {%  else %}
-            {% endif %}
-
 
 
 
@@ -46,15 +36,16 @@
             {% if is_granted('ROLE_USER') or is_granted('ROLE_MEMBER') %}
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                        <a href="{{ path('dashboard') }}" class="nav-link"> {% if visitorName is defined %} <span class ="badge badge-info"> Member Space {{ visitorName }}</span>
-                                 {% endif %}</a>
-                        </li>
 
-                        <li class="nav-item"><a class="nav-link">|</a></li>
+
+                        {% if app.user %}
+                                <li><a class="memberMenu navred nav-link" href="{{ path('dashboard') }}">dashboard  </a></li>
+                                <li><a class="memberMenu navred nav-link" href="{{ path('admin_tricks_new') }}">add Tricks</a></li>
+                                <li><a class="memberMenu navred nav-link" href="{{ path('trickList') }}"> myTricks  </a></li>
+                        {% endif %}
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('logout') }}">Log Out</a>
+                            <a class="nav-link logout" href="{{ path('logout') }}">Log Out</a>
                         </li>
                     </ul>
                 </div>
@@ -89,17 +80,13 @@
 
 
 
-
-
-
-
         {% block body %}{% endblock %}
         {% block javascripts %}
             <!-- Bootstrap core JavaScript -->
             <script src="vendor/jquery/jquery.min.js"></script>
             <link href="{{ asset('vendor/jquery/jquery.min.js') }}" />
-            <link href="{{ asset('public/js/main.js') }}" />
-
+            <script src="{{ asset('js/addCollection.js') }}" ></script>
+            <script src="{{ asset('js/main.js') }}" ></script>
             <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
             <link href="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}" />
         {% endblock %}

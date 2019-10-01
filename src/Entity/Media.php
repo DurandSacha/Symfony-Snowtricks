@@ -38,10 +38,25 @@ class Media
      */
     private $tricks;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default":false})
+     */
+    private $thumbnail;
+
     private $file;
 
     private $Embed;
 
+
+    public function getThumbnail()
+    {
+        return $this->thumbnail;
+    }
+
+    public function setThumbnail($thumbnail): void
+    {
+        $this->thumbnail = $thumbnail;
+    }
 
     public function getEmbed()
     {

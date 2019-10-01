@@ -178,7 +178,7 @@ header.masthead .bg-circle-4 {
 
 .memberMenu  {
   color : red;
-  padding-right: 2%;
+  padding-right: 3%;
   margin-left: 2%;
   font-size: 1rem;
   text-transform: uppercase;
@@ -291,6 +291,36 @@ input #add_tricks_form_Illustration_0_file .custom-file-input button{
   transition-duration: 0.5s;
 
 }
+
+.navbar,#navbarResponsive{
+  background-color: black;
+}
+
+/* medias queries */
+.navbar-dark .navbar-nav .navred{
+  color: red;
+  font-size: 16px;
+  white-space:nowrap;
+
+}
+.logout{
+  color : darkgrey;
+
+}
+
+@media screen and (max-width: 640px) {
+  .bloc {
+    display:block;
+    clear:both;
+  }
+}
+
+
+
+
+
+
+
 
 
 

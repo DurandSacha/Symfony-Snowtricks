@@ -8,7 +8,7 @@
       <div class="container">
         <h1 class="masthead-heading mb-0"> Snowtricks Website</h1>
         <h2 class="masthead-subheading mb-0"> <i class="fa fa-angle-double-right"></i> Share your tricks, Learn Snow</h2>
-        <a href="#" class="btn btn-primary btn-xl rounded-pill mt-5">Learn More</a>
+        <a href="{{ path('learn')}}" class="btn btn-primary btn-xl rounded-pill mt-5">Learn More</a>
       </div>
     </div>
     <div class="bg-circle-1 bg-circle"></div>
@@ -24,14 +24,14 @@
         <div class="trick">
           <div class="card" style="width: 18rem;">
 
-            {% if trick.Illustration[0] is defined %}
-                {%  if trick.Illustration[0].type == 'Picture' %}
-                  <img class="card-img-top" src="img/{{ trick.Illustration[0].path }}" alt="{{ trick.Illustration[0].path }}" >
-                {%  endif %}
 
-            {% else %}
-                <img class="card-img-top" src="img/demo/1.jpg" alt="Default Image" >
-            {% endif %}
+            {% for image in trick.Illustration %}
+
+                  {% if image.thumbnail == true %}
+                      <img class="card-img-top" src="img/{{ image.path }}" alt="{{ image.texte }}" >
+                  {% endif %}
+              <!-- else : image par defaut -->
+            {% endfor %}
 
 
 

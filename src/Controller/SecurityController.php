@@ -8,7 +8,7 @@
 
 namespace App\Controller;
 
-use App\Form\changePasswordForm;
+use App\Form\UserPasswordFormType;
 use App\Form\resetForm;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +26,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Psr\Log\LoggerInterface;
 
 
-class securityController extends AbstractController
+class SecurityController extends AbstractController
 {
 
     /**
@@ -208,6 +208,8 @@ class securityController extends AbstractController
             'groups' => ['main'],
         ]);
     }
+
+
 
     /**
      * @Route("/admin/utility/users", methods="GET")
