@@ -137,7 +137,6 @@
     {{ parent() }}
 
     <script>
-
         document.getElementById("loadMoreComment").addEventListener("click", loadMore);
         click = 0;
 
@@ -152,20 +151,15 @@
                 type: 'POST',
                 data: 'start=' + start,
                 dataType: 'html',
-                success: function (data, statut) { // code_html contient le HTML renvoyé
+                success: function (data, statut) {
                     console.log(data);
-                    //document.getElementById("comment-list").append(data);
                     $('#comment-list').append(data);
-                    
                 }
             });
 
-            if( start > 8) {
+            if( start > {{ comments|length }}) {
                 $('#loadMoreComment').fadeOut();
             }
-
         }
-
-
     </script>
 {% endblock %}

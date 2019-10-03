@@ -119,7 +119,7 @@ class FrontController extends AbstractController
      * Get the 9 next tricks
      * @Route("/page/{start<\d+>?9}", name="loadMoreTricks")
      */
-    public function loadMoreTricks($start, TricksRepository $repository )
+    public function loadMoreTricks($start = 9, TricksRepository $repository )
     {
 
         $tricks = $repository->findBy([], ['id' => 'DESC'], 9, $start);

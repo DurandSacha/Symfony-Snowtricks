@@ -20,7 +20,7 @@
 
   <div class="row" id="trickList">
     <div id="group-trick">
-        {% for trick in tricks %}
+        {% for trick in tricks | slice(0,9)%}
 
           <div class="trick">
             <div class="card" style="width: 18rem;">
@@ -153,8 +153,8 @@
         }
       });
 
-      if(start > 30) {
-        $('#loadMoreTricks').fadeOut();
+      if(start > {{ tricks|length }}){
+      $('#loadMoreTricks').fadeOut();
       }
 
 
