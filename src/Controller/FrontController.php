@@ -56,7 +56,7 @@ class FrontController extends AbstractController
     /**
      * @Route("/single/{id}", name="single-tricks")
      */
-    public function tricks($id, Environment $twig, EntityManagerInterface $em, Request $request)
+    public function tricks($id, Environment $twig, EntityManagerInterface $em, Request $request,CommentRepository $commentRepo)
     {
         $tricksRepo = $em->getRepository(Tricks::class);
         $mediaRepo = $em->getRepository(Media::class);
@@ -69,7 +69,10 @@ class FrontController extends AbstractController
         if(empty($medias)){
             $medias = 'demo/0.jpg';
         }
-        $comments = $trick->getComments();
+        //$comments = $trick->getComments();
+
+        $comments = $commentRepo->findBy(['Tricks' => $trick->getId()], ['id' => 'DESC'], 3, 0);
+
         $embed = $mediaRepo->findBy(['type' => 'Embed']);
 
 
@@ -139,14 +142,16 @@ class FrontController extends AbstractController
     /**
      * Get the 5 next comments in the database and create a Twig file with them that will be displayed via Javascript
      *
-     * @Route("/trick/{id}/{start}", name="loadMoreComments", requirements={"start": "\d+"})
+     * @Route("/single/{id}/page/{start}", name="loadMoreComments", requirements={"start": "\d+"})
      */
     public function loadMoreComments(CommentRepository $commentRepository, TricksRepository $tricksRepository,  $id, $start = 3)
     {
         $trick = $tricksRepository->findOneById($id);
-        return $this->render('trick/loadMoreComments.html.twig', [
+        $comments = $commentRepository->findBy(['Tricks' => $trick->getId()], ['id' => 'DESC'], 3, $start);
+        return $this->render('front/loadComment.html.twig', [
             'trick' => $trick,
-            'start' => $start
+            'start' => $start,
+            'comments' => $comments,
         ]);
     }
 

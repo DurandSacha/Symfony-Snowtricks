@@ -85,7 +85,7 @@
 
                 <div id="comment-list">
                 {% if comments is defined %}
-                    {% for comment in comments  %}
+                    {% for comment in comments | slice(0,3) %}
 
                         <ul>
                             <li>
@@ -110,10 +110,10 @@
                         </ul>
 
                     {% endfor %}
-
+                </div>
                     <div class="block-center text-center align-items-center paginate">
                         <div class="col-12 text-center">
-                            <button id="loadMoreComment" class="btn btn-primary"> More Comment</button>
+                            <button id="loadMoreComment" class="btn btn-primary btn-comment-1"> More Comment</button>
                         </div>
                     </div>
 
@@ -121,84 +121,51 @@
                     <p> There are not comments for this tricks </p>
 
                 {% endif %}
-                </div>
 
-            </div>
 
-                </p>
             </div>
         </div>
 
         <br/>
         <br/>
         <br/>
-    </div>
+
 </section>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            crossorigin="anonymous">
-    </script>
-
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
 
-        document.getElementById("loadMoreComment").addEventListener("click", loadMoreComments);
+        document.getElementById("loadMoreComment").addEventListener("click", loadMore);
         click = 0;
 
-        function loadMoreComments(event) {
-            event.preventDefault();
-            click++;
-            var start = 3 * click;
-            const url = "{{ path('loadMoreComments', {'id': trick.id} )}}/" + start;
-            axios.get(url).then(function(response) {
-                $("#comment-list").append(response.data);
-            }).catch(function (error) {
-                if (response.status === 403) {
-                    window.alert("Vous n'êtes pas autorisé à effectuer cette action !");
-                }
-                else if (response.status === 404) {
-                    window.alert("La page appelé n'existe pas");
-                }
-                else {
-                    window.alert("Une erreur est survenue !");
-                }
-            });
-        }
-
-        /*
-        function loadMoreComment(event) {
+        function loadMore(event) {
             event.preventDefault();
             click++;
             var start = 3 * click;
 
             $.ajax({
 
-                url: "{ { path('loadMoreComment') }}",
-                type : 'POST',
+                url: "{{ path('loadMoreComments', {'id': trick.id} ) }}/" + start,
+                type: 'POST',
                 data: 'start=' + start,
-                dataType : 'html',
-                success : function(data, statut){ // code_html contient le HTML renvoyé
-                    console.log(statut);
-                    $('#group-trick').append(data);
-
-
+                dataType: 'html',
+                success: function (data, statut) { // code_html contient le HTML renvoyé
+                    console.log(data);
+                    //document.getElementById("comment-list").append(data);
+                    $('#comment-list').append(data);
+                    
                 }
             });
 
-            if(start > 9) {
+            if( start > 8) {
                 $('#loadMoreComment').fadeOut();
             }
 
-
-
-
         }
-        */
+
 
     </script>
 {% endblock %}

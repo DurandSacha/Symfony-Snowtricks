@@ -81,13 +81,13 @@
         {% block javascripts %}
             <!-- Bootstrap core JavaScript -->
 
-            <script src="vendor/jquery/jquery.min.js"></script>
+            <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
             <link href="{{ asset('vendor/jquery/jquery.min.js') }}" />
             <script src="{{ asset('https://unpkg.com/axios/dist/axios.min.js') }}"></script>
             <script src="{{ asset('js/addCollection.js') }}" ></script>
             <script src="{{ asset('js/loadMore.js') }}" ></script>
             <script src="{{ asset('js/main.js') }}" ></script>
-            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
             <link href="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}" />
         {% endblock %}
 
