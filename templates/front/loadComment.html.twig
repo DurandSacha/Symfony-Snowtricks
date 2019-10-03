@@ -1,0 +1,25 @@
+{% if comments is defined %}
+                    {% for comment in comments | slice(start, start + 3) %}
+
+                        <ul>
+                            <li>
+                                <div class="row">
+
+                                    <div class="col-lg-3">
+                                        {% if comment.user.picture is defined %}
+                                            <img class="img-fluid" src="{{ asset('img/user/'~comment.user.picture) }}" width="200"/>
+
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-lg-7">
+                                        <p class="username-comment">{{ comment.user.username }}, at
+                                            {% if comment.createdAt is defined %} {{ comment.createdAt|date("m/d/Y") }}
+                                            {% endif %}</p>
+
+                                        <p class="comment-content">{{ comment.content }}</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <hr class="little-hr">
+                        </ul>
+                    {% endfor %}

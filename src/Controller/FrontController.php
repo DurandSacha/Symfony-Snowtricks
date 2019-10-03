@@ -5,6 +5,8 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Media;
+use App\Repository\CommentRepository;
+use App\Repository\TricksRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
@@ -29,32 +31,22 @@ class FrontController extends AbstractController
     public function home(Environment $twig, AuthenticationUtils $authenticationUtils, EntityManagerInterface $em,PaginatorInterface $paginator, Request $request)
     {
 
-
-
         $tricksRepo = $em->getRepository(Tricks::class);
         $mediaRepo = $em->getRepository(Media::class);
 
         $user = $this->getUser();
 
-        // Tester l'objet User pour voir s'il est vide
         if (null === $user) {
             $visitorName = 'Anonyme';
         } else {
             $visitorName = $user->getUsername();
         }
 
-        $q = $request->query->get('q');
-        $queryBuilder = $tricksRepo->getWithSearchQueryBuilder($q);
-
-        $pagination = $paginator->paginate(
-            $queryBuilder, /* query NOT result */
-            $request->query->getInt('page', 1)/*page number*/,
-            6/*limit per page*/
-        );
+        $tricks = $tricksRepo->findBy([], ['id' => 'DESC'], 9, 0);
 
         $content = $twig->render('front/home.html.twig',[
             'visitorName' => $visitorName,
-            'pagination' => $pagination
+            'tricks' => $tricks
 
 
         ]);
@@ -74,7 +66,7 @@ class FrontController extends AbstractController
         $medias = $trick->getIllustration();
 
         // default picture
-        if(!empty($medias)){}else{
+        if(empty($medias)){
             $medias = 'demo/0.jpg';
         }
         $comments = $trick->getComments();
@@ -119,6 +111,47 @@ class FrontController extends AbstractController
         ]);
         return new Response($content);
     }
+
+    /**
+     * Get the 9 next tricks
+     * @Route("/page/{start<\d+>?9}", name="loadMoreTricks")
+     */
+    public function loadMoreTricks($start, TricksRepository $repository )
+    {
+
+        $tricks = $repository->findBy([], ['id' => 'DESC'], 9, $start);
+
+        $user = $this->getUser();
+
+        if (null === $user) {
+            $visitorName = 'Anonyme';
+        } else {
+            $visitorName = $user->getUsername();
+        }
+
+        return $this->render('front/loadTricks.html.twig', [
+            'tricks' => $tricks,
+            'visitorName' => $visitorName,
+        ]);
+    }
+
+
+    /**
+     * Get the 5 next comments in the database and create a Twig file with them that will be displayed via Javascript
+     *
+     * @Route("/trick/{id}/{start}", name="loadMoreComments", requirements={"start": "\d+"})
+     */
+    public function loadMoreComments(CommentRepository $commentRepository, TricksRepository $tricksRepository,  $id, $start = 3)
+    {
+        $trick = $tricksRepository->findOneById($id);
+        return $this->render('trick/loadMoreComments.html.twig', [
+            'trick' => $trick,
+            'start' => $start
+        ]);
+    }
+
+
+
 
 }
 

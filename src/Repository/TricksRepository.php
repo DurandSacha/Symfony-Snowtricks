@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\ORM\QueryBuilder;
 
+
 /**
  * @method Tricks|null find($id, $lockMode = null, $lockVersion = null)
  * @method Tricks|null findOneBy(array $criteria, array $orderBy = null)
