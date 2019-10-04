@@ -7,7 +7,7 @@
 
 
 
-# Symfony-Snowtricks
+# Symfony-Snowtricks in general
 Snowtricks symfony website is a community site related to snowboarding. So you can share snowboard figures and exchange on these same figures of style.
 
 This site has a member area dedicated to users or you can change the settings of your account and post figures and media
@@ -22,4 +22,10 @@ Several solutions to deploy this project :
 -  You can clone this project on your environment 
 -  You can configure a web server with a ansible playbook ( include in repository )
 -  You can run this project with docker containers (docker-compose included in this repository )
+
+## Other information 
+
+The graphical data model is accessible in the SQL file. You can also find the UML shema in the respective file
+
+
 
