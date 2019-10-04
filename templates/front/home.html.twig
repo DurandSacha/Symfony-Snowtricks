@@ -34,10 +34,6 @@
                 <!-- else : image par defaut -->
               {% endfor %}
 
-
-
-
-
               <div class="card-body">
                 <a href="./single/{{ trick.id }}" class="card-text"><p class="title-trick"> {{ trick.name }} </p></a>
 
@@ -84,17 +80,14 @@
     </div>
   </div>
 
-  <div class="row">
-      <div class="block-center text-center align-items-center paginate">
-        <div class="col-12 text-center">
-          <button id="loadMoreTricks" class="btn btn-primary"> Load More Tricks</button>
-        </div>
-      </div>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-  </div>
+      <button id="loadMoreTricks" class="btn btn-primary text-center load"> Load More Tricks</button>
+
+
+
+  <br/>
+  <br/>
+  <br/>
+  <br/>
 
   <!-- Footer -->
   <footer class="py-5 bg-black">
@@ -145,21 +138,15 @@
         type : 'POST',
         data: 'start=' + start,
         dataType : 'html',
-        success : function(data, statut){ // code_html contient le HTML renvoyé
+        success : function(data, statut){
           console.log(statut);
           $('#group-trick').append(data);
-
-
         }
       });
 
       if(start > {{ tricks|length }}){
       $('#loadMoreTricks').fadeOut();
       }
-
-
-
-
     }
 
   </script>

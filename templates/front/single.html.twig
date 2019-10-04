@@ -3,8 +3,7 @@
 {% block title %} {{ trick.name }} {% endblock %}
 {% block body %}
     <br/><br/><br/><br/>
-<section>
-    <div class="container ">
+    <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center" >
 
@@ -12,7 +11,7 @@
 
                     {% if image.thumbnail == true %}
 
-                <img class="card-img-top" src="{{ asset('img/'~image.path) }}" alt="{{ image.texte }}" height="65%">
+                <img class="card-img-top" src="{{ asset('img/'~image.path) }}" alt="{{ image.texte }}" height="55%">
                     {% endif %}
 
                 {% endfor %}
@@ -25,9 +24,9 @@
                 <div class="p-5">
                     <h2 class="display-4 text-center"> Snowtricks n°{{ id }} : {{ trick.name }}</h2><br/><br/>
 
-                    <div class=" col-lg-12">
+                    <div class="col-lg-11">
 
-                        <div class="media-container text-left ">
+                        <div class="media-container text-left center-block">
 
                         {% for media in medias %}
 
@@ -36,8 +35,11 @@
                                     {{ Embed[i].path|html }}
                                 {% endif %}
                             {% endfor %}
-
-                                <img class="img-fluid " src="{{ asset('img/'~media.path) }}" alt="{{ media.texte }}" >
+                                <div class="row">
+                                    <div class="col-lg-11">
+                                <img class="img-fluid" src="{{ asset('img/'~media.path) }}" alt="{{ media.texte }}" ><br/>
+                                    </div>
+                                </div>
 
 
                         {% endfor %}
@@ -51,17 +53,16 @@
         </div>
     </div>
 
-</section>
-
 <br/><br/>
-<section>
+
     <div class="container">
 
-
         <div class="row">
-            <div class="group-label">
-                <span> category: </span>
-                <span class="label label-default ">  {{ trick.categoryTricks.name }} </span>
+            <div class="group-label col-lg-12">
+                <div class="center-block">
+                    <span> category: </span>
+                    <span class="label label-default">  {{ trick.categoryTricks.name }} </span>
+                </div>
             </div>
         </div>
 
@@ -70,20 +71,21 @@
         <br/><br/>
 
         {% if app.user %}
-        <div class="text-center">
+        <div class="text-center center-block">
             {{ form_start(AddCommentForm) }}
             {{ form_widget(AddCommentForm) }}
 
             <button type="submit" class="btn btn-primary"> Comment</button>
             {{ form_end(AddCommentForm) }}
+            <br/>
         </div>
         {% endif %}
-        <div class="row align-items-center">
-            <div class="col-lg-offset-3 col-lg-6 chat">
+        <div class="row align-items-center center-block">
+            <div class="center-block chat col-lg-12">
 
                 <h2> Chat about this trick  </h2>
 
-                <div id="comment-list">
+                <div id="comment-list center-block">
                 {% if comments is defined %}
                     {% for comment in comments | slice(0,3) %}
 
@@ -130,7 +132,7 @@
         <br/>
         <br/>
 
-</section>
+
 {% endblock %}
 
 {% block javascripts %}

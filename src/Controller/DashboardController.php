@@ -40,7 +40,7 @@ class DashboardController  extends BaseController
     /**
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboard(AuthenticationUtils $authenticationUtils, UserPasswordEncoderInterface $encoder, LoggerInterface $logger, Request $request, UserRepository $userRepo){
+    public function dashboard(UserPasswordEncoderInterface $encoder, LoggerInterface $logger, Request $request){
 
         $entityManager = $this->getDoctrine()->getManager();
         $user = $this->getUser();

@@ -28,7 +28,7 @@ class FrontController extends AbstractController
     /**
      * @Route("/", name="home")
      */
-    public function home(Environment $twig, AuthenticationUtils $authenticationUtils, EntityManagerInterface $em,PaginatorInterface $paginator, Request $request)
+    public function home(Environment $twig,EntityManagerInterface $em, Request $request)
     {
 
         $tricksRepo = $em->getRepository(Tricks::class);
@@ -47,8 +47,6 @@ class FrontController extends AbstractController
         $content = $twig->render('front/home.html.twig',[
             'visitorName' => $visitorName,
             'tricks' => $tricks
-
-
         ]);
         return new Response($content);
     }
@@ -60,39 +58,25 @@ class FrontController extends AbstractController
     {
         $tricksRepo = $em->getRepository(Tricks::class);
         $mediaRepo = $em->getRepository(Media::class);
-
         $trick = $tricksRepo->findOneBy(['id' => $id]);
-
         $medias = $trick->getIllustration();
 
-        // default picture
         if(empty($medias)){
             $medias = 'demo/0.jpg';
         }
-        //$comments = $trick->getComments();
-
         $comments = $commentRepo->findBy(['Tricks' => $trick->getId()], ['id' => 'DESC'], 3, 0);
-
         $embed = $mediaRepo->findBy(['type' => 'Embed']);
-
-
         $form = $this->createForm(AddCommentType::class);
         $form->handleRequest($request);
-
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $commentForm = $form->getData();
             $comment = new Comment();
             $comment->setContent($form->get('content')->getData());
             $comment->setUser($this->getUser());
-            /* setCreatedAt(new \DateTime() */
             $comment->setCreatedAt(new \DateTime());
             $comment->setTricks($trick);
-
             $em->persist($comment);
             $em->flush();
         }
-
         $content = $twig->render('front/single.html.twig',[
             'id'  => $id,
             'trick' => $trick,

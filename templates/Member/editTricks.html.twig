@@ -9,7 +9,6 @@
 
         {{ form_start(addTricksForm) }}
 
-
         {{ form_row(addTricksForm.name) }}
         {{ form_row(addTricksForm.description) }}
         {{ form_row(addTricksForm.categoryTricks) }}
@@ -19,16 +18,13 @@
              data-prototype ="{{ form_widget(addTricksForm.Illustration.vars.prototype)|e('html_attr') }}"
              data-index="{{ addTricksForm.Illustration|length }}">
 
-             <!--form_row(addTricksForm.Illustration, { 'empty_data': trick.Illustration}) -->
-
-            <!--form_widget(addTricksForm.Illustration) -->
-
-
             <div class="add_button">
-                <a href="#" class="js-genus-scientist-add">
-                    <span class="fa fa-plus-circle"></span>
-                    Add Image to this tricks
-                </a>
+                <div class="col-lg-11">
+                    <a href="#" class="js-genus-scientist-add">
+                        <span class="fa fa-plus-circle"></span>
+                        Add Image to this tricks
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -38,11 +34,12 @@
              data-prototype ="{{ form_widget(addTricksForm.Embed.vars.prototype)|e('html_attr') }}"
              data-index="{{ addTricksForm.Embed|length }}">
 
-
-            <a href="#" class="js-embed-scientist-add">
-                <span class="fa fa-plus-circle"></span>
-                Add Embed Balise
-            </a>
+            <div class="col-lg-11">
+                <a href="#" class="js-embed-scientist-add">
+                    <span class="fa fa-plus-circle"></span>
+                    Add Embed Balise
+                </a>
+            </div>
         </div>
             <br/><br/><br/>
             <button type="submit" class="btn btn-primary submit">Update this Tricks</button><br/><br/>
@@ -54,7 +51,9 @@
             <hr>
 
             <div class="row">
+                <div class="col-lg-5 center-block">
                 <h1>Media for this tricks</h1>
+                </div>
             </div>
 
 
@@ -62,10 +61,11 @@
 
                 {% for i in 0..10 %}
                     {%  if  trick.Illustration[i].path is defined and trick.Illustration[i].type == 'Picture' %}
-                        <div>
-                            <img src="{{ asset('img/'~trick.Illustration[i].path) }}" alt="{{ trick.Illustration[i].texte }}" />
-                            <a data-toggle="modal" href="#myModal0">Delete Image</a>
-                            <a href="{{ path('select_thumbnail', { id: trick.Illustration[i].id, trick: trick.id}) }}" type="button" class="btn btn-primary">Select for thumbnails </a>
+                        <div class="col-lg-11 center-block text-center">
+                            <img src="{{ asset('img/'~trick.Illustration[i].path) }}" alt="{{ trick.Illustration[i].texte }}" /><br/>
+                            <a data-toggle="modal" href="#myModal0">Delete Image</a><br/>
+                            <a href="{{ path('select_thumbnail', { id: trick.Illustration[i].id, trick: trick.id}) }}"  class="btn btn-primary">Select for thumbnails </a>
+                            <hr>
                         </div>
 
                         <!-- DELETE MODALS -->
