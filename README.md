@@ -1,11 +1,25 @@
-<a href="https://codeclimate.com/github/codeclimate/codeclimate/maintainability"><img src="https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability" /></a>
+<a href="https://codeclimate.com/github/codeclimate/codeclimate/maintainability"><img src="https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability" /></a><br/>
 
-<a href="https://codeclimate.com/github/codeclimate/codeclimate/test_coverage"><img src="https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage" /></a>
+<a href="https://codeclimate.com/github/codeclimate/codeclimate/test_coverage"><img src="https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage" /></a><br/>
 
-[![dependency](https://badgen.now.sh/david/dep/styfle/packagephobia)](https://github.com/DurandSacha/Symfony-Snowtricks)
-[![lgtm](https://badgen.net/DurandSacha/Symfony-Snowtricks)](https://github.com/DurandSacha/Symfony-Snowtricks)
+[![dependency](https://badgen.now.sh/david/dep/styfle/packagephobia)](https://github.com/DurandSacha/Symfony-Snowtricks)<br/>
+<hr>
+
+
 
 # Symfony-Snowtricks
-Community web application for snowboard
+Snowtricks symfony website is a community site related to snowboarding. So you can share snowboard figures and exchange on these same figures of style.
 
-This project is a symfony web application.
+This site has a member area dedicated to users or you can change the settings of your account and post figures and media
+
+## Technology ?
+
+This site is developed with PHP and the symfony framework. This architecture proposes a reutilisable code and easy to maintain. It also provides good practice like MVC layout and object oriented
+
+## The deployment 
+
+Several solutions to deploy this project : 
+-  You can clone this project on your environment 
+-  You can configure a web server with a ansible playbook ( include in repository )
+-  You can run this project with docker containers (docker-compose included in this repository )
+
