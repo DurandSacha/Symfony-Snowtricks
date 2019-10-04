@@ -1,6 +1,6 @@
-<a href="https://codeclimate.com/github/DurandSacha/Symfony-Snowtricks/maintainability"><img src="https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability" /></a><br/>
+<a href="https://codeclimate.com/github/DurandSacha/Symfony-Snowtricks/maintainability"><img src="https://api.codeclimate.com/v1/badges/2295e37585a45075da96/maintainability" /></a><br/>
 
-<a href="https://codeclimate.com/github/DurandSacha/Symfony-Snowtricks1/test_coverage"><img src="https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage" /></a><br/>
+<a href="https://codeclimate.com/github/DurandSacha/Symfony-Snowtricks/test_coverage"><img src="https://api.codeclimate.com/v1/badges/2295e37585a45075da96/test_coverage" /></a><br/>
 
 [![dependency](https://badgen.now.sh/david/dep/styfle/packagephobia)](https://github.com/DurandSacha/Symfony-Snowtricks)<br/>
 <hr>
