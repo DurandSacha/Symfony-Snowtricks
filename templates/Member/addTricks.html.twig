@@ -3,7 +3,7 @@
 {% block body %}
 
     <br/><br/><br/><br/>
-    <div class="center-block example-wrapper">
+    <div class="center-block example-wrapper text-center">
     <h1>Launch a new Tricks! ?</h1>
     {{ form_start(addTricksForm) }}
 
@@ -17,27 +17,28 @@
              data-index="{{ addTricksForm.Illustration|length }}">
 
 
-            <a href="#" class="js-genus-scientist-add" id="add_button_media">
-                <span class="fa fa-plus-circle"></span>
-                Add Image to this tricks
-            </a>
+            <div class="col-lg-11">
+                <a href="#" class="js-genus-scientist-add" id="add_button_media">
+                    <span class="fa fa-plus-circle"></span>
+                    Add Image to this tricks
+                </a>
+            </div>
         </div>
 
 
         <hr>
 
 
-
-
         <div class="row js-embed-scientist-wrapper data"
              data-prototype ="{{ form_widget(addTricksForm.Embed.vars.prototype)|e('html_attr') }}"
              data-index="{{ addTricksForm.Embed|length }}">
 
-
-            <a href="#" class="js-embed-scientist-add" id="add_button_embed">
-                <span class="fa fa-plus-circle"></span>
-                Add Embed Balise
-            </a>
+            <div class="col-lg-11">
+                <a href="#" class="js-embed-scientist-add" id="add_button_embed">
+                    <span class="fa fa-plus-circle"></span>
+                    Add Embed Balise
+                </a>
+            </div>
         </div>
 
 

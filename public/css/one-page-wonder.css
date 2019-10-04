@@ -4,8 +4,11 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-one-page-wonder/blob/master/LICENSE)
  */
 
-body {
+body{
   font-family: 'Lato';
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
 }
 
 h1,
@@ -228,9 +231,6 @@ header.masthead .bg-circle-4 {
   margin: 0 auto;
   width: 30vw;
 }
-.group-label{
-  margin-left: 7%;
-}
 
 .label{
   color: white;
@@ -240,10 +240,6 @@ header.masthead .bg-circle-4 {
 }
 .little-hr{
   width: 20%;
-}
-.media-container{
-  display: flex;
-  flex-direction: row;
 }
 .chat ul li{
   list-style: none;
@@ -261,9 +257,7 @@ header.masthead .bg-circle-4 {
 #add_tricks_form_pictures, .form-group{
   display: block;
 }
-.paginate{
-  margin-left: 41%;
-}
+
 
 .custom-file-input{
   opacity: 1;
@@ -307,12 +301,29 @@ input #add_tricks_form_Illustration_0_file .custom-file-input button{
   color : darkgrey;
 
 }
+/****add responsive design ****/
 
+#trickList{
+  width: 98%;
+  margin:0;
+  padding: 0;
+}
+.navbar-dark .navbar-toggler-icon{
+  transition-duration: 1s;
+}
+
+.load{
+  margin-left: 42%;
+}
 @media screen and (max-width: 640px) {
   .bloc {
     display:block;
     clear:both;
   }
+  .container{
+    width: auto;
+  }
+
 }
 
 

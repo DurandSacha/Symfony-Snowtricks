@@ -41,9 +41,7 @@ class TricksController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-
             $trick->setAuthor($this->getUser());
-
             foreach ($trick->getIllustration() as  $Illustration) {
 
                 $fileName = $upload->upload($Illustration->getFile());
@@ -56,24 +54,19 @@ class TricksController extends AbstractController
                     $Illustration->setThumbnail(False);
                 }
                 $em->persist($Illustration);
-
                 $Illustration->setType('Picture');
                 $Illustration->setTexte($Illustration->getTexte());
 
             }
-            //$embedFile = $form->get('Embed')->getData();
             foreach ($form->get('Embed')->getData() as  $embed) {
 
                 $video = New Media();
                 $video->setPath($embed->getEmbed());
                 $video->setTricks($trick);
-
                 $em->persist($video);
-
                 $video->setType('Embed');
                 $video->setTexte('A Embed Balise');
             }
-
             $em->persist($trick);
             $em->flush();
 
@@ -91,45 +84,35 @@ class TricksController extends AbstractController
      */
     public function edit(Tricks $tricks, Request $request, EntityManagerInterface $em, Upload $upload)
     {
-
         $form = $this->createForm(addTricksFormType::class, $tricks);
         $form->handleRequest($request);
         $tricks->setAuthor($this->getUser());
         if ($form->isSubmitted() && $form->isValid()) {
-
             $trick = $form->getData();
             $trick->setAuthor($this->getUser());
 
             foreach ($tricks->getIllustration() as  $Illustration) {
 
                 if(!$Illustration->getId()) {
-
                     $fileName = $upload->upload($Illustration->getFile());
                     $Illustration->setPath($fileName);
                     $Illustration->setTricks($trick);
-
                     $Illustration->setType('Picture');
                     $Illustration->setThumbnail(False);
                     $Illustration->setTexte($Illustration->getTexte());
-
                     $em->persist($Illustration);
                     $em->flush();
                 }
             }
-
             foreach ($form->get('Embed')->getData() as  $embed) {
 
                 $video = New Media();
                 $video->setPath($embed->getEmbed());
                 $video->setTricks($trick);
-
-                $em->persist($video);
-
                 $video->setType('Embed');
                 $video->setTexte('A Embed Balise');
                 $em->persist($video);
             }
-
             $em->flush();
 
             $this->addFlash('success', 'Article Updated! Inaccuracies squashed!');
@@ -140,7 +123,6 @@ class TricksController extends AbstractController
         }
         $trick = $form->getData();
         $mediaRepo = $em->getRepository(Media::class);
-        //$medias = $trick->getIllustration();
         $medias = $mediaRepo->findBy(array('tricks' => $trick->getId()));
 
         return $this->render('Member/editTricks.html.twig', [

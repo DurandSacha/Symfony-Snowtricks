@@ -109,13 +109,9 @@ class SecurityController extends AbstractController
      */
     public function resetNow(Request $request, UserPasswordEncoderInterface $encoder, $token)
     {
-
         $repository = $this->getDoctrine()->getRepository(User::class);
         $entityManager = $this->getDoctrine()->getManager();
-
-
         $user = $repository->findOneBytoken($token);
-
         $form = $this->createForm(changePasswordForm::class);
         $form->handleRequest($request);
 
@@ -158,19 +154,15 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-
-
             $message = (new \Swift_Message('SnowTricks Message'))
                 ->setFrom('sacha6623@gmail.com')
                 ->setTo($user->getEmail())
@@ -184,11 +176,6 @@ class SecurityController extends AbstractController
                 )
             ;
             $mailer->send($message);
-
-            // fin mail
-
-
-
             return $this->redirectToRoute('home');
         }
 

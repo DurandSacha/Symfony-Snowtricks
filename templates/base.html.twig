@@ -22,7 +22,7 @@
     </head>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top ">
         <div class="container">
             <a class="navbar-brand" href="{{ path('home') }}">Home</a>     <!--path('home', { page: 0})-->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,17 +77,19 @@
     </div>
 
 
+        {% block body %}
+        {% endblock %}
 
-
-
-        {% block body %}{% endblock %}
         {% block javascripts %}
             <!-- Bootstrap core JavaScript -->
-            <script src="vendor/jquery/jquery.min.js"></script>
+
+            <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
             <link href="{{ asset('vendor/jquery/jquery.min.js') }}" />
+            <script src="{{ asset('https://unpkg.com/axios/dist/axios.min.js') }}"></script>
             <script src="{{ asset('js/addCollection.js') }}" ></script>
+            <script src="{{ asset('js/loadMore.js') }}" ></script>
             <script src="{{ asset('js/main.js') }}" ></script>
-            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
             <link href="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}" />
         {% endblock %}
 
