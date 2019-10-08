@@ -13,67 +13,35 @@ class CommentFixtures extends BaseFixture implements DependentFixtureInterface
     public const CATEGORY_REFERENCE = 'categoryFlip';
     public const TRICK_REFERENCE = 'trick';
 
+    private static $comment = [
+        'Funny' ,
+        'Great Tricks',
+        'Go to prepare this tricks in holliday !!',
+        'good but its not easy',
+        'Excellent, more information please',
+        'Picture is attractive <3',
+        'magnifico !! ',
+        'bad tricks..',
+        'cool ',
+        'nice !! i try this after ',
+        'i love a title of this trick ',
+    ];
+
 
 
     protected function loadData(ObjectManager $manager)
     {
-        /* CREATE COMMENT */
-        $comment = new Comment();
-        $comment->setContent('Funny SnowTricks man, great and Good luck ! ');
-        $comment->setUser($this->getReference(UserFixture::ADMIN_USER_REFERENCE));
-        $comment->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE));
-        $comment->setCreatedAt(new \DateTime());
-        $manager->persist($comment);
 
+        for ($i = 1; $i <= 10; $i++) {
+            $comment = new Comment();
+            $comment->setContent($this->faker->randomElement(self::$comment));
+            $comment->setUser($this->getReference('User1'));
 
-        $comment = new Comment();
-        $comment->setContent('So great ');
-        $comment->setUser($this->getReference(UserFixture::ADMIN_USER_REFERENCE));
-        $comment->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE));
-        $comment->setCreatedAt(new \DateTime());
-        $manager->persist($comment);
+            $comment->setTricks($this->getReference('trick'.$i));
+            $comment->setCreatedAt(new \DateTime());
+            $manager->persist($comment);
 
-        $comment = new Comment();
-        $comment->setContent('Its a good tricks ');
-        $comment->setUser($this->getReference(UserFixture::ADMIN_USER_REFERENCE));
-        $comment->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE));
-        $comment->setCreatedAt(new \DateTime());
-        $manager->persist($comment);
-
-        $comment = new Comment();
-        $comment->setContent('Im going to try this ');
-        $comment->setUser($this->getReference(UserFixture::ADMIN_USER_REFERENCE));
-        $comment->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE));
-        $comment->setCreatedAt(new \DateTime());
-        $manager->persist($comment);
-
-        $comment = new Comment();
-        $comment->setContent('Excellent ');
-        $comment->setUser($this->getReference(UserFixture::ADMIN_USER_REFERENCE));
-        $comment->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE));
-        $comment->setCreatedAt(new \DateTime());
-        $manager->persist($comment);
-
-        $comment = new Comment();
-        $comment->setContent('1..2..3 and go test this ');
-        $comment->setUser($this->getReference(UserFixture::ADMIN_USER_REFERENCE));
-        $comment->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE));
-        $comment->setCreatedAt(new \DateTime());
-        $manager->persist($comment);
-
-        $comment = new Comment();
-        $comment->setContent('so good ');
-        $comment->setUser($this->getReference(UserFixture::ADMIN_USER_REFERENCE));
-        $comment->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE));
-        $comment->setCreatedAt(new \DateTime());
-        $manager->persist($comment);
-
-        $comment = new Comment();
-        $comment->setContent('explain more please ? ');
-        $comment->setUser($this->getReference(UserFixture::ADMIN_USER_REFERENCE));
-        $comment->setTricks($this->getReference(TrickFixture::TRICK_REFERENCE));
-        $comment->setCreatedAt(new \DateTime());
-        $manager->persist($comment);
+        }
 
         $manager->flush();
     }

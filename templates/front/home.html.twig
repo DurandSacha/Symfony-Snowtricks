@@ -26,13 +26,27 @@
             <div class="card" style="width: 18rem;">
 
 
-              {% for image in trick.Illustration %}
 
-                    {% if image.thumbnail == true %}
-                        <img class="card-img-top" src="img/{{ image.path }}" alt="{{ image.texte }}" >
-                    {% endif %}
-                <!-- else : image par defaut -->
-              {% endfor %}
+              {% if trick.Illustration[0] is defined %}
+
+                  {% for image in trick.Illustration %}
+                        {% set number = 0 %}
+
+                        {% if image.thumbnail == true %}
+                          {% set number = 1 %}
+                              <img class="card-img-top" src="img/{{ image.path }}" alt="{{ image.texte }}" >
+                        {% endif %}
+
+                        {% if not image.thumbnail == false and number == 0 %}
+                          <img class="card-img-top" src="img/{{ image.path }}" alt="{{ image.texte }}" >
+                        {% endif %}
+
+                  {% endfor %}
+
+              {% else %}
+                <img class="card-img-top" src="img/demo/0.jpg" alt="image par defaut" >
+              {% endif %}
+
 
               <div class="card-body">
                 <a href="./single/{{ trick.id }}" class="card-text"><p class="title-trick"> {{ trick.name }} </p></a>

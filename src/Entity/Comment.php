@@ -108,13 +108,4 @@ class Comment
         return $this;
     }
 
-    /*
-    public function remove(Comment $comment): self
-    {
-        if ($this->comment->contains($comment)) {
-            $this->comment->removeElement($comment);
-        }
-        return $this;
-    }
-    */
 }

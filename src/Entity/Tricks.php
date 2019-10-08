@@ -31,15 +31,10 @@ class Tricks
      */
     private $description ;
 
-
-
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="Tricks")
      */
     private $comments;
-
-
-
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
@@ -57,15 +52,11 @@ class Tricks
     private $Illustration;
 
 
-
-
-
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->Illustration = new ArrayCollection();
     }
-	
 
     public function getId(): ?int
     {
@@ -193,18 +184,10 @@ class Tricks
         return $this;
     }
 
-
-
-    /*
-    public function remove(Tricks $trick): self
+    public function UnitFunction($var)
     {
-        if ($this->trick->contains($trick)) {
-            $this->trick->removeElement($trick);
-        }
-        return $this;
+        $two = $var * 2 ;
+        return $two;
     }
-    */
 
-
-	
 }

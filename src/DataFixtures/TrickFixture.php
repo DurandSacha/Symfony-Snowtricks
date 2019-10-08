@@ -17,29 +17,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class TrickFixture extends BaseFixture implements DependentFixtureInterface
 {
 
-    public const ADMIN_USER = 'User1';
-    //public const ADMIN_USER5 = 'User5';
-    public const ADMIN_USER_REFERENCE = 'User5';
+    public $admin = 'User1';
+    public $member = 'User5';
     public const CATEGORY_REFERENCE = 'categoryFlip';
 
-    public const TRICK_REFERENCE = 'trick';
-    public const TRICK_REFERENCE2 = 'trick2';
+    public $trick = 'trick';
 
-    public const TRICKS1_REFERENCE = 'trick';
-    public const TRICKS2_REFERENCE = 'trick2';
-    public const TRICKS3_REFERENCE = 'trick3';
-
-    public const TRICKS10_REFERENCE = 'trick10';
-    public const TRICKS11_REFERENCE = 'trick11';
-    public const TRICKS12_REFERENCE = 'trick12';
-    public const TRICKS13_REFERENCE = 'trick13';
-    public const TRICKS14_REFERENCE = 'trick14';
-    public const TRICKS15_REFERENCE = 'trick15';
-    public const TRICKS16_REFERENCE = 'trick16';
-    public const TRICKS17_REFERENCE = 'trick17';
-    public const TRICKS18_REFERENCE = 'trick18';
-    public const TRICKS19_REFERENCE = 'trick19';
-    public const TRICKS20_REFERENCE = 'trick20';
 
     private $passwordEncoder;
 
@@ -86,43 +69,16 @@ class TrickFixture extends BaseFixture implements DependentFixtureInterface
     {
 
         // setAuthor($this->faker->randomElement(self::$articleAuthors))
-        for ($i = 1; $i <= 10; $i++) {
-            $a = $i + 10;   // Beggining the reference at trick10
+        for ($i = 1; $i <= 27; $i++) {
             $trick = new Tricks();
             $trick->setName($this->faker->randomElement(self::$name));
             $trick->setDescription($this->faker->randomElement(self::$description));
             $trick->setAuthor($this->getReference(UserFixture::ADMIN_USER));
             $trick->setCategoryTricks($this->getReference(CategoryFixture::CATEGORY_REFERENCE));
-            $this->addReference('trick' . $a ,$trick);
+
+            $this->addReference('trick'.$i ,$trick);
             $manager->persist($trick);
         }
-
-
-
-        /* Create a Trick Fixture */
-        $trick = new Tricks();
-        $trick->setName('BackFlip');
-        $trick->setDescription('Its a backflip trick snow, you can learn this on all condition. Please take picture if you make this trick');
-        $trick->setAuthor($this->getReference(UserFixture::ADMIN_USER));
-        $trick->setCategoryTricks($this->getReference(CategoryFixture::CATEGORY_REFERENCE));
-        $this->addReference('trick',$trick);
-        $manager->persist($trick);
-
-
-
-
-        /* Create a Trick Fixture */
-        $trick2 = new Tricks();
-        $trick2->setName('Flip');
-        $trick2->setDescription('Its a backflip trick snow, you can learn this on all condition. Please take picture if you make this trick');
-
-        /* The Reference */
-        $trick2->setAuthor($this->getReference(UserFixture::ADMIN_USER));
-        $trick2->setCategoryTricks($this->getReference(CategoryFixture::CATEGORY_REFERENCE));
-        $this->addReference('trick2',$trick2);
-        $manager->persist($trick2);
-
-
 
         $manager->flush();
 

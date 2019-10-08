@@ -49,7 +49,6 @@ class addTricksFormType extends AbstractType
 
             ->add('Embed', CollectionType::class, [
                 'entry_type' => EmbedType::class,
-                /*'help' => ' example : <embed src="https://www.youtube.com/watch?v=1BjgBoummtE" autostart="false" height="30%" width="40%" />',*/
                 'required' => false,
                 'prototype' => true,
                 'allow_add' => true,

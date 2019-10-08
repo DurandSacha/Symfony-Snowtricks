@@ -97,10 +97,6 @@ class MediaController extends AbstractController
         $media->setThumbnail(true);
         $entityManager->persist($media);
 
-
-
-
-
         $entityManager->flush();
 
         return $this->redirect($_SERVER['HTTP_REFERER']);
