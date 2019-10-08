@@ -58,6 +58,11 @@ class Tricks
         $this->Illustration = new ArrayCollection();
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -184,10 +189,5 @@ class Tricks
         return $this;
     }
 
-    public function UnitFunction($var)
-    {
-        $two = $var * 2 ;
-        return $two;
-    }
 
 }
