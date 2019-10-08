@@ -33,124 +33,17 @@ class MediaFixture extends BaseFixture implements DependentFixtureInterface
 
     protected function loadData(ObjectManager $manager)
     {
-        // CREATE MEDIA 1
-        $media1 = new Media();
-        $media1->setPath('demo/0.jpg');
-        $media1->setType('Picture');
-        $media1->setTexte('Hello World');
-        $media1->setTricks($this->getReference(TrickFixture::TRICKS1_REFERENCE));
-        $media1->setThumbnail(False);
+        for ($i = 1; $i <= 27; $i++) {
+            // CREATE MEDIA 1
+            $media1 = new Media();
+            $media1->setPath($this->faker->randomElement(self::$path));
+            $media1->setType('Picture');
+            $media1->setTexte('Hello World'.$i);
+            $media1->setTricks($this->getReference('trick'.$i));
+            $media1->setThumbnail(True);
 
-        $manager->persist($media1);
-
-        // CREATE MEDIA 2
-        $media2 = new Media();
-        $media2->setPath('demo/1.jpg');
-        $media2->setType('Picture');
-        $media2->setTexte('Flip');
-        $media2->setTricks($this->getReference(TrickFixture::TRICKS2_REFERENCE));
-        $media2->setThumbnail(True);
-
-        $manager->persist($media2);
-
-        // CREATE MEDIA 3
-        $media3 = new Media();
-        $media3->setPath('demo/2.jpg');
-        $media3->setType('Picture');
-        $media3->setTexte('Flip Fly');
-        $media3->setTricks($this->getReference(TrickFixture::TRICKS1_REFERENCE));
-        $media3->setThumbnail(True);
-        $manager->persist($media3);
-
-        /* Generate image for 10 tricks */
-        $media5 = new Media();
-        $media5->setPath($this->faker->randomElement(self::$path));
-        $media5->setType('Picture');
-        $media5->setTexte('Its a factice automatic images');
-        $media5->setTricks($this->getReference(TrickFixture::TRICKS11_REFERENCE));
-        $media5->setThumbnail(True);
-        $manager->persist($media5);
-
-        /* Generate image for 10 tricks */
-        $media4 = new Media();
-        $media4->setPath($this->faker->randomElement(self::$path));
-        $media4->setType('Picture');
-        $media4->setTexte('Its a factice automatic images');
-        $media4->setTricks($this->getReference(TrickFixture::TRICKS12_REFERENCE));
-        $media4->setThumbnail(True);
-        $manager->persist($media4);
-
-        /* Generate image for 10 tricks */
-        $media4 = new Media();
-        $media4->setPath($this->faker->randomElement(self::$path));
-        $media4->setType('Picture');
-        $media4->setTexte('Its a factice automatic images');
-        $media4->setTricks($this->getReference(TrickFixture::TRICKS13_REFERENCE));
-        $media4->setThumbnail(True);
-        $manager->persist($media4);
-
-        /* Generate image for 10 tricks */
-        $media4 = new Media();
-        $media4->setPath($this->faker->randomElement(self::$path));
-        $media4->setType('Picture');
-        $media4->setTexte('Its a factice automatic images');
-        $media4->setTricks($this->getReference(TrickFixture::TRICKS14_REFERENCE));
-        $media4->setThumbnail(True);
-        $manager->persist($media4);
-
-        /* Generate image for 10 tricks */
-        $media4 = new Media();
-        $media4->setPath($this->faker->randomElement(self::$path));
-        $media4->setType('Picture');
-        $media4->setTexte('Its a factice automatic images');
-        $media4->setTricks($this->getReference(TrickFixture::TRICKS15_REFERENCE));
-        $media4->setThumbnail(True);
-        $manager->persist($media4);
-
-        /* Generate image for 10 tricks */
-        $media4 = new Media();
-        $media4->setPath($this->faker->randomElement(self::$path));
-        $media4->setType('Picture');
-        $media4->setTexte('Its a factice automatic images');
-        $media4->setTricks($this->getReference(TrickFixture::TRICKS16_REFERENCE));
-        $media4->setThumbnail(True);
-        $manager->persist($media4);
-
-        /* Generate image for 10 tricks */
-        $media4 = new Media();
-        $media4->setPath($this->faker->randomElement(self::$path));
-        $media4->setType('Picture');
-        $media4->setTexte('Its a factice automatic images');
-        $media4->setTricks($this->getReference(TrickFixture::TRICKS17_REFERENCE));
-        $media4->setThumbnail(True);
-        $manager->persist($media4);
-
-        /* Generate image for 10 tricks */
-        $media4 = new Media();
-        $media4->setPath($this->faker->randomElement(self::$path));
-        $media4->setType('Picture');
-        $media4->setTexte('Its a factice automatic images');
-        $media4->setTricks($this->getReference(TrickFixture::TRICKS18_REFERENCE));
-        $media4->setThumbnail(True);
-        $manager->persist($media4);
-
-        /* Generate image for 10 tricks */
-        $media4 = new Media();
-        $media4->setPath($this->faker->randomElement(self::$path));
-        $media4->setType('Picture');
-        $media4->setTexte('Its a factice automatic images');
-        $media4->setTricks($this->getReference(TrickFixture::TRICKS19_REFERENCE));
-        $media4->setThumbnail(True);
-        $manager->persist($media4);
-
-        /* Generate image for 10 tricks */
-        $media4 = new Media();
-        $media4->setPath($this->faker->randomElement(self::$path));
-        $media4->setType('Picture');
-        $media4->setTexte('Its a factice automatic images');
-        $media4->setTricks($this->getReference(TrickFixture::TRICKS20_REFERENCE));
-        $media4->setThumbnail(True);
-        $manager->persist($media4);
+            $manager->persist($media1);
+        }
 
         $manager->flush();
     }
