@@ -1,7 +1,6 @@
 
 ---
-- hosts: all
-  sudo: true
+- hosts: ally
   vars:
     domain: sfwebapp.local
     admin: pa@foulquier.info
@@ -19,6 +18,9 @@
 
     - name: installer curl
       apt: name=curl state=present
+
+    - name: installer boto
+        apt: name=boto state=present
 
     - name: installer python-mysqldb
       apt: name=python-mysqldb state=present
