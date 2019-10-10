@@ -20,7 +20,7 @@
       apt: name=curl state=present
 
     - name: installer boto
-        apt: name=boto state=present
+      apt: name=boto state=present
 
     - name: installer python-mysqldb
       apt: name=python-mysqldb state=present
