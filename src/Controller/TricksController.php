@@ -79,6 +79,9 @@ class TricksController extends AbstractController
         ]);
     }
 
+
+
+
     /**
      * @Route("/admin/article/{tricks}/edit", name="admin_article_edit")
      */
@@ -90,7 +93,6 @@ class TricksController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $trick = $form->getData();
             $trick->setAuthor($this->getUser());
-
             foreach ($tricks->getIllustration() as  $Illustration) {
 
                 if(!$Illustration->getId()) {
@@ -98,11 +100,14 @@ class TricksController extends AbstractController
                     $Illustration->setPath($fileName);
                     $Illustration->setTricks($trick);
                     $Illustration->setType('Picture');
-                    $Illustration->setThumbnail(False);
                     $Illustration->setTexte($Illustration->getTexte());
                     $em->persist($Illustration);
                     $em->flush();
                 }
+                if($Illustration->getThumbnail() == true){
+                    $this->select_thumbnail($Illustration->getId(),$tricks);
+                }
+
             }
             foreach ($form->get('Embed')->getData() as  $embed) {
 
@@ -167,5 +172,32 @@ class TricksController extends AbstractController
         $this->addFlash('info','This trick is deleted');
 
         return $this->redirectToRoute('home');
+    }
+
+
+    public function select_thumbnail($id,$trick)
+    {
+
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $TrickRepository = $this->getDoctrine()->getRepository(Tricks::class);
+        $MediaRepository = $this->getDoctrine()->getRepository(Media::class);
+
+        $tricks_id = $TrickRepository->findOneBy(array('id' => $trick));
+        $medias = $MediaRepository->findBy(array('tricks' => $tricks_id));
+
+        foreach($medias as $Illustration) {
+            $Illustration->setThumbnail(false);
+            $entityManager->persist($Illustration);
+        }
+
+        $media = $MediaRepository->findOneBy(array('id' => $id));
+        $media->setThumbnail(true);
+        $entityManager->persist($media);
+
+        $entityManager->flush();
+
+        return $this->redirect($_SERVER['HTTP_REFERER']);
     }
 }

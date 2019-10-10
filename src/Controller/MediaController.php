@@ -76,14 +76,10 @@ class MediaController extends AbstractController
      */
     public function select_thumbnail($id,$trick)
     {
-        // mettre a 0 toute les image.thumbnail lié au trick
-        // mettre image $id thumbnail a 1
-
         $entityManager = $this->getDoctrine()->getManager();
 
         $TrickRepository = $this->getDoctrine()->getRepository(Tricks::class);
         $MediaRepository = $this->getDoctrine()->getRepository(Media::class);
-
 
         $tricks_id = $TrickRepository->findOneBy(array('id' => $trick));
         $medias = $MediaRepository->findBy(array('tricks' => $tricks_id));

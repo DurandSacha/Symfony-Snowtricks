@@ -25,6 +25,29 @@ class userTest extends TestCase
         $this->assertEquals('test@gmail.fr', $this->user->getEmail());
     }
 
+    public function testUserUsername()
+    {
+        $this->user->setUsername('sacha');
+        $this->assertEquals('sacha', $this->user->getUsername());
+    }
 
+    public function testUserToken()
+    {
+        $this->user->setToken('XXX');
+        $this->assertEquals('XXX', $this->user->getToken());
+    }
+
+    public function testUserRole()
+    {
+        $roles[] = 'ROLE_USER';
+        $this->user->setRoles($roles);
+        $this->assertEquals($roles, $this->user->getRoles());
+    }
+
+    public function testUserPassword()
+    {
+        $this->user->setPassword('abcdef');
+        $this->assertEquals('abcdef', $this->user->getPassword());
+    }
 
 }
