@@ -1,6 +1,6 @@
 
 ---
-- hosts: ally
+- hosts: all
   vars:
     domain: sfwebapp.local
     admin: pa@foulquier.info
