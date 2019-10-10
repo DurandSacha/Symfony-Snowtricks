@@ -1,136 +1,69 @@
----
 - hosts: all
 
-pre_tasks:
-  - name: Convert entered Symfony environment to lowercase
-    set_fact:
-      symfony_env: "{{ symfony_env|lower }}"
-    tags:
-      - always
-  - name: Update APT package manager repositories cache
-    become: true
-    apt:
-      update_cache: yes
-  - name: Upgrade installed packages
-    become: true
-    apt:
-      upgrade: safe
-  roles:
-    - nginx
-    - role: DavidWittman.redis
-      become: true
-
+- name: Installation de Symfony
+  hosts: all
+  remote_user: root
   tasks:
-    - ping: ~
-    - name: Install cowsay - it's probably important
-      become: true
-      apt:
-        name: cowsay
-    - name: Install low-level utilities
-      become: true
-      apt:
-        name: "{{ item }}"
-      with_items:
-        - zip
-        - unzip
-    - name: Install Git VCS
-      become: true
-      apt:
-        name: git
-        state: latest
-    - name: Install MySQL DB server
-      become: true
-      apt:
-        name: mysql-server
-        state: latest
-    - name: Add PHP 7 PPA repository
-      become: true
-      apt_repository:
-        repo: 'ppa:ondrej/php'
-    - name: Install PHP packages
-      become: true
-      apt:
-        name: "{{ item }}"
-        state: latest
-      with_items:
-        - php7.1-cli
-        - php7.1-curl
-        - php7.1-fpm
-        - php7.1-intl
-        - php7.1-mysql
-        - php7.1-xml
-      notify: Restart PHP-FPM
-    - name: Set date.timezone for CLI
-      become: true
-      lineinfile:
-        dest: /etc/php/7.1/cli/php.ini
-        regexp: "date.timezone ="
-        line: "date.timezone = UTC"
-    - name: Set date.timezone for FPM
-      become: true
-      lineinfile:
-        dest: /etc/php/7.1/fpm/php.ini
-        regexp: "date.timezone ="
-        line: "date.timezone = UTC"
-      notify: Restart PHP-FPM
-    - name: Create project directory and set its permissions
-      become: true
-      file:
-        path: "{{ symfony_root_dir }}"
-        state: directory
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
-        recurse: yes
-      tags:
-        - deploy
-    - name: Checkout Git repository
-      git:
-        repo: https://github.com/DurandSacha/Symfony-Snowtricks
-        dest: "{{ symfony_root_dir }}"
-        force: yes
-      register: repo_code
-      tags:
-        - deploy
-    - name: Register code_changed variable
-      set_fact:
-        code_changed: repo_code.changed
-    - name: Check for Composer
-      stat:
-        path: /usr/local/bin/composer
-      register: composer_stat
-      tags:
-        - deploy
-    - name: Download Composer
-      script: scripts/install_composer.sh
-      when: not composer_stat.stat.exists
-      tags:
-        - deploy
-    - name: Move Composer globally
-      become: true
-      command: mv composer.phar /usr/local/bin/composer
-      when: not composer_stat.stat.exists
-      tags:
-        - deploy
-    - name: Set permissions on Composer
-      become: true
-      file:
-        path: /usr/local/bin/composer
-        mode: "a+x"
-      tags:
-        - deploy
-    - name: Make sure composer is at its latest version
-      composer:
-        working_dir: "{{ symfony_root_dir }}"
-        command: self-update
-      register: composer_self_update
-      changed_when: "not composer_self_update.stdout|search('You are already using composer version')"
-      tags:
-        - deploy
-    # Bootstrap Symfony app
-    - include: ./includes/symfony-bootstrap.yml
-  handlers:
-    - name: Restart PHP-FPM
-      become: true
-      service:
-        name: php7.1-fpm
-        state: restarted
+    - name: Installer Git
+    apt: name=git state=latest
+      - name : Installer Symfony
+    command: chdir=/var/www/ git clone https://github.com/symfony/symfony.git
+
+- name: téléchager composer
+  get_url:
+    url: https://getcomposer.org/installer
+    dest: /tmp/installer
+  tags: composer
+
+- name: installer composer
+  shell: cat /tmp/installer | php -- --install-dir=/usr/local/bin
+  args:
+    creates: /usr/local/bin/composer
+  tags: composer
+
+- name: renommer composer.phar en composer
+  shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer
+  args:
+    creates: /usr/local/bin/composer
+  tags: composer
+
+- name: rendre composer exécutable
+  file:
+    path: /usr/local/bin/composer
+    mode: a+x
+    state: file
+  tags: composer
+
+- stat: path=/var/www/symfony/composer.lock
+    register: composer_file
+
+- name: composer install symfony
+  command: chdir=/var/www/symfony composer install
+  when: composer_file.stat.exists == False
+
+- name: composer update symfony
+  command: chdir=/var/www/symfony composer update
+  when: composer_file.stat.exists == True
+
+### PACKAGE SERVER
+
+- name: Installation du package
+    apt: name={{ item }} state=latest
+    with_items:
+      - apache2
+      - libapache2-mod-php7.0
+      - php7.0
+      - php7.0-fpm
+      - php7.0-mysql
+      - php7.0-curl
+      - curl
+      - php7.0-mbstring
+      - php7.0-xml
+      - php7.0-zip
+      - php7.0-cli
+      - php7.0-bcmath
+
+    - name: enabled mod_rewrite
+      apache2_module: name=rewrite state=present
+      notify:
+        - restart apache2
