@@ -6,6 +6,8 @@
 /public/bundles/
 /var/
 /vendor/
+/public/data
+/.idea
 
 ###< symfony/framework-bundle ###
 
