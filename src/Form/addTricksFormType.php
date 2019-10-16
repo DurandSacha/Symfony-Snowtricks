@@ -33,7 +33,7 @@ class addTricksFormType extends AbstractType
                 'help' => 'select a category',
                 'placeholder' => 'different category',
                 'choice_label' => function(Category $category) {
-                    return sprintf('(%d) %s', $category->getId(), $category->getName());
+                    return sprintf('%s', $category->getName());
                 },
 
             ])
@@ -41,7 +41,6 @@ class addTricksFormType extends AbstractType
             ->add('Illustration', CollectionType::class, [
                 'entry_type' => PictureFormType::class,
                 'allow_add' => true,
-                'allow_delete' => true,
                 'required'   => false,
                 'prototype' => true,
 
@@ -52,7 +51,6 @@ class addTricksFormType extends AbstractType
                 'required' => false,
                 'prototype' => true,
                 'allow_add' => true,
-                'allow_delete' => true,
                 'mapped' => false,
 
             ])

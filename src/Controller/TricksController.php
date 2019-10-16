@@ -42,7 +42,10 @@ class TricksController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $trick->setAuthor($this->getUser());
-            foreach ($trick->getIllustration() as  $Illustration) {
+
+            $Illustrations = $trick->getIllustration();
+
+            foreach ($Illustrations as  $Illustration) {
 
                 $fileName = $upload->upload($Illustration->getFile());
                 $Illustration->setPath($fileName);
@@ -53,9 +56,10 @@ class TricksController extends AbstractController
                 else{
                     $Illustration->setThumbnail(False);
                 }
-                $em->persist($Illustration);
                 $Illustration->setType('Picture');
                 $Illustration->setTexte($Illustration->getTexte());
+                $em->persist($Illustration);
+
 
             }
             foreach ($form->get('Embed')->getData() as  $embed) {
@@ -63,9 +67,11 @@ class TricksController extends AbstractController
                 $video = New Media();
                 $video->setPath($embed->getEmbed());
                 $video->setTricks($trick);
-                $em->persist($video);
+
                 $video->setType('Embed');
                 $video->setTexte('A Embed Balise');
+                $video->setThumbnail(False);
+                $em->persist($video);
             }
             $em->persist($trick);
             $em->flush();
@@ -93,6 +99,7 @@ class TricksController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $trick = $form->getData();
             $trick->setAuthor($this->getUser());
+
             foreach ($tricks->getIllustration() as  $Illustration) {
 
                 if(!$Illustration->getId()) {
@@ -102,11 +109,15 @@ class TricksController extends AbstractController
                     $Illustration->setType('Picture');
                     $Illustration->setTexte($Illustration->getTexte());
                     $em->persist($Illustration);
-                    $em->flush();
+
                 }
                 if($Illustration->getThumbnail() == true){
                     $this->select_thumbnail($Illustration->getId(),$tricks);
                 }
+                else{
+                    $Illustration->setThumbnail(false);
+                }
+                //$em->flush();
 
             }
             foreach ($form->get('Embed')->getData() as  $embed) {
@@ -116,6 +127,7 @@ class TricksController extends AbstractController
                 $video->setTricks($trick);
                 $video->setType('Embed');
                 $video->setTexte('A Embed Balise');
+                $video->setThumbnail(False);
                 $em->persist($video);
             }
             $em->flush();
@@ -178,7 +190,6 @@ class TricksController extends AbstractController
     public function select_thumbnail($id,$trick)
     {
 
-
         $entityManager = $this->getDoctrine()->getManager();
 
         $TrickRepository = $this->getDoctrine()->getRepository(Tricks::class);
@@ -191,12 +202,12 @@ class TricksController extends AbstractController
             $Illustration->setThumbnail(false);
             $entityManager->persist($Illustration);
         }
-
         $media = $MediaRepository->findOneBy(array('id' => $id));
-        $media->setThumbnail(true);
-        $entityManager->persist($media);
-
-        $entityManager->flush();
+        if($media) {
+            $media->setThumbnail(true);
+            $entityManager->persist($media);
+            $entityManager->flush();
+        }
 
         return $this->redirect($_SERVER['HTTP_REFERER']);
     }

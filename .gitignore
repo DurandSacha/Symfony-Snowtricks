@@ -1,4 +1,6 @@
 ###> symfony/framework-bundle ###
+/.idea
+/.git
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -8,7 +10,7 @@
 /vendor/
 /public/data
 /.idea
-
+/CleEC2.pem
 ###< symfony/framework-bundle ###
 
 ###> symfony/web-server-bundle ###

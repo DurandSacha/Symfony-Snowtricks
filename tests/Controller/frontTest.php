@@ -34,21 +34,16 @@ class frontTest extends WebTestCase {
         $client->request('GET','/learn');
         $this->assertEquals(200,$client->getResponse()->getStatusCode());
     }
-    /*
+
+
+
     public function testSinglePage()
     {
         $client = static::createClient();
-
-        $trick = new Tricks();
-        $trick->setId(2);
-
-        $media = new Media();
-        $media->setTricks($trick);
-
-        $client->request('GET','/single/'. $trick->getId());
+        $client->request('GET','/single/2');
         $this->assertEquals(200,$client->getResponse()->getStatusCode());
     }
-    */
+
 
 
 

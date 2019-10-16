@@ -43,9 +43,6 @@
     - name: installer apache2-doc
       apt: name=apache2-doc state=present
 
-    - name: installer apache2-mpm-prefork
-      apt: name=apache2-mpm-prefork state=present
-
     - name: installer apache2-utils
       apt: name=apache2-utils state=present
 
@@ -54,12 +51,6 @@
 
     - name: installer ssl-cert
       apt: name=ssl-cert state=present
-
-    - name: set acl vagrant user on www
-      command: setfacl -Rm u:vagrant:rwx /var/www/
-
-    - name: set acl vagrant group on www
-      command: setfacl -Rm u:vagrant:rwx /var/www/
 
     - name: create sfwebapp vhost
       template: src=virtualhost.conf dest=/etc/apache2/sites-available/{{ domain }}.conf
@@ -79,7 +70,9 @@
         accept_hostkey=yes
         force=yes
         update=no
-      sudo: no
+      become: yes
+      become_user: root
+      become_method: sudo
 
     - name: activation mod-rewrite
       apache2_module: name=rewrite state=present

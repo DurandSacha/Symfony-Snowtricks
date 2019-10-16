@@ -32,8 +32,6 @@ class PictureFormType extends AbstractType
                 'label' => 'is thumbnails ? ',
                 'required'   => false,
                 'by_reference' => false,
-
-
             ])
 
             ;

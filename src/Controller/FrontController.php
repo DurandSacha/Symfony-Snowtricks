@@ -30,9 +30,7 @@ class FrontController extends AbstractController
      */
     public function home(Environment $twig,EntityManagerInterface $em, Request $request)
     {
-
         $tricksRepo = $em->getRepository(Tricks::class);
-        $mediaRepo = $em->getRepository(Media::class);
 
         $user = $this->getUser();
 
