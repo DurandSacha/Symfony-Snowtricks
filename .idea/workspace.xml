@@ -2,75 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f66eeab1-7fe8-43eb-a8fc-6b06074ea5b3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tests/Entity/mediaTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.test" beforeDir="false" afterPath="$PROJECT_DIR$/.env.test" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ansible/ansistrano.yml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ansible/hosts.ini" beforeDir="false" afterPath="$PROJECT_DIR$/ansible/hosts.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ansible/playbook.retry" beforeDir="false" afterPath="$PROJECT_DIR$/ansible/playbook.retry" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ansible/playbook.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ansible/playbook.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Controller/BaseController.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Controller/BaseController.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Controller/DashboardController.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Controller/DashboardController.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Controller/FrontController.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Controller/FrontController.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Controller/MediaController.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Controller/MediaController.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Controller/SecurityController.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Controller/SecurityController.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Controller/TricksController.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Controller/TricksController.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Controller/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Controller/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Controller/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Controller/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Entity/Category.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Entity/Category.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Entity/Comment.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Entity/Comment.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Entity/Media.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Entity/Media.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Entity/Tricks.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Entity/Tricks.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Entity/User.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Entity/User.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Entity/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Entity/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Entity/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Entity/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/AddCommentType.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/AddCommentType.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/DataTransformer/EmailToUserTransformer.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/DataTransformer/EmailToUserTransformer.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/DataTransformer/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/DataTransformer/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/DataTransformer/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/DataTransformer/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/EmbedType.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/EmbedType.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/PictureFormType.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/PictureFormType.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/RegistrationFormType.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/RegistrationFormType.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/TypeExtension/TextareaSizeExtension.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/TypeExtension/TextareaSizeExtension.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/TypeExtension/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/TypeExtension/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/TypeExtension/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/TypeExtension/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/UserPasswordFormType.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/UserPasswordFormType.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/UserPictureFormType.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/UserPictureFormType.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/VideoType.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/VideoType.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/addTricksFormType.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/addTricksFormType.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Form/resetForm.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Form/resetForm.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Kernel.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Kernel.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Repository/CategoryRepository.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Repository/CategoryRepository.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Repository/CommentRepository.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Repository/CommentRepository.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Repository/MediaRepository.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Repository/MediaRepository.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Repository/TricksRepository.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Repository/TricksRepository.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Repository/UserRepository.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Repository/UserRepository.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Repository/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Repository/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Repository/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Repository/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Security/LoginAuthentificatorAuthenticator.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Security/LoginAuthentificatorAuthenticator.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Security/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Security/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Security/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Security/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Service/SlackClient.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Service/SlackClient.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Service/Upload.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Service/Upload.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Service/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Service/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Service/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Service/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Twig/AppExtension.php.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Twig/AppExtension.php.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Twig/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Twig/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/Twig/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/Twig/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/FrontController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FrontController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/TricksController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/TricksController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/PictureFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PictureFormType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/addTricksFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/addTricksFormType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Member/addTricks.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Member/addTricks.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Member/editTricks.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Member/editTricks.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Controller/frontTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Controller/frontTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Controller/securityTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Controller/securityTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Service/uploadTest.php" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -100,65 +35,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/Member/editTricks.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="150" column="43" selection-start-line="150" selection-start-column="43" selection-end-line="150" selection-end-column="43" />
-              <folding>
-                <element signature="e#2404#2420#0#Twig" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/Member/addTricks.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="71">
-              <caret line="65" column="4" selection-start-line="65" selection-start-column="4" selection-end-line="97" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Form/addTricksFormType.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="35" column="63" selection-start-line="35" selection-start-column="63" selection-end-line="35" selection-end-column="63" />
-              <folding>
-                <element signature="e#28#50#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Form/PictureFormType.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="33" column="40" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
-              <folding>
-                <element signature="e#28#49#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Controller/TricksController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="202" column="51" selection-start-line="202" selection-start-column="51" selection-end-line="202" selection-end-column="51" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ansible/hosts.ini">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="136">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ansible/playbook.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="70" column="35" lean-forward="true" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -240,8 +130,6 @@
         <option value="$PROJECT_DIR$/tests/Controller/securityTest.php" />
         <option value="$PROJECT_DIR$/tests/Entity/commentTest.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/ansible/playbook.yml" />
-        <option value="$PROJECT_DIR$/ansible/hosts.ini" />
         <option value="$PROJECT_DIR$/src/Form/PictureFormType.php" />
         <option value="$PROJECT_DIR$/src/Form/addTricksFormType.php" />
         <option value="$PROJECT_DIR$/templates/base.html.twig" />
@@ -251,6 +139,8 @@
         <option value="$PROJECT_DIR$/templates/Member/addTricks.html.twig" />
         <option value="$PROJECT_DIR$/templates/Member/editTricks.html.twig" />
         <option value="$PROJECT_DIR$/src/Controller/TricksController.php" />
+        <option value="$PROJECT_DIR$/ansible/playbook.yml" />
+        <option value="$PROJECT_DIR$/ansible/hosts.ini" />
       </list>
     </option>
   </component>
@@ -546,12 +436,12 @@
       <workItem from="1571086929436" duration="484000" />
       <workItem from="1571141140278" duration="1101000" />
       <workItem from="1571145543869" duration="17790000" />
-      <workItem from="1571187401003" duration="9062000" />
+      <workItem from="1571187401003" duration="17128000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="675420000" />
+    <option name="totallyTimeSpent" value="683486000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -861,13 +751,6 @@
     <entry file="file://$PROJECT_DIR$/src/Controller/.gitignore">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/ansible/playbook.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="74" column="6" selection-start-line="74" selection-start-column="6" selection-end-line="74" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -875,37 +758,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ansible/hosts.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/front/single.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
           <caret line="62" column="44" selection-start-line="62" selection-start-column="44" selection-end-line="62" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Form/PictureFormType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="33" column="40" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
-          <folding>
-            <element signature="e#28#49#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Form/addTricksFormType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="35" column="63" selection-start-line="35" selection-start-column="63" selection-end-line="35" selection-end-column="63" />
-          <folding>
-            <element signature="e#28#50#0#PHP" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -957,10 +813,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Form/addTricksFormType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="35" column="63" selection-start-line="35" selection-start-column="63" selection-end-line="35" selection-end-column="63" />
+          <folding>
+            <element signature="e#28#50#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Form/PictureFormType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="33" column="40" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
+          <folding>
+            <element signature="e#28#49#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/TricksController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="202" column="51" selection-start-line="202" selection-start-column="51" selection-end-line="202" selection-end-column="51" />
+        <state relative-caret-position="530">
+          <caret line="207" column="44" selection-start-line="207" selection-start-column="44" selection-end-line="207" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ansible/playbook.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="70" column="35" lean-forward="true" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ansible/hosts.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>

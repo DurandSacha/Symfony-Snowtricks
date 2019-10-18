@@ -1,180 +1,78 @@
-
 ---
 - hosts: all
+
   vars:
-    domain: sfwebapp.local
-    admin: pa@foulquier.info
-    directory: sfwebapp/web
-  handlers:
-    - name: restart apache2
-      service: name=apache2 state=restarted
+    symfony_root_dir: /var/www/Symfony-Snowtricks
+    ansible_user: ubuntu
+
   tasks:
-    - name: Mise à jour de l'apt cache
-      apt: update_cache=yes
-    - name: installer aptitude
-      apt: name=aptitude state=present
-    - name: Mise à jour système
-      apt: upgrade=full
+    - ping: ~
 
-    - name: installer curl
-      apt: name=curl state=present
+    - name: Update APT package manager repositories cache
+      become: true
+      apt:
+        update_cache: yes
 
-    - name: installer python-mysqldb
-      apt: name=python-mysqldb state=present
+    - name: Install Git VCS
+      become: true
+      apt:
+        name: git
+        state: latest
 
-    - name: installer htop
-      apt: name=htop state=present
+    - name: Add PHP 7 PPA repository
+      become: true
+      apt_repository:
+        repo: 'ppa:ondrej/php'
 
-    - name: installer zip
-      apt: name=zip state=present
+    - name: Install Apache web server
+      become: true
+      apt:
+        name: apache2
+        state: latest
 
-    - name: installer iotop
-      apt: name=iotop state=present
+    - name: Install MySQL DB server
+      become: true
+      apt:
+        name: mysql-server
+        state: latest
 
-    - name: installer iptraf
-      apt: name=iptraf state=present
 
-    - name: installer git
-      apt: name=git state=present
+    - name: Install PHP packages
+      become: true
+      apt:
+        name:
+          - php7.1-cli
+          - php7.1-curl
+          - php7.1-fpm
+          - php7.1-intl
+          - php7.1-mysql
+        state: latest
 
-    - name: installer apache2
-      apt: name=apache2 state=present
+    - name: Set date.timezone for CLI
+      become: true
+      lineinfile:
+        dest: /etc/php/7.1/cli/php.ini
+        regexp: "date.timezone ="
+        line: "date.timezone = UTC"
 
-    - name: installer apache2-doc
-      apt: name=apache2-doc state=present
+    - name: Set date.timezone for FPM
+      become: true
+      lineinfile:
+        dest: /etc/php/7.1/fpm/php.ini
+        regexp: "date.timezone ="
+        line: "date.timezone = UTC"
 
-    - name: installer apache2-utils
-      apt: name=apache2-utils state=present
+    - name: Create project directory and set its permissions
+      become: true
+      file:
+        path: "{{ symfony_root_dir }}"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        recurse: yes
 
-    - name: installer libexpat1
-      apt: name=libexpat1 state=present
-
-    - name: installer ssl-cert
-      apt: name=ssl-cert state=present
-
-    - name: create sfwebapp vhost
-      template: src=virtualhost.conf dest=/etc/apache2/sites-available/{{ domain }}.conf
-
-    - name: a2ensite sfwebapp
-      command: a2ensite {{ domain }}
-      args:
-        creates: /etc/apache2/site-enabled/{{ domain }}.conf
-      notify:
-        - restart apache2
-
-    - name: git clone sfwebapp
+    - name: Checkout Git repository
       git:
-        repo=ssh://git@gitlab.lan.local/root/sfwebapp.git
-        dest=/var/www/sfwebapp
-        version=master
-        accept_hostkey=yes
-        force=yes
-        update=no
-      become: yes
-      become_user: root
-      become_method: sudo
-
-    - name: activation mod-rewrite
-      apache2_module: name=rewrite state=present
-      notify:
-        - restart apache2
-
-    - name: installer PHP
-      apt: name=php5 state=present
-    - name: installer libapache2-mod-php5
-      apt: name=libapache2-mod-php5 state=present
-    - name: installer php5-common
-      apt: name=php5-common state=present
-    - name: installer php5-curl
-      apt: name=php5-curl state=present
-    - name: installer PHP php5-dev
-      apt: name=php5-dev state=present
-    - name: installer php5-gd
-      apt: name=php5-gd state=present
-    - name: installer php5-intl
-      apt: name=php5-intl state=present
-    - name: installer php-pear
-      apt: name=php-pear state=present
-    - name: installer php5-imagick
-      apt: name=php5-imagick state=present
-    - name: installer php5-imap
-      apt: name=php5-imap state=present
-    - name: installer php5-json
-      apt: name=php5-json state=present
-    - name: installer php5-mcrypt
-      apt: name=php5-mcrypt state=present
-    - name: installer php5-memcache
-      apt: name=php5-memcache state=present
-    - name: installer php5-mysql
-      apt: name=php5-mysql state=present
-    - name: installer php5-pspell
-      apt: name=php5-pspell state=present
-    - name: installer php5-recode
-      apt: name=php5-recode state=present
-    - name: installer php5-xmlrpc
-      apt: name=php5-xmlrpc state=present
-    - name: installer PHP php5-xsl
-      apt: name=php5-xsl state=present
-
-    - name: Modify date.time zone php.ini apache
-      replace:
-        dest=/etc/php5/apache2/php.ini
-        regexp=';date.timezone ='
-        replace='date.time = Europe/Paris'
-        backup=yes
-
-    - name: Modify date.time zone php.ini apache
-      replace:
-        dest=/etc/php5/cli/php.ini
-        regexp=';date.timezone ='
-        replace='date.time = Europe/Paris'
-        backup=yes
-
-    - name: installer mysql
-      apt: name=mysql-server state=present
-
-    - name: Add custom mysql config collation-server
-      lineinfile:
-        dest=/etc/mysql/my.cnf
-        insertafter=EOF
-        line="collation-server = utf8_general_ci"
-
-    - name: Add custom mysql config character-set-server
-      lineinfile:
-        dest=/etc/mysql/my.cnf
-        insertafter=EOF
-        line="character-set-server = utf8"
-
-    - name: restart mysql
-      service: name=mysql state=restarted
-
-    - name: create sfwebapp db
-      mysql_db:
-        name=sfwebapp
-        state=present
-
-    - name: restore last db
-      mysql_db:
-        state=import
-        name=sfwebapp
-        target=/vagrant_data/sfwebapp_mysql_16_09_11_093001.sql
-
-    # Restauration medias
-    - name: Restore medias
-      shell: cp -r /vagrant_data/uploads /var/www/sfwebapp/web/
-
-    # Symfony starters
-
-    # curl composer
-    - name: Install composer
-      get_url: url=https://getcomposer.org/composer.phar dest=/var/www/sfwebapp/composer.phar mode=0755 validate_certs=no
-
-    # update composer
-    - name: Run composer install
-      shell: cd /var/www/sfwebapp && php /var/www/sfwebapp/composer.phar update
-
-    # config db
-
-    # generate asset clean & chmod
-    - name: Dump assets
-      shell: cd /var/www/sfwebapp && php app/console assets:install web && php app/console assetic:dump --env=prod --no-debug && chmod -R 777 app/cache app/logs web/uploads && rm -rf app/cache/*
+        repo: https://github.com/DurandSacha/Symfony-Snowtricks
+        dest: "{{ symfony_root_dir }}"
+        force: yes
