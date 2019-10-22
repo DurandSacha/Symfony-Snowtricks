@@ -83,21 +83,23 @@ class SecurityController extends AbstractController
     /**
      * @Route("/token/{token}", name="resetNow")
      */
-    public function resetNow(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $entityManager, $token)
+    public function resetNow($token,Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $entityManager)
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->findOneBytoken($token);
-        $form = $this->createForm(changePasswordForm::class);
+        $form = $this->createForm(UserPasswordFormType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             if($user->getToken() === $token) {
-                $user->setPassword($encoder->encodePassword($user, $form->get('plainPassword')->getData()));
+                $user->setPassword($encoder->encodePassword($user, $form->get('password')->getData()));
                 $entityManager->persist($user);
                 $entityManager->flush();
                 $this->addFlash( 'success', "Mot de passe modifié avec succès !");
                 return $this->redirectToRoute('login');
             }
-        } return $this->render('security/changePassword.html.twig', [ 'changePasswordForm' => $form->createView(),]);
+        } return $this->render('security/changePassword.html.twig', [
+            'changePasswordForm' => $form->createView(),
+        ]);
     }
 
     /**

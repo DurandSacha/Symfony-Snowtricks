@@ -30,19 +30,20 @@
 
                         {% for media in medias %}
 
-                            {% for i in 0..10 %}
-                                {% if Embed[i] is defined %}
-                                    {{ Embed[i].path|html }}
-                                {% endif %}
-                            {% endfor %}
+                            {% if media.type == 'Picture' %}
                                 <div class="row">
                                     <div class="col-lg-11">
                                 <img class="img-fluid" src="{{ asset('img/'~media.path) }}" alt="{{ media.texte }}" ><br/>
                                     </div>
                                 </div>
-
-
+                            {% endif %}
                         {% endfor %}
+                           <br/>
+                        {% for i in 0..10 %}
+                                {% if Embed[i] is defined %}
+                                    {{ Embed[i].path|html }}
+                                {% endif %}
+                            {% endfor %}
                         </div>
                         <br/><br/><br/><br/><br/>
 
