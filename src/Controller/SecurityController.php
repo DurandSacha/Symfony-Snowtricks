@@ -66,19 +66,16 @@ class SecurityController extends AbstractController
             $user->setToken($token);
             $entityManager->persist($user);
             $entityManager->flush();
-            $mailtarget =  $form->get('Email')->getData();  // avoir l'email de l'utilisateur Formulaire //
             $message = (new \Swift_Message('SnowTricks Message'))
                 ->setFrom('sacha6623@gmail.com')
-                ->setTo($mailtarget)
+                ->setTo($form->get('Email')->getData())
                 ->setBody(
                     $this->renderView(
                         'emails/token.html.twig',
-                        ['token' => $token, 'user' => $user ]),
-                    'text/html'
+                        ['token' => $token, 'user' => $user ]), 'text/html'
                 )
             ;
             $mailer->send($message);
-
             $this->addFlash('info', "Email has been send");
         }
         return $this->render('security/reset.html.twig', [
