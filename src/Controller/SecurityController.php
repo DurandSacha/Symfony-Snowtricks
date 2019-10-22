@@ -72,13 +72,8 @@ class SecurityController extends AbstractController
                 ->setTo($mailtarget)
                 ->setBody(
                     $this->renderView(
-                    // templates/emails/registration.html.twig
                         'emails/token.html.twig',
-                        [
-                            'token' => $token,
-                            'user' => $user
-                        ]
-                    ),
+                        ['token' => $token, 'user' => $user ]),
                     'text/html'
                 )
             ;
@@ -104,8 +99,7 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted()) {
 
             if($user->getToken() === $token) {
-                $password = $encoder->encodePassword($user, $form->get('plainPassword')->getData());
-                $user->setPassword($password);
+                $user->setPassword($encoder->encodePassword($user, $form->get('plainPassword')->getData()));
                 $entityManager->persist($user);
                 $entityManager->flush();
                 $this->addFlash(
@@ -114,15 +108,7 @@ class SecurityController extends AbstractController
                 );
                 return $this->redirectToRoute('login');
             }
-            else
-            {
-                $this->addFlash(
-                    'info',
-                    "La modification du mot de passe a échoué ! Le lien de validation a expiré !"
-                );
-            }
         }
-
         return $this->render('security/changePassword.html.twig', [
             'changePasswordForm' => $form->createView(),
         ]);
