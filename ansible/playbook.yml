@@ -2,16 +2,12 @@
 - hosts: all
 
   vars:
-    symfony_root_dir: /var/www/Symfony-Snowtricks
-    ansible_user: ubuntu
+    symfony_root_dir: /var/www/html/Symfony-Snowtricks
+    symfony_web_dir: "{{ symfony_root_dir }}/web"
+    server_name: vps
 
   tasks:
     - ping: ~
-
-    - name: Update APT package manager repositories cache
-      become: true
-      apt:
-        update_cache: yes
 
     - name: Install Git VCS
       become: true
@@ -24,11 +20,31 @@
       apt_repository:
         repo: 'ppa:ondrej/php'
 
-    - name: Install Apache web server
+    - name: Install Apache 2 web server
       become: true
       apt:
         name: apache2
         state: latest
+
+    # MySQL requirements
+    - name: Set MySQL root password before installing
+      become: true
+      debconf: name='mysql-server' question='mysql-server/root_password' value='root' vtype='password'
+      changed_when: false
+
+    # MySQL requirements
+    - name: Get Repo for MySQL
+      command: wget http://repo.mysql.com/mysql-apt-config_0.8.13-1_all.deb
+
+    # MySQL requirements
+    - name: dpkg mySQL
+      command: dpkg -i mysql-apt-config_0.8.13-1_all.deb
+
+    # MySQL requirements
+    - name: Confirm MySQL root password before installing
+      become: true
+      debconf: name='mysql-server' question='mysql-server/root_password_again' value='root' vtype='password'
+      changed_when: false
 
     - name: Install MySQL DB server
       become: true
@@ -46,6 +62,7 @@
           - php7.1-fpm
           - php7.1-intl
           - php7.1-mysql
+          - php7.1-xml
         state: latest
 
     - name: Set date.timezone for CLI
@@ -67,8 +84,6 @@
       file:
         path: "{{ symfony_root_dir }}"
         state: directory
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
         recurse: yes
 
     - name: Checkout Git repository
@@ -76,3 +91,41 @@
         repo: https://github.com/DurandSacha/Symfony-Snowtricks
         dest: "{{ symfony_root_dir }}"
         force: yes
+        clone: yes
+
+    - name: Install low-level utilities
+      become: true
+      apt:
+        name:
+          - zip
+          - unzip
+
+    - name: Download Composer
+      become: true
+      apt:
+        name: composer
+        state: latest
+
+    #- name: Move Composer globally
+      #become: true
+      #command: mv composer.phar /usr/local/bin/composer
+
+    #- name: Set permissions on Composer
+      #become: true
+      #file:
+        #path: /usr/local/bin/composer
+        #mode: "a+x"
+
+    - name: Add Symfony config template to the Nginx available sites
+      become: true
+      template:
+        src: templates/symfony.conf
+        dest: "/etc/apache2/sites-enabled/{{ server_name }}.conf"
+
+    - name: Add enabled Apache site to /etc/hosts
+      become: true
+      lineinfile:
+        dest: /etc/hosts
+        regexp: "{{ server_name }}"
+        line: "127.0.0.1 {{ server_name }}"
+
