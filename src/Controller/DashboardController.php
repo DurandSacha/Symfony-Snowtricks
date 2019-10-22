@@ -41,51 +41,28 @@ class DashboardController  extends BaseController
     /**
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboard(UserPasswordEncoderInterface $encoder, LoggerInterface $logger, Request $request, Upload $upload){
-
-        $entityManager = $this->getDoctrine()->getManager();
+    public function dashboard(UserPasswordEncoderInterface $encoder, Request $request, Upload $upload, EntityManagerInterface $entityManager)
+    {
         $user = $this->getUser();
-
         $form = $this->createForm(UserPictureFormType::class, $user);
         $form->handleRequest($request);
-
         $form2 = $this->createForm(UserPasswordFormType::class, $user);
         $form2->handleRequest($request);
-
-
         if ($form->isSubmitted()) {
             $PictureFile = $form->get('picture')->getData();
-
-
-            if($PictureFile);
-            $upload->upload($PictureFile);
-            $user->setPicture($PictureFile);
+            if($PictureFile);{ $upload->upload($PictureFile); $user->setPicture($PictureFile);}
         }
-
         if ($form2->isSubmitted()) {
-
             $password = $encoder->encodePassword($user, $form2->get('password')->getData());
             $user->setPassword($password);
             $entityManager->persist($user);
             $entityManager->flush();
-
-            $this->addFlash(
-                'success',
-                "Your profile is updated"
-            );
-
+            $this->addFlash( 'success', "Your profile is updated");
             return $this->redirectToRoute('login');
         }
-
-        //$user->setPicture($PictureFile);
         $entityManager->persist($user);
         $entityManager->flush();
-
-
-
-        return $this->render('Member/dashboard.html.twig',[
-            'UserPictureFormType' => $form->createView(),
-            'UserPasswordFormType' => $form2->createView(),
+        return $this->render('Member/dashboard.html.twig',['UserPictureFormType' => $form->createView(), 'UserPasswordFormType' => $form2->createView(),
         ]);
     }
     /**
