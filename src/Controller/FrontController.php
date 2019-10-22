@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Media;
 use App\Repository\CommentRepository;
+use App\Repository\MediaRepository;
 use App\Repository\TricksRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -52,18 +53,13 @@ class FrontController extends AbstractController
     /**
      * @Route("/single/{id}", name="single-tricks")
      */
-    public function tricks($id, Environment $twig, EntityManagerInterface $em, Request $request,CommentRepository $commentRepo)
+    public function tricks($id, Environment $twig, EntityManagerInterface $em, Request $request,CommentRepository $commentRepo,TricksRepository $tricksRepo,MediaRepository $mediaRepo)
     {
-        $tricksRepo = $em->getRepository(Tricks::class);
-        $mediaRepo = $em->getRepository(Media::class);
         $trick = $tricksRepo->findOneBy(['id' => $id]);
         $medias = $trick->getIllustration();
 
-        if(empty($medias)){
-            $medias = 'demo/0.jpg';
-        }
+        if(empty($medias)){ $medias = 'demo/0.jpg'; }
         $comments = $commentRepo->findBy(['Tricks' => $trick->getId()], ['id' => 'DESC'], 3, 0);
-        $embed = $mediaRepo->findBy(['type' => 'Embed']);
         $form = $this->createForm(AddCommentType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -80,7 +76,7 @@ class FrontController extends AbstractController
             'trick' => $trick,
             'medias' => $medias,
             'comments' => $comments,
-            'Embed' => $embed,
+            'Embed' => $mediaRepo->findBy(['type' => 'Embed']),
             'AddCommentForm' => $form->createView(),
         ]);
         return new Response($content);

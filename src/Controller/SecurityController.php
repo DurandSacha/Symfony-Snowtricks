@@ -97,22 +97,14 @@ class SecurityController extends AbstractController
         $form = $this->createForm(changePasswordForm::class);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-
             if($user->getToken() === $token) {
                 $user->setPassword($encoder->encodePassword($user, $form->get('plainPassword')->getData()));
                 $entityManager->persist($user);
                 $entityManager->flush();
-                $this->addFlash(
-                    'success',
-                    "Mot de passe modifié avec succès !"
-                );
+                $this->addFlash( 'success', "Mot de passe modifié avec succès !");
                 return $this->redirectToRoute('login');
             }
-        }
-        return $this->render('security/changePassword.html.twig', [
-            'changePasswordForm' => $form->createView(),
-        ]);
-
+        } return $this->render('security/changePassword.html.twig', [ 'changePasswordForm' => $form->createView(),]);
     }
 
     /**
@@ -125,12 +117,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+            $user->setPassword( $passwordEncoder->encodePassword( $user,  $form->get('plainPassword')->getData() ));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -138,20 +125,14 @@ class SecurityController extends AbstractController
                 ->setFrom('sacha6623@gmail.com')
                 ->setTo($user->getEmail())
                 ->setBody(
-                    $this->renderView(
-                    // templates/emails/registration.html.twig
-                        'emails/signup.html.twig',
-                        ['name' => $user->getUsername()]
-                    ),
+                    $this->renderView( 'emails/signup.html.twig', ['name' => $user->getUsername()]),
                     'text/html'
                 )
             ;
             $mailer->send($message);
             return $this->redirectToRoute('home');
         }
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
+        return $this->render('registration/register.html.twig', [ 'registrationForm' => $form->createView(),]);
     }
 
     /**
