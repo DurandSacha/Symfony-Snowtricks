@@ -49,9 +49,23 @@ class DashboardController  extends BaseController
         $form2 = $this->createForm(UserPasswordFormType::class, $user);
         $form2->handleRequest($request);
         if ($form->isSubmitted()) {
-            $PictureFile = $form->get('picture')->getData();
-            if($PictureFile);{ $upload->upload($PictureFile); $user->setPicture($PictureFile);}
+            if ($form->isSubmitted()) {
+
+                $PictureFile = $form->get('picture')->getData();
+                if($PictureFile);
+                $originalFilename = pathinfo($PictureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$PictureFile->guessExtension();
+                try {
+                    $PictureFile->move(
+                        $this->getParameter('userPicture_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) { $this->addFlash('info', "a problem exist with your upload ");}
+                $user->setPicture($newFilename);
+            }
         }
+
         if ($form2->isSubmitted()) {
             $password = $encoder->encodePassword($user, $form2->get('password')->getData());
             $user->setPassword($password);

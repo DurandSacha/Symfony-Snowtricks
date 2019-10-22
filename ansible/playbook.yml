@@ -37,10 +37,6 @@
       command: wget http://repo.mysql.com/mysql-apt-config_0.8.13-1_all.deb
 
     # MySQL requirements
-    - name: dpkg mySQL
-      command: dpkg -i mysql-apt-config_0.8.13-1_all.deb
-
-    # MySQL requirements
     - name: Confirm MySQL root password before installing
       become: true
       debconf: name='mysql-server' question='mysql-server/root_password_again' value='root' vtype='password'
