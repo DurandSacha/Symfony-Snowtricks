@@ -14,6 +14,7 @@ use App\Form\UserPictureFormType;
 use App\Repository\TricksRepository;
 use App\Repository\UserRepository;
 
+use App\Service\Upload;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +41,7 @@ class DashboardController  extends BaseController
     /**
      * @Route("/dashboard", name="dashboard")
      */
-    public function dashboard(UserPasswordEncoderInterface $encoder, LoggerInterface $logger, Request $request){
+    public function dashboard(UserPasswordEncoderInterface $encoder, LoggerInterface $logger, Request $request, Upload $upload){
 
         $entityManager = $this->getDoctrine()->getManager();
         $user = $this->getUser();
@@ -55,26 +56,10 @@ class DashboardController  extends BaseController
         if ($form->isSubmitted()) {
             $PictureFile = $form->get('picture')->getData();
 
+
             if($PictureFile);
-            $originalFilename = pathinfo($PictureFile->getClientOriginalName(), PATHINFO_FILENAME);
-            // this is needed to safely include the file name as part of the URL
-            $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$PictureFile->guessExtension();
-
-            // Move the file to the directory where brochures are stored
-            try {
-                $PictureFile->move(
-                    $this->getParameter('userPicture_directory'),
-                    $newFilename
-                );
-            } catch (FileException $e) {
-                $this->addFlash(
-                    'info',
-                    "a problem exist with your upload "
-                );
-            }
-
-            $user->setPicture($newFilename);
+            $upload->upload($PictureFile);
+            $user->setPicture($PictureFile);
         }
 
         if ($form2->isSubmitted()) {

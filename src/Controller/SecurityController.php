@@ -11,6 +11,8 @@ namespace App\Controller;
 use App\Form\UserPasswordFormType;
 use App\Form\resetForm;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -52,51 +54,32 @@ class SecurityController extends AbstractController
      * @return mixed
      * @throws \Exception
      */
-    public function reset(Request $request, \Swift_Mailer $mailer)
+    public function reset(Request $request, \Swift_Mailer $mailer, EntityManagerInterface $entityManager)
     {
         $form = $this->createForm(resetForm::class);
         $form->handleRequest($request);
-
         if ($form->isSubmitted()) {
 
-            // Generer un token et associer le token a ce compte
             $token = bin2hex(random_bytes(13));
-
-            $entityManager = $this->getDoctrine()->getManager();
-
             $repository = $this->getDoctrine()->getRepository(User::class);
-
             $user = $repository->findOneBy(array('email' => $form->get('Email')->getData())); // trouver l'adresse mail POST du FORM
-
             $user->setToken($token);
-
             $entityManager->persist($user);
             $entityManager->flush();
-
             $mailtarget =  $form->get('Email')->getData();  // avoir l'email de l'utilisateur Formulaire //
-
             $message = (new \Swift_Message('SnowTricks Message'))
                 ->setFrom('sacha6623@gmail.com')
                 ->setTo($mailtarget)
                 ->setBody(
                     $this->renderView(
-                    // templates/emails/registration.html.twig
                         'emails/token.html.twig',
-                        [
-                            'token' => $token,
-                            'user' => $user
-                        ]
-                    ),
+                        ['token' => $token, 'user' => $user ]),
                     'text/html'
                 )
             ;
             $mailer->send($message);
 
-            // fin mail
             $this->addFlash('info', "Email has been send");
-
-
-
         }
         return $this->render('security/reset.html.twig', [
             'resetForm' => $form->createView(),
@@ -107,20 +90,16 @@ class SecurityController extends AbstractController
     /**
      * @Route("/token/{token}", name="resetNow")
      */
-    public function resetNow(Request $request, UserPasswordEncoderInterface $encoder, $token)
+    public function resetNow(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $entityManager, $token)
     {
         $repository = $this->getDoctrine()->getRepository(User::class);
-        $entityManager = $this->getDoctrine()->getManager();
         $user = $repository->findOneBytoken($token);
         $form = $this->createForm(changePasswordForm::class);
         $form->handleRequest($request);
-
         if ($form->isSubmitted()) {
 
             if($user->getToken() === $token) {
-
-                $password = $encoder->encodePassword($user, $form->get('plainPassword')->getData());
-                $user->setPassword($password);
+                $user->setPassword($encoder->encodePassword($user, $form->get('plainPassword')->getData()));
                 $entityManager->persist($user);
                 $entityManager->flush();
                 $this->addFlash(
@@ -129,15 +108,7 @@ class SecurityController extends AbstractController
                 );
                 return $this->redirectToRoute('login');
             }
-            else
-            {
-                $this->addFlash(
-                    'info',
-                    "La modification du mot de passe a échoué ! Le lien de validation a expiré !"
-                );
-            }
         }
-
         return $this->render('security/changePassword.html.twig', [
             'changePasswordForm' => $form->createView(),
         ]);
@@ -178,8 +149,6 @@ class SecurityController extends AbstractController
             $mailer->send($message);
             return $this->redirectToRoute('home');
         }
-
-
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);

@@ -55,5 +55,17 @@ class securityTest extends WebTestCase
 
     }
 
+    /*
+    public function testLogout()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/logout');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+    }
+    */
+
+
 
 }

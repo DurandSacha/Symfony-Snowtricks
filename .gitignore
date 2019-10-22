@@ -1,4 +1,6 @@
 ###> symfony/framework-bundle ###
+/.idea
+/.git
 /.env.local
 /.env.local.php
 /.env.*.local
@@ -7,8 +9,9 @@
 /var/
 /vendor/
 /public/data
+/ansible/hosts.ini
 /.idea
-
+/CleEC2.pem
 ###< symfony/framework-bundle ###
 
 ###> symfony/web-server-bundle ###
