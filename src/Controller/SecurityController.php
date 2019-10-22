@@ -59,7 +59,6 @@ class SecurityController extends AbstractController
         $form = $this->createForm(resetForm::class);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-
             $token = bin2hex(random_bytes(13));
             $repository = $this->getDoctrine()->getRepository(User::class);
             $user = $repository->findOneBy(array('email' => $form->get('Email')->getData())); // trouver l'adresse mail POST du FORM
@@ -78,10 +77,7 @@ class SecurityController extends AbstractController
             $mailer->send($message);
             $this->addFlash('info', "Email has been send");
         }
-        return $this->render('security/reset.html.twig', [
-            'resetForm' => $form->createView(),
-        ]);
-
+        return $this->render('security/reset.html.twig', [ 'resetForm' => $form->createView(), ]);
     }
 
     /**

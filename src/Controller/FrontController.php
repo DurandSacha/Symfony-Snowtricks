@@ -57,7 +57,6 @@ class FrontController extends AbstractController
     {
         $trick = $tricksRepo->findOneBy(['id' => $id]);
         $medias = $trick->getIllustration();
-
         if(empty($medias)){ $medias = 'demo/0.jpg'; }
         $comments = $commentRepo->findBy(['Tricks' => $trick->getId()], ['id' => 'DESC'], 3, 0);
         $form = $this->createForm(AddCommentType::class);
@@ -71,7 +70,7 @@ class FrontController extends AbstractController
             $em->persist($comment);
             $em->flush();
         }
-        $content = $twig->render('front/single.html.twig',[
+        return $this->render('front/single.html.twig',[
             'id'  => $id,
             'trick' => $trick,
             'medias' => $medias,
@@ -79,7 +78,6 @@ class FrontController extends AbstractController
             'Embed' => $mediaRepo->findBy(['type' => 'Embed']),
             'AddCommentForm' => $form->createView(),
         ]);
-        return new Response($content);
     }
 
     /**
