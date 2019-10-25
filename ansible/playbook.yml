@@ -2,12 +2,23 @@
 - hosts: all
 
   vars:
-    symfony_root_dir: /var/www/html/Symfony-Snowtricks
-    symfony_web_dir: "{{ symfony_root_dir }}/web"
+    symfony_root_dir: "/var/www/html/Symfony-Snowtricks"
+    symfony_web_dir: "{{ symfony_root_dir }}/public"
+    symfony_var_dir: "{{ symfony_root_dir }}/var"
     server_name: vps
 
   tasks:
     - ping: ~
+
+    - name: Update APT package manager repositories cache
+      become: true
+      apt:
+        update_cache: yes
+
+    - name: Upgrade installed packages
+      become: true
+      apt:
+        upgrade: safe
 
     - name: Install Git VCS
       become: true
@@ -20,26 +31,23 @@
       apt_repository:
         repo: 'ppa:ondrej/php'
 
-    - name: Install Apache 2 web server
+    - name: Install nginx web server
       become: true
       apt:
-        name: apache2
+        name: nginx
         state: latest
+      notify: Restart Nginx
 
     # MySQL requirements
     - name: Set MySQL root password before installing
       become: true
-      debconf: name='mysql-server' question='mysql-server/root_password' value='root' vtype='password'
+      debconf: name='mysql-server' question='mysql/root_password' value='root' vtype='password'
       changed_when: false
-
-    # MySQL requirements
-    - name: Get Repo for MySQL
-      command: wget http://repo.mysql.com/mysql-apt-config_0.8.13-1_all.deb
 
     # MySQL requirements
     - name: Confirm MySQL root password before installing
       become: true
-      debconf: name='mysql-server' question='mysql-server/root_password_again' value='root' vtype='password'
+      debconf: name='mysql-server' question='mysql/root_password_again' value='root' vtype='password'
       changed_when: false
 
     - name: Install MySQL DB server
@@ -53,13 +61,14 @@
       become: true
       apt:
         name:
-          - php7.1-cli
-          - php7.1-curl
-          - php7.1-fpm
-          - php7.1-intl
-          - php7.1-mysql
-          - php7.1-xml
+          - php7.3-cli
+          - php7.3-curl
+          - php7.3-fpm
+          - php7.3-intl
+          - php7.3-mysql
+          - php7.3-xml
         state: latest
+      notify: Restart PHP-FPM
 
     - name: Set date.timezone for CLI
       become: true
@@ -74,20 +83,27 @@
         dest: /etc/php/7.1/fpm/php.ini
         regexp: "date.timezone ="
         line: "date.timezone = UTC"
+      notify: Restart PHP-FPM
 
     - name: Create project directory and set its permissions
       become: true
       file:
         path: "{{ symfony_root_dir }}"
         state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
         recurse: yes
+
+
+    #- name: Remove Symfony directory
+      #command: 'rm -r {{ symfony_root_dir }}'
 
     - name: Checkout Git repository
       git:
         repo: https://github.com/DurandSacha/Symfony-Snowtricks
         dest: "{{ symfony_root_dir }}"
         force: yes
-        clone: yes
+        clone: yes   # no
 
     - name: Install low-level utilities
       become: true
@@ -96,32 +112,67 @@
           - zip
           - unzip
 
+    - name: Fix var directory permissions
+      file:
+        path: "{{ symfony_var_dir }}"
+        state: directory
+        mode: 0777
+        recurse: yes
+
     - name: Download Composer
       become: true
       apt:
         name: composer
         state: latest
 
-    #- name: Move Composer globally
-      #become: true
-      #command: mv composer.phar /usr/local/bin/composer
+    - name: Set permissions on Composer
+      become: true
+      file:
+        path: /usr/bin/composer
+        mode: "a+x"
 
-    #- name: Set permissions on Composer
-      #become: true
-      #file:
-        #path: /usr/local/bin/composer
-        #mode: "a+x"
+    - name: Composer install command
+      shell: composer install
+      args:
+        chdir: "{{ symfony_root_dir }}"
 
-    - name: Add Symfony config template to the Nginx available sites
+
+    - name: Install Composer's dependencies
+      composer:
+        working_dir: "{{ symfony_root_dir }}"
+        no_dev: no
+
+    - name: Add Symfony config template to the Apache available sites
       become: true
       template:
         src: templates/symfony.conf
-        dest: "/etc/apache2/sites-enabled/{{ server_name }}.conf"
+        dest: "/etc/nginx/sites-available/{{ server_name }}.conf"
+      notify: Restart Nginx
 
-    - name: Add enabled Apache site to /etc/hosts
+    - name: Enable Symfony config template from Nginx available sites
+      become: true
+      file:
+        src: "/etc/nginx/sites-available/{{ server_name }}.conf"
+        dest: "/etc/nginx/sites-enabled/{{ server_name }}.conf"
+        state: link
+
+    - name: Add enabled nginx site to /etc/hosts
       become: true
       lineinfile:
         dest: /etc/hosts
         regexp: "{{ server_name }}"
         line: "127.0.0.1 {{ server_name }}"
 
+  handlers:
+
+    - name: Restart Nginx
+      become: true
+      service:
+        name: nginx
+        state: restarted
+
+    - name: Restart PHP-FPM
+      become: true
+      service:
+        name: php7.1-fpm
+        state: restarted
