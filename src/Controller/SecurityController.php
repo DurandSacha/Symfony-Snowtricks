@@ -94,7 +94,7 @@ class SecurityController extends AbstractController
                 $user->setPassword($encoder->encodePassword($user, $form->get('password')->getData()));
                 $entityManager->persist($user);
                 $entityManager->flush();
-                $this->addFlash( 'success', "Mot de passe modifié avec succès !");
+                $this->addFlash( 'success', "password updated !");
                 return $this->redirectToRoute('login');
             }
         } return $this->render('security/changePassword.html.twig', [
