@@ -5,6 +5,8 @@
     symfony_root_dir: "/var/www/html/Symfony-Snowtricks"
     symfony_web_dir: "{{ symfony_root_dir }}/public"
     symfony_var_dir: "{{ symfony_root_dir }}/var"
+    symfony_console_path: "php {{ symfony_root_dir }}/bin/console"
+    mysql_root_password: root
     server_name: vps
     installer: /tmp/installer.php
 
@@ -42,14 +44,22 @@
     # MySQL requirements
     - name: Set MySQL root password before installing
       become: true
-      debconf: name='mysql-server' question='mysql/root_password' value='root' vtype='password'
+      debconf: name='mysql-server' question='mysql/root_password' value='{{mysql_root_password | quote}}' vtype='password'
       changed_when: false
 
     # MySQL requirements
     - name: Confirm MySQL root password before installing
       become: true
-      debconf: name='mysql-server' question='mysql/root_password_again' value='root' vtype='password'
+      debconf: name='mysql-server' question='mysql/root_password_again' value='{{mysql_root_password | quote}}' vtype='password'
       changed_when: false
+
+    - name: TEST MySQL | Set debconf vars
+      action: raw sudo echo mysql-server mysql-server/root_password password {{mysql_root_password}} | sudo /usr/bin/debconf-set-selections
+      tags: mysql
+
+    - name: TEST MySQL | Set debconf vars
+      action: raw sudo echo mysql-server mysql-server/root_password_again password {{mysql_root_password}} | sudo /usr/bin/debconf-set-selections
+      tags: mysql
 
     - name: Install MySQL DB server
       become: true
@@ -57,6 +67,27 @@
         name: mysql-server
         state: latest
 
+    - name: Start MySQL
+      service: name=mysql state=started
+      become: true
+
+    - name: install python mysql bindings
+      apt: name=python-mysqldb state=installed
+      become: yes
+      become_method: sudo
+
+    - name: Install the Python MySQLB module
+      become: true
+      apt:
+        name: PyMySQL
+      become_method: sudo
+
+    - name: MySQL | Set the root password.
+      become: true
+      mysql_user:
+        name=root
+        host=localhost
+        password={{ mysql_root_password }}
 
     - name: Install PHP packages
       become: true
@@ -120,20 +151,6 @@
         mode: 0777
         recurse: yes
 
-    - #name: Install Composer
-      #become: true
-      #apt:
-        #name: composer
-        #state: latest
-      #notify: Restart Nginx
-
-    #- name: Download Composer
-      #script: "{{ symfony_root_dir }}/ansible/scripts/install_composer.sh"
-
-
-    #- name: Commande pour le bon fichier composer
-      #command : sudo wget https://getcomposer.org/download/1.8.0/composer.phar -O /usr/local/bin/composer && sudo chmod 755 /usr/local/bin/composer
-
     - name: Download composer
       get_url:
         url: https://getcomposer.org/installer
@@ -177,7 +194,25 @@
       lineinfile:
         dest: /etc/hosts
         regexp: "{{ server_name }}"
-        line: "127.0.0.1 {{ server_name }}"
+        line : "164.132.105.114 {{ server_name }}"
+        #line: "127.0.0.1 {{ server_name }}"
+
+    #- name: parameters for SQL Database
+      #command:
+
+    # Symfony console commands
+    - name: Create DB if not exists
+      command: '{{ symfony_console_path }} doctrine:database:create --if-not-exists'
+    - name: Execute migrations
+      command: '{{ symfony_console_path }} doctrine:migrations:migrate --no-interaction'
+    - name: Load data fixtures
+      command: '{{ symfony_console_path }} hautelook_alice:doctrine:fixtures:load --no-interaction'
+
+    - name: remove cache
+      command: 'rm -rf var/cache/*'
+
+
+
 
   handlers:
 
