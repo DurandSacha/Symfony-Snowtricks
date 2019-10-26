@@ -71,24 +71,6 @@
       service: name=mysql state=started
       become: true
 
-    - name: install python mysql bindings
-      apt: name=python-mysqldb state=installed
-      become: yes
-      become_method: sudo
-
-    - name: Install the Python MySQLB module
-      become: true
-      apt:
-        name: PyMySQL
-      become_method: sudo
-
-    - name: MySQL | Set the root password.
-      become: true
-      mysql_user:
-        name=root
-        host=localhost
-        password={{ mysql_root_password }}
-
     - name: Install PHP packages
       become: true
       apt:
