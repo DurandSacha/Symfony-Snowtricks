@@ -5,7 +5,7 @@
     symfony_root_dir: "/var/www/html/Symfony-Snowtricks"
     symfony_web_dir: "{{ symfony_root_dir }}/public"
     symfony_var_dir: "{{ symfony_root_dir }}/var"
-    symfony_console_path: "php {{ symfony_root_dir }}/bin/console"
+    symfony_console_path: "{{ symfony_root_dir }}/bin/console"
     mysql_root_password: root
     server_name: vps
     installer: /tmp/installer.php
@@ -50,7 +50,7 @@
     # MySQL requirements
     - name: Confirm MySQL root password before installing
       become: true
-      debconf: name='mysql-server' question='mysql/root_password_again' value='{{mysql_root_password | quote}}' vtype='password'
+      debconf: name='mysql-server' question='mysql/root_password_again' value='{{mysql_root_password}}' vtype='password'
       changed_when: false
 
     - name: TEST MySQL | Set debconf vars
@@ -179,19 +179,16 @@
         line : "164.132.105.114 {{ server_name }}"
         #line: "127.0.0.1 {{ server_name }}"
 
-    #- name: parameters for SQL Database
-      #command:
+    - name: remove cache in var/cache
+      command: 'rm -rf var/cache/*'
 
     # Symfony console commands
     - name: Create DB if not exists
-      command: '{{ symfony_console_path }} doctrine:database:create --if-not-exists'
+      command: '{{ symfony_console_path }} doctrine:database:create'
     - name: Execute migrations
       command: '{{ symfony_console_path }} doctrine:migrations:migrate --no-interaction'
     - name: Load data fixtures
       command: '{{ symfony_console_path }} hautelook_alice:doctrine:fixtures:load --no-interaction'
-
-    - name: remove cache
-      command: 'rm -rf var/cache/*'
 
 
 
