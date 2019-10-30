@@ -187,7 +187,6 @@
 
     # Symfony console commands
     - name: Create DB if not exists
-
       command: '{{ symfony_console_path }} doctrine:database:create --no-interaction'
 
     - name: Execute migrations
