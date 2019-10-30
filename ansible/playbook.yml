@@ -44,32 +44,20 @@
     # MySQL requirements
     - name: Set MySQL root password before installing
       become: true
-      debconf: name='mysql-server' question='mysql/root_password' value='{{mysql_root_password | quote}}' vtype='password'
+      debconf: name='mysql-server' question='mysql-server/root_password' value='{{mysql_root_password}}' vtype='password'
       changed_when: false
 
     # MySQL requirements
     - name: Confirm MySQL root password before installing
       become: true
-      debconf: name='mysql-server' question='mysql/root_password_again' value='{{mysql_root_password}}' vtype='password'
+      debconf: name='mysql-server' question='mysql-server/root_password_again' value='{{mysql_root_password}}' vtype='password'
       changed_when: false
-
-    - name: TEST MySQL | Set debconf vars
-      action: raw sudo echo mysql-server mysql-server/root_password password {{mysql_root_password}} | sudo /usr/bin/debconf-set-selections
-      tags: mysql
-
-    - name: TEST MySQL | Set debconf vars
-      action: raw sudo echo mysql-server mysql-server/root_password_again password {{mysql_root_password}} | sudo /usr/bin/debconf-set-selections
-      tags: mysql
 
     - name: Install MySQL DB server
       become: true
       apt:
         name: mysql-server
         state: latest
-
-    - name: Start MySQL
-      service: name=mysql state=started
-      become: true
 
     - name: Install PHP packages
       become: true
@@ -176,22 +164,36 @@
       lineinfile:
         dest: /etc/hosts
         regexp: "{{ server_name }}"
-        line : "164.132.105.114 {{ server_name }}"
-        #line: "127.0.0.1 {{ server_name }}"
+        #line : "164.132.105.114 {{ server_name }}"
+        line: "127.0.0.1 {{ server_name }}"
 
     - name: remove cache in var/cache
       command: 'rm -rf var/cache/*'
 
+    - name: install acl package
+      become: yes
+      apt: pkg=acl
+
+    - name: Set permissions on bin/console
+      become: true
+      file:
+        path: "{{symfony_console_path}}"
+        mode: "a+x"
+
+    # Symfony Test Command
+    - name: Command Test
+      become: true
+      command: "{{ symfony_console_path }} debug:router"
+
     # Symfony console commands
     - name: Create DB if not exists
-      command: '{{ symfony_console_path }} doctrine:database:create'
+
+      command: '{{ symfony_console_path }} doctrine:database:create --no-interaction'
+
     - name: Execute migrations
       command: '{{ symfony_console_path }} doctrine:migrations:migrate --no-interaction'
     - name: Load data fixtures
-      command: '{{ symfony_console_path }} hautelook_alice:doctrine:fixtures:load --no-interaction'
-
-
-
+      command: '{{ symfony_console_path }} doctrine:fixtures:load --no-interaction'
 
   handlers:
 
