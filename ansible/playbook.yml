@@ -211,12 +211,14 @@
         regexp: "{{ server_name }}"
         line: "127.0.0.1 {{ server_name }}"
 
-    - name: Add SQL Templating for connexion
+    - name: Add SQL connexion information in .env file ( with a new admin SQL User )
       become: true
       lineinfile:
         dest: "{{ symfony_root_dir }}/.env"
-        regexp: "DATABASE_URL ="
-        line: "DATABASE_URL = DATABASE_URL=mysql://user1:{{ sql_pass}}@127.0.0.1:3306/snowtricks"
+        regexp: ''
+        insertafter: ''
+        line: "DATABASE_URL=mysql://user1:{{ sql_pass }}@127.0.0.1:3306/snowtricks"
+
 
     - name: remove cache in var/cache
       command: 'rm -rf var/cache/*'
@@ -234,8 +236,6 @@
     # Symfony console commands
     - name: Create DB if not exists
       command: '{{ symfony_console_path }} doctrine:database:create --if-not-exists --no-interaction'
-      register: db_create_result
-      changed_when: "not db_create_result.stdout|search('already exists. Skipped')"
 
     - name: Execute migrations
       command: '{{ symfony_console_path }} doctrine:migrations:migrate --no-interaction'
