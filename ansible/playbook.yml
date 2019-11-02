@@ -209,8 +209,14 @@
       lineinfile:
         dest: /etc/hosts
         regexp: "{{ server_name }}"
-        #line : "164.132.105.114 {{ server_name }}"
         line: "127.0.0.1 {{ server_name }}"
+
+    - name: Add SQL Templating for connexion
+      become: true
+      lineinfile:
+        dest: /var/www/html/{{ symfony_root_dir }}/.env
+        regexp: "DATABASE_URL ="
+        line: "DATABASE_URL = #DATABASE_URL=mysql://user1:{{ sql_pass}}@127.0.0.1:3306/snowtricks"
 
     - name: remove cache in var/cache
       command: 'rm -rf var/cache/*'
