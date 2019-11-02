@@ -214,9 +214,9 @@
     - name: Add SQL Templating for connexion
       become: true
       lineinfile:
-        dest: /var/www/html {{ symfony_root_dir }}/.env
+        dest: "{{ symfony_root_dir }}/.env"
         regexp: "DATABASE_URL ="
-        line: "DATABASE_URL = #DATABASE_URL=mysql://user1:{{ sql_pass}}@127.0.0.1:3306/snowtricks"
+        line: "DATABASE_URL = DATABASE_URL=mysql://user1:{{ sql_pass}}@127.0.0.1:3306/snowtricks"
 
     - name: remove cache in var/cache
       command: 'rm -rf var/cache/*'
