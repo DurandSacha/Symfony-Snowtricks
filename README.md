@@ -21,7 +21,7 @@ This site is developed with PHP and the symfony framework. This architecture pro
 Several solutions to deploy this project : 
 -  You can clone this project on your environment 
 -  You can configure a web server with a ansible playbook ( include in repository )
-   #####ansible-playbook ansible/playbook.yml -i ansible/hosts.ini --ask-vault-pass
+   `ansible-playbook ansible/playbook.yml -i ansible/hosts.ini --ask-vault-pass`
 -  You can run this project with docker containers (docker-compose included in this repository )
 
 ## Other information 
