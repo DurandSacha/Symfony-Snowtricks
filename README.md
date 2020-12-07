@@ -25,9 +25,11 @@ The graphical data model is accessible in the SQL file. You can also find the UM
 
 ## Installation
 
-1. Clone this project 
-2. Configure your environments ( BDD,..)
-3. make composer install
+   git clone https://github.com/DurandSacha/Symfony-Snowtricks
+   
+   php bin/console d:d:c
+   
+   composer install
 
 
 
