@@ -24,6 +24,7 @@ Several solutions to deploy this project :
 The graphical data model is accessible in the SQL file. You can also find the UML shema in the respective file
 
 ## Installation
+::
 
    git clone https://github.com/DurandSacha/Symfony-Snowtricks
    
